@@ -4,7 +4,8 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 type AuthState = {
     isLoading: boolean;
     isAuth: boolean;
-    data: any;
+    user: any;
+    token: string;
 };
 
 type initialStateType = {
@@ -15,12 +16,14 @@ const initialState = {
     value: {
         isLoading: true,
         isAuth: false,
-        data: null,
+        user: null,
+        token: '',
     } as AuthState,
 } as initialStateType;
 
 interface LogInPayload {
-    data: any;
+    user: any;
+    token: string;
 }
 
 export const auth = createSlice({
@@ -35,26 +38,28 @@ export const auth = createSlice({
         logIn: (state, action: PayloadAction<LogInPayload>) => {
             storageHelper.saveItem(
                 storageHelper.StorageKeys.Access_Token,
-                action.payload.data.token?.toString(),
+                action.payload.token?.toString(),
             );
-            storageHelper.saveItem(storageHelper.StorageKeys.Role, action.payload.data.user?.role);
-            if (action.payload.data.user) {
+            storageHelper.saveItem(storageHelper.StorageKeys.Role, action.payload.user?.role);
+            if (action.payload.user) {
                 return {
                     value: {
                         isLoading: false,
                         isAuth: true,
-                        data: action.payload.data,
+                        user: action.payload.user,
+                        token: action.payload.token,
                     },
                 }
             }
         },
         updateUser: (state, action: PayloadAction<LogInPayload>) => {
-            if (action.payload.data.user) {
+            if (action.payload.user) {
                 return {
                     value: {
                         isLoading: false,
                         isAuth: true,
-                        data: action.payload.data,
+                        user: action.payload.user,
+                        token: action.payload.token,
                     },
                 }
             }
@@ -63,7 +68,7 @@ export const auth = createSlice({
             return { value: { ...initialState.value, isLoading: false } }
         },
         completeProfile: (state) => {
-            state.value.data.user = { ...state.value.data.user, profileVerified: true };
+            state.value.user = { ...state.value.user, profileVerified: true };
         }
     },
 });

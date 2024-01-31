@@ -12,7 +12,7 @@ const RequestInterceptor = async (config: AxiosRequestConfig) => {
     storageHelper.StorageKeys.Access_Token,
   );
 
-  config!.headers!["accesstoken"] = `Bearer ${accessToken}`;
+  config!.headers!["accesstoken"] = accessToken;
   return config;
 };
 //@ts-ignore

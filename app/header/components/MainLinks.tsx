@@ -18,6 +18,7 @@ import mapIcon from '@/assets/MapIcon.png'
 import Image from 'next/image'
 import shadow from '@/app/components/shadow.module.css'
 import LogoutIcon from '@/globals/icons/logout'
+import storageHelper from '@/lib/storage-helper'
 
 const MainLinks = () => {
     const dispatch = useDispatch();
@@ -25,17 +26,23 @@ const MainLinks = () => {
     const [showDropdown, setShowDropdown] = useState<boolean>(false)
 
     const handleLogout = () => {
-        const url = logOutUserUrl();
+        // const url = logOutUserUrl();
 
-        axios.get(url, {
-            withCredentials: true,
-        }).then((res) => {
-            dispatch(logOut())
+        // axios.get(url, {
+        //     withCredentials: true,
+        // }).then((res) => {
+        //     dispatch(logOut())
+        //     push("/")
+        //     toast.success(res.data.message);
+        // }).catch((err) => {
+        //     toast.error(err!.response!.data!.message!);
+        // })
+        dispatch(logOut())
+        //get token from local storage if empty then show logout successful
+        if(localStorage.getItem(storageHelper.StorageKeys.Access_Token) === null){
+            toast.success('Logout Successful');
             push("/")
-            toast.success(res.data.message);
-        }).catch((err) => {
-            toast.error(err!.response!.data!.message!);
-        })
+        }
     }
 
     const isAuth = useBBSelector(state => state.authReducer.value.isAuth)

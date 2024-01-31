@@ -45,7 +45,7 @@ const ClientSigninForm = () => {
             }
         }).then((res) => {
             console.log(res.data)
-            dispath(logIn({data: {user: res.data.user, token: res.data.token}} as any))
+            dispath(logIn({user: res.data.user, token: res.data.token} as any))
             toast.success('Login Successful');
             push("/")
         }).catch((err) => {
