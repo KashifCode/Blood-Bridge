@@ -57,17 +57,17 @@ const MainLinks = () => {
             {user?.role !== 'bloodBank' && <>
                 <Button variant={'ghost'} className='!py-0 !px-1 !rounded-[3px] !h-auto flex items-center gap-x-1.5'>
                     <Image className='!w-5 !h-5 object-contain' src={mapIcon} alt="Map Icon" />
-                    <p className='text-zinc-500 text-xs sm:text-sm font-LatoRegular uppercase tracking-[2px]'>
+                    <p className='text-zinc-500 text-xs sm:!text-sm font-LatoRegular uppercase tracking-[2px]'>
                         locate
                     </p>
                 </Button>
                 <div className='border-r-2 border-zinc-500 h-3 mx-2' />
                 <Link href={'/blood-banks'}>
-                    <Button className='!bg-red-700 !bg-opacity-70 !py-0 !px-1 !rounded-[3px] !h-auto text-xs sm:text-sm font-LatoRegular uppercase tracking-[2px]'>Donate</Button>
+                    <Button className='!bg-red-700 !bg-opacity-70 !py-0 !px-1 !rounded-[3px] !h-auto text-xs sm:!text-sm font-LatoRegular uppercase tracking-[2px]'>Donate</Button>
                 </Link>
                 <div className='border-r-2 border-zinc-500 h-3 mx-2' />
                 <Link href={'/blood-banks'}>
-                    <Button className='!bg-red-700 !bg-opacity-70 !py-0 !px-1 !rounded-[3px] !h-auto text-xs sm:text-sm font-LatoRegular uppercase tracking-[2px]'>Request</Button>
+                    <Button className='!bg-red-700 !bg-opacity-70 !py-0 !px-1 !rounded-[3px] !h-auto text-xs sm:!text-sm font-LatoRegular uppercase tracking-[2px]'>Request</Button>
                 </Link>
                 <div className='border-r-2 border-zinc-500 h-3 mx-2' />
             </>}
@@ -85,7 +85,7 @@ const MainLinks = () => {
                 {isLoading ? <div className='w-5 h-5 border-t-2 border-zinc-500 rounded-full animate-spin' /> : <>
                     {!isAuth ? <>
                         <Link href={'/auth/signIn'}>
-                            <Button variant={'ghost'} className='!py-0 !px-1 !rounded-[3px] !h-auto text-xs sm:text-sm font-LatoRegular uppercase tracking-[2px] !text-zinc-500'>Login</Button>
+                            <Button variant={'ghost'} className='!py-0 !px-1 !rounded-[3px] !h-auto text-xs sm:!text-sm font-LatoRegular uppercase tracking-[2px] !text-zinc-500'>Login</Button>
                         </Link>
                     </> :
                         <div className='relative'>
@@ -106,8 +106,8 @@ const MainLinks = () => {
                                 </div>
                             </div>
                             <div className={cx(`rounded-[14px] py-2 bg-white min-w-[200px] absolute top-7 right-0 flex flex-col gap-y-1.5 overflow-hidden`, { '!hidden': !showDropdown }, [shadow.lightShadow])}>
-                                <Button onClick={handleProfile} variant={'ghost'} className='!py-1 !px-1 !rounded-[3px] !h-auto text-xs sm:text-sm font-LatoRegular uppercase tracking-[2px] !text-zinc-500'>Profile</Button>
-                                <Button variant={'ghost'} className='!py-1 !px-1 !rounded-[3px] !h-auto text-xs sm:text-sm font-LatoRegular uppercase tracking-[2px] !text-zinc-500' onClick={handleLogout}>LogOut</Button>
+                                <Button onClick={handleProfile} variant={'ghost'} className='!py-1 !px-1 !rounded-[3px] !h-auto text-xs sm:!text-sm font-LatoRegular uppercase tracking-[2px] !text-zinc-500'>Profile</Button>
+                                <Button variant={'ghost'} className='!py-1 !px-1 !rounded-[3px] !h-auto text-xs sm:!text-sm font-LatoRegular uppercase tracking-[2px] !text-zinc-500' onClick={handleLogout}>LogOut</Button>
                             </div>
                         </div>
                     }

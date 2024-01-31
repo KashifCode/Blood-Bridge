@@ -33,10 +33,10 @@ const Header = () => {
                     <div className={cx('relative w-full pl-[6%] pr-[3%] flex items-center justify-between pt-2 lg:pt-5', { '!pt-0 lg:!pt-0 !pl-0 !pr-0': user?.role === 'bloodBank' })}>
                         <Link className={cx({ 'bg-white w-[164px] py-2': user?.role === 'bloodBank' }, { [shadow.lightShadow]: pathname.startsWith('/profile/bloodBank/') })} href='/'>
                             <div className={cx('w-full flex items-center', { 'justify-center': user?.role === 'bloodBank' })}>
-                                <div className='w-10 lg:w-12 h-10 lg:!h-12'>
-                                    <Image className='min-w-[2.5rem] lg:min-w-[3rem] min-h-[2.5rem] lg:min-h-[3rem] w-full h-full object-contain' src={redLogo} alt='Logo' />
+                                <div className='w-10 lg:!w-12 h-10 lg:!h-12'>
+                                    <Image className='min-w-[2.5rem] lg:!min-w-[3rem] min-h-[2.5rem] lg:!min-h-[3rem] w-full h-full object-contain' src={redLogo} alt='Logo' />
                                 </div>
-                                <p className={`w-min text-red-700 text-sm md:text-base font-black font-LatoBold uppercase tracking-[3px] !leading-[18px]`}>Blood Bridge</p>
+                                <p className={`w-min text-red-700 text-sm md:!text-base font-black font-LatoBold uppercase tracking-[3px] !leading-[18px]`}>Blood Bridge</p>
                             </div>
                         </Link>
                         {user?.role !== 'bloodBank' &&
@@ -45,17 +45,17 @@ const Header = () => {
                                     <div className='w-10 h-10 rounded-full flex justify-center items-center cursor-pointer' onClick={() => setShowNavbar(true)}>
                                         <Menu />
                                     </div>
-                                    <div className={cx('absolute top-0 right-0 w-[60vw] sm:w-[50vw] md:w-[40vw] bg-white shadow-lg z-[6] min-h-screen animate-right-to-left', { '!hidden !animate-left-to-right': !showNavbar })}>
+                                    <div className={cx('absolute top-0 right-0 w-[60vw] sm:!w-[50vw] md:!w-[40vw] bg-white shadow-lg z-[6] min-h-screen animate-right-to-left', { '!hidden !animate-left-to-right': !showNavbar })}>
                                         <X className='absolute right-2 top-2 cursor-pointer' onClick={() => setShowNavbar(false)} />
                                         <div className='w-full pt-10'>
                                             <Navbar isMbl={true} />
                                         </div>
                                     </div>
                                 </div>
-                                <div className='absolute left-0 right-0 mx-auto top-[56px] lg:hidden'>
+                                <div className='absolute left-0 right-0 mx-auto top-[56px] lg:!hidden'>
                                     <MainLinks />
                                 </div>
-                                <div className='lg:flex flex-col items-end gap-y-2.5 hidden'>
+                                <div className='lg:!flex flex-col items-end gap-y-2.5 hidden'>
                                     <MainLinks />
                                     <Navbar />
                                 </div>

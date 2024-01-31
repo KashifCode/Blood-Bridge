@@ -1,8 +1,11 @@
 import React from 'react'
+import HomeIntro from '@/app/components/HomeIntro'
 
 const page = () => {
   return (
-    <div>page</div>
+    <>
+      <HomeIntro isSecondImage={true} />
+    </>
   )
 }
 

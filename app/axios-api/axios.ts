@@ -1,3 +1,4 @@
+import storageHelper from "@/lib/storage-helper";
 import axios, { AxiosResponse, AxiosRequestConfig } from "axios";
 
 export const axiosInstance = axios.create({
@@ -7,6 +8,11 @@ const ResponseInterceptor = (response: AxiosResponse) => {
   return response;
 };
 const RequestInterceptor = async (config: AxiosRequestConfig) => {
+  const accessToken = await storageHelper.getItem(
+    storageHelper.StorageKeys.Access_Token,
+  );
+
+  config!.headers!["accesstoken"] = `Bearer ${accessToken}`;
   return config;
 };
 //@ts-ignore
