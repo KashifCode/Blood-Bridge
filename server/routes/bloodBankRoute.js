@@ -4,8 +4,7 @@ const router = express.Router();
 const {
   registerBloodBank,
   verifyBloodBank,
-  loginBloodBank,
-  logoutBloodBank,
+  loginBloodBank,  
   forgotPassword,
   resetPassword, 
   getBloodBank,
@@ -22,6 +21,7 @@ const {
   deleteBloodBank,
   getBloodRequests,
   getBloodDonations,
+  updateAccountStatus,
 } = require("../controllers/bloodBankController");
 const { authenticateBloodBank, authorizeRoles, authenticateUser } = require("../middlewares/auth");
 
@@ -29,7 +29,7 @@ const { authenticateBloodBank, authorizeRoles, authenticateUser } = require("../
 router.route("/auth/bloodBank/register").post(registerBloodBank);
 router.route("/auth/bloodBank/:id/verify/:token").get(verifyBloodBank);
 router.route("/auth/bloodBank/login").post(loginBloodBank);
-router.route("/auth/bloodBank/logout").get(logoutBloodBank);
+// router.route("/auth/bloodBank/logout").get(logoutBloodBank);
 router.route("/auth/bloodBank/forgot").post(forgotPassword);
 router.route("/auth/bloodBank/reset/:token").put(resetPassword);
 router.route("/bloodBank/profileCompletion").post(authenticateBloodBank, authorizeRoles("bloodBank"), completeProfile)
@@ -48,6 +48,7 @@ router
   .get(authenticateUser, authorizeRoles("admin"), viewBloodBank)
   .put(authenticateUser, authorizeRoles("admin"), blockBloodBank)
   .delete(authenticateUser, authorizeRoles("admin"), deleteBloodBank);
+  router.route("/admin/bloodBank/verification/:id").put(authenticateUser, authorizeRoles("admin"), updateAccountStatus);
   router.route("/admin/bloodBank/blood/requests").get(authenticateUser, authorizeRoles("admin"), getBloodRequests);
   router.route("/admin/bloodBank/blood/donations").get(authenticateUser, authorizeRoles("admin"), getBloodDonations);
   
