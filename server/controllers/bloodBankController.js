@@ -155,9 +155,7 @@ exports.loginBloodBank = catchAsyncErr(async (req, res, next) => {
   }
 
   await bloodBank.save({ validateBeforeSave: true });
-  // setToken(bloodBank, 200, res);
-
-  const token = user.getJsonWebToken();
+  const token = bloodBank.getJsonWebToken();
 
   res.status(200).json({
     success: true,
@@ -166,19 +164,6 @@ exports.loginBloodBank = catchAsyncErr(async (req, res, next) => {
     bloodBank,
   });
 });
-
-// LOGOUT BLOOD BANK-
-// exports.logoutBloodBank = catchAsyncErr(async (req, res, next) => {
-//   res.cookie("token", null, {
-//     expires: new Date(Date.now()),
-//     httpOnly: true,
-//   });
-
-//   res.status(200).json({
-//     success: true,
-//     message: "You have been logged out of your account",
-//   });
-// });
 
 // GENERATE TOKEN FOR FORGOT PASSWORD -
 exports.forgotPassword = catchAsyncErr(async (req, res, next) => {
@@ -300,13 +285,10 @@ exports.updatePassword = catchAsyncErr(async (req, res, next) => {
 
   bloodBank.password = newPassword;
   await bloodBank.save();
-  // setToken(bloodBank, 200, res);
-
-  // const token = user.getJsonWebToken();
 
   res.status(200).json({
     success: true,
-    message: "Password has been updated",    
+    message: "Password has been updated",
   });
 });
 
@@ -482,17 +464,6 @@ exports.resendEmailVerification = catchAsyncErr(async (req, res, next) => {
     )
   );
 });
-
-// GET BLOOD BANK COORDINATES -
-// exports.getBloodBankLocation = catchAsyncErr(async (req, res) => {
-//   const { longitude, latitude } = await parseLocation();
-
-//   res.status(200).json({
-//     success: true,
-//     longitude,
-//     latitude,
-//   });
-// });
 
 // DEACTIVATE BLOOD BANK ACCOUNT -
 exports.deactivateAccount = catchAsyncErr(async (req, res, next) => {
