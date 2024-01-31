@@ -5,3 +5,7 @@
 .bloodBankNavHeight {
     min-height: calc(100vh - 64px);
 }
+
+.BBPanelScrollHeight {
+    height: calc(100vh - 64px);
+}

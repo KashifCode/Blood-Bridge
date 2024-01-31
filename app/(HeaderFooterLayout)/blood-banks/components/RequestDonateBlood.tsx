@@ -14,6 +14,8 @@ import { Button } from '@/components/ui/button'
 import { donateBloodUrl, requestBloodUrl, viewSpecificBloodBank } from '@/app/axios-api/Endpoint'
 import { axiosInstance as axios } from '@/app/axios-api/axios'
 import { useBBSelector } from '@/redux/store'
+import { ChevronLeft } from 'lucide-react'
+import Link from 'next/link'
 
 interface RequestBloodProps {
     name?: string,
@@ -70,8 +72,10 @@ const RequestDonateBlood = ({ bloodBankId, callType }: RequestDonateBloodProps) 
     const submitForm = (data: RequestBloodProps) => {
         if (isRequest) {
             if (bloodBankOpen.giveBlood === "true") {
-                if (data.receivedBlood?.length !== data.bloodBags) {
-                    toast.error("You must provide blood groups in exchange in same quantity as requested blood bags")
+                if (data!.receivedBlood!.length >= data.bloodBags!) {
+                    data.receivedBlood = data.receivedBlood?.slice(0, data.bloodBags);
+                }
+                if (data!.receivedBlood!.length !== data.bloodBags) {
                     return;
                 }
             }
@@ -136,9 +140,15 @@ const RequestDonateBlood = ({ bloodBankId, callType }: RequestDonateBloodProps) 
     return (
         <div className='w-full my-6'>
             <div className='w-full'>
-                <Image src={isRequest ? mainImg: mainDonationImg} alt='Blood Request Image' className='w-full object-contain' />
+                <Image src={isRequest ? mainImg : mainDonationImg} alt='Blood Request Image' className='w-full object-contain' />
                 <div className='w-full px-[8%]'>
-                    <h1 className='mt-8 mb-6 text-black text-2xl font-PlayfairDisplayBold'>{isRequest ? 'Need Blood?' : 'Donate Blood!'}</h1>
+                    <Link href='/blood-banks'>
+                        <div className='flex items-center gap-x-1 my-4 cursor-pointer' >
+                            <ChevronLeft size={20} />
+                            <h1 className='text-lg font-LatoBold font-semibold'>Back</h1>
+                        </div>
+                    </Link>
+                    <h1 className='mb-6 text-black text-2xl font-PlayfairDisplayBold'>{isRequest ? 'Need Blood?' : 'Donate Blood!'}</h1>
                     <div className='w-full flex items-start gap-x-[9%]'>
                         <div className='w-full'>
                             <form onSubmit={handleSubmit(submitForm)} className='flex flex-col gap-y-3'>

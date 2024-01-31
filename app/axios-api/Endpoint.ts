@@ -99,3 +99,7 @@ export const BBgetAllBloodDonations = () => {
 export const BBUpdateDonationStatus = () => {
   return encodeURI(`bloodBank/blood/donation/`);
 };
+
+export const BBgetAllBloodTypes = () => {
+  return encodeURI(`bloodBank/bloodType/all`);
+};

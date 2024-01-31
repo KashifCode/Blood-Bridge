@@ -1,5 +1,5 @@
 "use client"
-import React, { useState, useEffect, useCallback, useMemo } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import Map from '@/app/components/Map'
 import toast from 'react-hot-toast'
 import { useDispatch } from 'react-redux'
