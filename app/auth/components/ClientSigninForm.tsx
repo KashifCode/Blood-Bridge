@@ -44,7 +44,6 @@ const ClientSigninForm = () => {
                 'Content-Type': 'application/json'
             }
         }).then((res) => {
-            console.log(res.data)
             dispath(logIn({user: res.data.user, token: res.data.token} as any))
             toast.success('Login Successful');
             push("/")

@@ -102,3 +102,7 @@ body,
 ::-webkit-scrollbar-thumb:hover {
   background: #BE382A;
 }
+
+.uploadThingBtn div {
+  display: none;
+}

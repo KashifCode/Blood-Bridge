@@ -44,7 +44,6 @@ const BloodBankSigninForm = () => {
                 'Content-Type': 'application/json'
             }
         }).then((res) => {
-            console.log(res.data)
             dispath(logIn({user: res.data.bloodBank, token: res.data.token} as any))
             toast.success('Login Successful');
             push("/")

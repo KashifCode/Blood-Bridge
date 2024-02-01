@@ -1,4 +1,4 @@
-export const BASE = "http://localhost:5000/api/";
+export const BASE = "https://blood-bridge-inky.vercel.app/api/";
 
 export const registerUserUrl = () => {
   return encodeURI(`auth/user/register`);
@@ -102,4 +102,16 @@ export const BBUpdateDonationStatus = () => {
 
 export const BBgetAllBloodTypes = () => {
   return encodeURI(`bloodBank/bloodType/all`);
+};
+
+export const createNewEvent = () => {
+  return encodeURI(`bloodBank/event/create`);
+};
+
+export const getAllEvents = () => {
+  return encodeURI(`bloodBank/events/all`);
+};
+
+export const modifyEvent = () => {
+  return encodeURI(`bloodBank/event/`);
 };
