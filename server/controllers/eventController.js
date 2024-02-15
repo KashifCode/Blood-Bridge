@@ -35,7 +35,7 @@ exports.createEvent = catchAsyncErr(async (req, res, next) => {
   res.status(201).json({
     success: true,
     message: "Your event has been created!",
-    event: event,
+    event,
   });
 });
 
@@ -57,8 +57,7 @@ exports.editEvent = catchAsyncErr(async (req, res, next) => {
     return next(new ErrorHandler("Event not found", 404));
   }
 
-  const existingGuests = event.guests || [];
-  const updatedGuests = [...existingGuests, ...(req.body.guests || [])];
+  const updatedGuests = [...(req.body.guests || [])];
 
   const updatedEvent = {
     eventName: req.body.eventName,
@@ -165,7 +164,7 @@ exports.getAdminEvents = catchAsyncErr(async (req, res, next) => {
 
   res.status(200).json({
     success: true,
-    events,
+    events, 
   });
 });
 
