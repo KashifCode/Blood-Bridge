@@ -52,7 +52,7 @@ const RequestDonateBlood = ({ bloodBankId, callType }: RequestDonateBloodProps) 
             console.log(err);
             toast.error(err.response.data.message);
         })
-    }, [])
+    }, [bloodBankId])
 
     const schema: ZodType<RequestBloodProps> = z.object({
         bloodGroup: z.string().min(1, { message: 'Blood Group is required' }),
@@ -244,12 +244,12 @@ const RequestDonateBlood = ({ bloodBankId, callType }: RequestDonateBloodProps) 
                         <div className='w-full'>
                             <h1 className='text-[28px] font-LatoBold !font-semibold'>{isRequest ? 'Need Blood Urgently?' : 'Donate Blood Toady!'}</h1>
                             <h3 className='text-xl font-LatoBold !font-semibold mt-3'>{bloodBankOpen?.name}</h3>
-                            <p className='font-LatoRegular mt-3 mb-4'>We're Here to Help!</p>
+                            <p className='font-LatoRegular mt-3 mb-4'>We are Here to Help!</p>
                             {!isRequest ?
                                 <p className='font-LatoRegular'>
-                                    If you're looking to donate blood, we're here to help you. To address urgent blood requirements, please reach out to us by dialing our Unified Access Number (UAN). Alternatively, you can request a callback from our team to swiftly connect with you on your blood donation call. Your well-being is our priority, and we believe that by donating your blood you can remain in good health.</p> :
+                                    If you are looking to donate blood, we are here to help you. To address urgent blood requirements, please reach out to us by dialing our Unified Access Number (UAN). Alternatively, you can request a callback from our team to swiftly connect with you on your blood donation call. Your well-being is our priority, and we believe that by donating your blood you can remain in good health.</p> :
                                 <p className='font-LatoRegular'>
-                                    If you find yourself in a critical need for blood, we're here to offer our support. To address urgent blood requirements, please reach out to us by dialing our Unified Access Number (UAN). Alternatively, you can request a callback from our team to swiftly connect you with the assistance you require during emergencies. Your well-being is our priority, and we're committed to being there for you when you need it the most.</p>
+                                    If you find yourself in a critical need for blood, we are here to offer our support. To address urgent blood requirements, please reach out to us by dialing our Unified Access Number (UAN). Alternatively, you can request a callback from our team to swiftly connect you with the assistance you require during emergencies. Your well-being is our priority, and we are committed to being there for you when you need it the most.</p>
                             }
                             <div className='flex items-center gap-x-2.5 mt-4'>
                                 <h3 className='text-lg font-LatoBold !font-semibold'>Call us:</h3>

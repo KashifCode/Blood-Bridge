@@ -36,7 +36,7 @@ import { updateAllEvents } from '@/redux/features/allEvents'
 interface newEventInterface {
     eventName: string,
     description: string,
-    guests: string,
+    guests: any,
     venue: string,
     eventDate?: string,
     eventTime: string,
@@ -73,20 +73,28 @@ const AddNewEvent = () => {
         }
 
         data.image = image?.[0]?.url;
+        const guestList = data.guests.split(',');
+        data.guests = guestList;
+        data.guests.forEach((guest: string, index: number) => {
+            data.guests[index] = guest.trimStart();
+        })
+
         const url = createNewEvent();
         axios.post(url, data, {
             headers: {
-                'Content-Type': 'multipart/form-data'
+                'Content-Type': 'application/json'
             },
         }).then((res) => {
             console.log(res?.data)
             const newEvent = res?.data?.event;
-            dispatch(updateAllEvents({ events: [...allEvents, newEvent]} as any))
-            toast.success(res?.data?.message);
-            form.reset();
-            e.target.reset();
-            setDate(undefined);
-            setImage(undefined);
+            if(newEvent) {
+                dispatch(updateAllEvents({ events: [...allEvents, newEvent]} as any))
+                toast.success(res?.data?.message);
+                form.reset();
+                e.target.reset();
+                setDate(undefined);
+                setImage(undefined);
+            }
         }).catch((err) => {
             toast.error(err?.response?.data?.message);
         })
@@ -149,7 +157,7 @@ const AddNewEvent = () => {
                             <FormItem>
                                 <FormLabel>Guests</FormLabel>
                                 <FormControl>
-                                    <Input className='bg-[#E9DFDF]' placeholder="Guests" {...field} />
+                                    <Input className='bg-[#E9DFDF]' placeholder="Guests Names seperated by ," {...field} />
                                 </FormControl>
                                 {/* <FormMessage /> */}
                             </FormItem>

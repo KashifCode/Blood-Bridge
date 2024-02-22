@@ -112,6 +112,14 @@ export const getAllEvents = () => {
   return encodeURI(`bloodBank/events/all`);
 };
 
+export const getAllUserEvents = () => {
+  return encodeURI(`user/events/all`);
+};
+
 export const modifyEvent = () => {
   return encodeURI(`bloodBank/event/`);
+};
+
+export const eventNotifyUsers = () => {
+  return encodeURI(`bloodBank/event/notify`);
 };
