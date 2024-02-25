@@ -53,7 +53,7 @@ const BloodGroupForm = () => {
     };
 
     return (
-        <div className={`bg-white rounded-3xl w-3/5 min-h-[50vh] px-8 flex flex-col justify-center ${shadow.lightShadow}`}>
+        <div className={`bg-white rounded-3xl w-3/5 min-h-[36vh] px-8 flex flex-col justify-center ${shadow.lightShadow}`}>
             <h1 className='text-xl font-DMSansSemiBold mb-3'>Add new blood type</h1>
             <form onSubmit={handleSubmit(submitData)} className='flex flex-col gap-y-3 w-full'>
                 <div className='flex flex-col gap-y-1.5'>

@@ -41,7 +41,7 @@ const UserStatistics = () => {
                 console.log(err)
             })
         }
-    }, [])
+    }, [bloodDonations, bloodRequests])
 
     useEffect(() => {
         if (bloodDonations && bloodRequests) {

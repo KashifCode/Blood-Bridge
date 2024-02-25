@@ -40,12 +40,14 @@ const BloodTypesChart = ({ selectedMonth }: { selectedMonth: number }) => {
         axios.get(url, {
             withCredentials: true,
         }).then((res) => {
+            console.log(res.data.bloodTypes, "running")
             const bloodTypesStockHistory = res.data.bloodTypes?.map((bloodType: any) => {
 
+                //remove previous month's data and current date's data
                 let bloodTypeStockHistory = bloodType?.stockHistory?.map((stockHistory: any, ind: number) => {
                     const date = new Date(stockHistory.createdAt.split('T')[0])
                     const stock = stockHistory.stock
-                    if((date.getMonth() + 1) !== selectedMonth || date.getDate() === new Date().getDate()) {
+                    if ((date.getMonth() + 1) !== selectedMonth || date.getDate() === new Date().getDate()) {
                         return {
                             stock: 0,
                             date: 0,
@@ -53,14 +55,30 @@ const BloodTypesChart = ({ selectedMonth }: { selectedMonth: number }) => {
                     }
                     return {
                         stock,
-                        date: date.getDate() + ind,
+                        date: date.getDate(),
                     }
                 })
+
+                // add a new stock history for the 1st of current month along with all the data history,
+                let lastStock = 0;
+                const currentMonth = (new Date()).getMonth() + 1;
+                const lastStockData = bloodType?.stockHistory?.filter((stockHistory: any) => {
+                    const date = new Date(stockHistory.createdAt.split('T')[0])
+                    return (date.getMonth() + 1) !== currentMonth
+                })
+                lastStock = lastStockData[lastStockData.length - 1]?.stock
+                bloodTypeStockHistory = [...bloodTypeStockHistory, {
+                    stock: lastStock,
+                    date: 1
+                }]
+
+                //add history of current date
                 bloodTypeStockHistory = [...bloodTypeStockHistory, {
                     stock: bloodType.stock,
                     date: new Date().getDate()
                 }]
-                bloodTypeStockHistory = bloodTypeStockHistory.filter((stockHistory: any) => (stockHistory.date !== 0 && stockHistory.stock !== 0)) 
+                bloodTypeStockHistory = bloodTypeStockHistory.filter((stockHistory: any) => (stockHistory.date !== 0 && stockHistory.stock !== 0))
+
                 return {
                     ...bloodType,
                     stockHistory: bloodTypeStockHistory
@@ -70,10 +88,10 @@ const BloodTypesChart = ({ selectedMonth }: { selectedMonth: number }) => {
         }).catch((err) => {
             console.log(err)
         })
-    }, [])
+    }, [selectedMonth])
 
     const days = new Date(new Date().getFullYear(), selectedMonth, 0).getDate();
-    const daysArr = Array.from({ length: days }, (_, i) => i);
+    const daysArr = Array.from({ length: days }, (_, i) => i + 1);
 
     const newDaysArr = daysArr.filter((day) => {
         const bloodTypesWithStockHistory = bloodTypes.filter((bloodType: any) => {

@@ -13,10 +13,11 @@ import {
 } from "@/components/ui/table"
 import { BBUpdateRequestStatus, BBgetAllBloodRequestes } from '@/app/axios-api/Endpoint'
 import toast from 'react-hot-toast'
-import { X } from 'lucide-react'
+import { MoveRight, X } from 'lucide-react'
 import cx from 'classnames'
+import Link from 'next/link'
 
-const RequestStatistics = () => {
+const RequestStatistics = ({ isFromDashboard }: { isFromDashboard?: boolean }) => {
     const [bloodRequests, setBloodRequests] = useState<any[]>()
     const [updateStatus, setUpdateStatus] = useState<{ value: string, index: number }>()
     const [message, setMessage] = useState<{ day: string, time: string }>({ day: '', time: '' })
@@ -94,31 +95,44 @@ const RequestStatistics = () => {
                     </div>
                 </div>
             </div>
-            <div className='w-full flex gap-x-7 items-center'>
-                <div className='py-3 px-4 rounded-xl bg-[#20283E] min-w-[155px]'>
-                    <h3 className='font-PlayfairDisplayBold capitalize text-white text-lg leading-5'>Total Requests</h3>
-                    <h3 className='font-PlayfairDisplayBold capitalize text-white text-lg leading-5'>{bloodRequests?.length}</h3>
+            {!isFromDashboard &&
+                <div className='w-full flex gap-x-7 items-center'>
+                    <div className='py-3 px-4 rounded-xl bg-[#20283E] min-w-[155px]'>
+                        <h3 className='font-PlayfairDisplayBold capitalize text-white text-lg leading-5'>Total Requests</h3>
+                        <h3 className='font-PlayfairDisplayBold capitalize text-white text-lg leading-5'>{bloodRequests?.length}</h3>
+                    </div>
+                    <div className='py-3 px-4 rounded-xl bg-[#0A5620] min-w-[155px]'>
+                        <h3 className='font-PlayfairDisplayBold capitalize text-white text-lg leading-5'>Completed</h3>
+                        <h3 className='font-PlayfairDisplayBold capitalize text-white text-lg leading-5'>{bloodRequests?.filter((request) => request.reqStatus === 'Completed').length}</h3>
+                    </div>
+                    <div className='py-3 px-4 rounded-xl bg-[#55acce] min-w-[155px]'>
+                        <h3 className='font-PlayfairDisplayBold capitalize text-white text-lg leading-5'>Accepted</h3>
+                        <h3 className='font-PlayfairDisplayBold capitalize text-white text-lg leading-5'>{bloodRequests?.filter((request) => request.reqStatus === 'Accepted').length}</h3>
+                    </div>
+                    <div className='py-3 px-4 rounded-xl bg-[#B3C100] min-w-[155px]'>
+                        <h3 className='font-PlayfairDisplayBold capitalize text-white text-lg leading-5'>Pending</h3>
+                        <h3 className='font-PlayfairDisplayBold capitalize text-white text-lg leading-5'>{bloodRequests?.filter((request) => request.reqStatus === 'Pending').length}</h3>
+                    </div>
+                    <div className='py-3 px-4 rounded-xl bg-[#AC3E31] min-w-[155px]'>
+                        <h3 className='font-PlayfairDisplayBold capitalize text-white text-lg leading-5'>Rejected</h3>
+                        <h3 className='font-PlayfairDisplayBold capitalize text-white text-lg leading-5'>{bloodRequests?.filter((request) => request.reqStatus === 'Rejected').length}</h3>
+                    </div>
                 </div>
-                <div className='py-3 px-4 rounded-xl bg-[#0A5620] min-w-[155px]'>
-                    <h3 className='font-PlayfairDisplayBold capitalize text-white text-lg leading-5'>Completed</h3>
-                    <h3 className='font-PlayfairDisplayBold capitalize text-white text-lg leading-5'>{bloodRequests?.filter((request) => request.reqStatus === 'Completed').length}</h3>
-                </div>
-                <div className='py-3 px-4 rounded-xl bg-[#55acce] min-w-[155px]'>
-                    <h3 className='font-PlayfairDisplayBold capitalize text-white text-lg leading-5'>Accepted</h3>
-                    <h3 className='font-PlayfairDisplayBold capitalize text-white text-lg leading-5'>{bloodRequests?.filter((request) => request.reqStatus === 'Accepted').length}</h3>
-                </div>
-                <div className='py-3 px-4 rounded-xl bg-[#B3C100] min-w-[155px]'>
-                    <h3 className='font-PlayfairDisplayBold capitalize text-white text-lg leading-5'>Pending</h3>
-                    <h3 className='font-PlayfairDisplayBold capitalize text-white text-lg leading-5'>{bloodRequests?.filter((request) => request.reqStatus === 'Pending').length}</h3>
-                </div>
-                <div className='py-3 px-4 rounded-xl bg-[#AC3E31] min-w-[155px]'>
-                    <h3 className='font-PlayfairDisplayBold capitalize text-white text-lg leading-5'>Rejected</h3>
-                    <h3 className='font-PlayfairDisplayBold capitalize text-white text-lg leading-5'>{bloodRequests?.filter((request) => request.reqStatus === 'Rejected').length}</h3>
-                </div>
-            </div>
+            }
 
-            <div className={`bg-white w-full py-4 px-2.5 mt-4 rounded-lg ${shadow.lightShadow}`}>
-                <p className='font-DMSansSemiBold text-slate-900 capitalize pb-1.5'>List of Blood Requests</p>
+            {isFromDashboard &&
+                <div className='w-full flex items-center justify-between mt-4'>
+                    <p className='font-DMSansSemiBold text-slate-900 capitalize pb-4'>List of Blood Requests</p>
+                    <Link className='flex items-center gap-x-2.5 cursor-pointer' href='/profile/bloodBank/requests'>
+                        <p className='text-[#C4473B] font-DMSansRegular text-sm'>View All</p>
+                        <MoveRight size={20} color='#C4473B' />
+                    </Link>
+                </div>
+            }
+            <div className={cx(`bg-white w-full py-4 px-2.5 mt-4 rounded-lg`, { '!mt-0': isFromDashboard }, [shadow.lightShadow])}>
+                {!isFromDashboard &&
+                    <p className='font-DMSansSemiBold text-slate-900 capitalize pb-4'>List of Blood Requests</p>
+                }
                 <Table className='!rounded-lg overflow-hidden'>
                     <TableHeader>
                         <TableRow>
@@ -135,7 +149,7 @@ const RequestStatistics = () => {
                     </TableHeader>
                     <TableBody className=''>
 
-                        {bloodRequests && bloodRequests.map((request, index) => (
+                        {bloodRequests && (isFromDashboard ? bloodRequests.slice(0, 6) : bloodRequests)?.map((request, index) => (
                             <TableRow key={index}>
                                 <TableCell className="text-center">{index + 1}</TableCell>
                                 <TableCell>{request.name}</TableCell>
@@ -143,7 +157,7 @@ const RequestStatistics = () => {
                                 <TableCell>{request.contact}</TableCell>
                                 <TableCell className='text-center'>{request.bloodGroup.bloodGroup}</TableCell>
                                 <TableCell className='text-center'>{request.bloodBags}</TableCell>
-                                <TableCell className='!grid !grid-cols-3 gap-x-1'>{request.receivedBlood.map((val: string, ind: number) => {
+                                <TableCell className={cx('!grid !grid-cols-3 gap-x-1 gap-y-0.5', {'!grid-cols-2': isFromDashboard})}>{request.receivedBlood.map((val: string, ind: number) => {
                                     return <span className='bg-slate-50 p-1 rounded-md text-center' key={ind}>{val}</span>
                                 })}</TableCell>
                                 <TableCell>{request.reqStatus}</TableCell>
