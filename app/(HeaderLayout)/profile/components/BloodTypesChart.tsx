@@ -34,123 +34,145 @@ const options = {
 };
 
 const BloodTypesChart = ({ selectedMonth }: { selectedMonth: number }) => {
+    const allBloodTypes = ['A+', 'A-', 'AB+', 'AB-', 'O+', 'O-', 'B+', 'B-'];
     const [bloodTypes, setBloodTypes] = useState<any[]>([])
+
+    const filterStockHistory = (bloodType: any[]): any[] => {
+        if (!bloodType) return [];
+
+        const currentDate = new Date();
+        const currentMonth = currentDate.getMonth() + 1;
+        const currentDay = currentDate.getDate();
+
+        let allEntriesDates: any[] = [];
+        bloodType.map((stockHistory: any) => {
+            const allDates = stockHistory.stockHistory.map((stockHistory: any) => {
+                return stockHistory.createdAt.split('T')[0]
+            })
+            allEntriesDates.push(...allDates)
+        })
+
+        //remove dates that are not in the selected month
+        allEntriesDates = allEntriesDates.filter((date: any) => {
+            const [year, month, day] = date.split('-');
+            return (+month === selectedMonth && +year === currentDate.getFullYear())
+        })
+
+        allEntriesDates = Array.from(new Set(allEntriesDates));
+        //add the 1st of current month and current date to the array
+        allEntriesDates.push(`${currentDate.getFullYear()}-${currentMonth}-1`);
+        allEntriesDates.push(`${currentDate.getFullYear()}-${currentMonth}-${currentDay}`);
+
+        //sort the dates
+        allEntriesDates = allEntriesDates.sort((a: any, b: any) => new Date(a).getTime() - new Date(b).getTime());
+
+        //for each date, list stock history for each blood type
+        const bloodTypeStock = allEntriesDates.map((date: any) => {
+            let stockEveryDate: any = [];
+            bloodType.forEach((bloodTypeData: any) => {
+                if(date.split("-")[2] == currentDate.getDate()) {
+                    stockEveryDate.push({ stock: bloodTypeData.stock, date, bloodGroup: bloodTypeData.bloodGroup});
+                    return;
+                }
+                if(date.split("-")[2] == 1) {
+                    const lastStockData = bloodTypeData.stockHistory.filter((stockHistory: any) => {
+                        const date = new Date(stockHistory.createdAt.split('T')[0]);
+                        return (date.getMonth() + 1) !== currentMonth;
+                    });
+            
+                    const lastStock = lastStockData[lastStockData.length - 1]?.stock || 0;
+                    stockEveryDate.push({ stock: lastStock, date, bloodGroup: bloodTypeData.bloodGroup});
+                    return;
+                }
+                let found = false;
+                let foundItem: any = {};
+                for (let i = 0; i < bloodTypeData.stockHistory.length; i++) {
+                    const stockHistoryItem = bloodTypeData.stockHistory[i];
+                    if (stockHistoryItem.createdAt.split('T')[0] === date) {
+                        stockEveryDate.push({ stock: stockHistoryItem?.stock, date, bloodGroup: bloodTypeData.bloodGroup, abc: "true"});
+                        found = true;
+                        break; // Exit the loop once a matching date is found
+                    } else if (stockHistoryItem.createdAt.split('T')[0] < date) {
+                        foundItem = stockHistoryItem;
+                    } else {
+                        
+                    }
+                }
+                if(!found && foundItem) {
+                    stockEveryDate.push({ stock: foundItem?.stock, date, bloodGroup: bloodTypeData.bloodGroup})
+                    found = true
+                }
+            });
+        
+            return stockEveryDate;
+        });
+        setBloodTypes(bloodTypeStock)
+
+        return bloodTypeStock;
+    }
+
     useEffect(() => {
         const url = BBgetAllBloodTypes();
         axios.get(url, {
             withCredentials: true,
         }).then((res) => {
-            console.log(res.data.bloodTypes, "running")
-            const bloodTypesStockHistory = res.data.bloodTypes?.map((bloodType: any) => {
-
-                //remove previous month's data and current date's data
-                let bloodTypeStockHistory = bloodType?.stockHistory?.map((stockHistory: any, ind: number) => {
-                    const date = new Date(stockHistory.createdAt.split('T')[0])
-                    const stock = stockHistory.stock
-                    if ((date.getMonth() + 1) !== selectedMonth || date.getDate() === new Date().getDate()) {
-                        return {
-                            stock: 0,
-                            date: 0,
-                        }
-                    }
-                    return {
-                        stock,
-                        date: date.getDate(),
-                    }
-                })
-
-                // add a new stock history for the 1st of current month along with all the data history,
-                let lastStock = 0;
-                const currentMonth = (new Date()).getMonth() + 1;
-                const lastStockData = bloodType?.stockHistory?.filter((stockHistory: any) => {
-                    const date = new Date(stockHistory.createdAt.split('T')[0])
-                    return (date.getMonth() + 1) !== currentMonth
-                })
-                lastStock = lastStockData[lastStockData.length - 1]?.stock
-                bloodTypeStockHistory = [...bloodTypeStockHistory, {
-                    stock: lastStock,
-                    date: 1
-                }]
-
-                //add history of current date
-                bloodTypeStockHistory = [...bloodTypeStockHistory, {
-                    stock: bloodType.stock,
-                    date: new Date().getDate()
-                }]
-                bloodTypeStockHistory = bloodTypeStockHistory.filter((stockHistory: any) => (stockHistory.date !== 0 && stockHistory.stock !== 0))
-
-                return {
-                    ...bloodType,
-                    stockHistory: bloodTypeStockHistory
-                }
-            })
-            setBloodTypes(bloodTypesStockHistory)
+            filterStockHistory(res.data.bloodTypes)
         }).catch((err) => {
             console.log(err)
         })
-    }, [selectedMonth])
-
-    const days = new Date(new Date().getFullYear(), selectedMonth, 0).getDate();
-    const daysArr = Array.from({ length: days }, (_, i) => i + 1);
-
-    const newDaysArr = daysArr.filter((day) => {
-        const bloodTypesWithStockHistory = bloodTypes.filter((bloodType: any) => {
-            const stockHistory = bloodType.stockHistory.filter((stockHistory: any) => {
-                return stockHistory.date === day
-            })
-            return stockHistory.length > 0
-        })
-        return bloodTypesWithStockHistory.length > 0
-    })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+    
+    const daysArr = bloodTypes.map((bloodType: any[]) => new Date(bloodType.map((val: any) => val.date)[0]).getDate());
 
     const data = {
-        labels: newDaysArr,
+        labels: daysArr,
         datasets: [
             {
                 label: 'A+',
-                data: newDaysArr.map((day, _) => bloodTypes.filter((bloodType: any) => bloodType.bloodGroup === 'A+')[0]?.stockHistory.filter((stockHistory: any) => stockHistory.date === day)[0]?.stock),
+                data: bloodTypes.map((bloodType: any[]) => bloodType.filter((val: any) => val.bloodGroup === 'A+')[0]?.stock),
                 borderColor: '#BF372A',
                 backgroundColor: '#DF372A',
             },
             {
                 label: 'A-',
-                data: newDaysArr.map((day, _) => bloodTypes.filter((bloodType: any) => bloodType.bloodGroup === 'A-')[0]?.stockHistory.filter((stockHistory: any) => stockHistory.date === day)[0]?.stock),
+                data: bloodTypes.map((bloodType: any[]) => bloodType.filter((val: any) => val.bloodGroup === 'A-')[0]?.stock),
                 borderColor: '#1F78B4',
                 backgroundColor: '#1F78D4',
             },
             {
                 label: 'AB+',
-                data: newDaysArr.map((day, _) => bloodTypes.filter((bloodType: any) => bloodType.bloodGroup === 'AB+')[0]?.stockHistory.filter((stockHistory: any) => stockHistory.date === day)[0]?.stock),
+                data: bloodTypes.map((bloodType: any[]) => bloodType.filter((val: any) => val.bloodGroup === 'AB+')[0]?.stock),
                 borderColor: '#33A02C',
                 backgroundColor: '#33C02C',
             },
             {
                 label: 'AB-',
-                data: newDaysArr.map((day, _) => bloodTypes.filter((bloodType: any) => bloodType.bloodGroup === 'AB-')[0]?.stockHistory.filter((stockHistory: any) => stockHistory.date === day)[0]?.stock),
+                data: bloodTypes.map((bloodType: any[]) => bloodType.filter((val: any) => val.bloodGroup === 'AB-')[0]?.stock),
                 borderColor: '#FB9A99',
                 backgroundColor: '#FF9A99',
             },
             {
                 label: 'O+',
-                data: newDaysArr.map((day, _) => bloodTypes.filter((bloodType: any) => bloodType.bloodGroup === 'O+')[0]?.stockHistory.filter((stockHistory: any) => stockHistory.date === day)[0]?.stock),
+                data: bloodTypes.map((bloodType: any[]) => bloodType.filter((val: any) => val.bloodGroup === 'O+')[0]?.stock),
                 borderColor: '#A6CEE3',
                 backgroundColor: '#A6CEFF',
             },
             {
                 label: 'O-',
-                data: newDaysArr.map((day, _) => bloodTypes.filter((bloodType: any) => bloodType.bloodGroup === 'O-')[0]?.stockHistory.filter((stockHistory: any) => stockHistory.date === day)[0]?.stock),
+                data: bloodTypes.map((bloodType: any[]) => bloodType.filter((val: any) => val.bloodGroup === 'O-')[0]?.stock),
                 borderColor: '#B2DF8A',
                 backgroundColor: '#B2EF8A',
             },
             {
                 label: 'B+',
-                data: newDaysArr.map((day, _) => bloodTypes.filter((bloodType: any) => bloodType.bloodGroup === 'B+')[0]?.stockHistory.filter((stockHistory: any) => stockHistory.date === day)[0]?.stock),
+                data: bloodTypes.map((bloodType: any[]) => bloodType.filter((val: any) => val.bloodGroup === 'B+')[0]?.stock),
                 borderColor: '#5E4D8A',
                 backgroundColor: '#5E4DAA',
             },
             {
                 label: 'B-',
-                data: newDaysArr.map((day, _) => bloodTypes.filter((bloodType: any) => bloodType.bloodGroup === 'B-')[0]?.stockHistory.filter((stockHistory: any) => stockHistory.date === day)[0]?.stock),
+                data: bloodTypes.map((bloodType: any[]) => bloodType.filter((val: any) => val.bloodGroup === 'B-')[0]?.stock),
                 borderColor: '#003E5A',
                 backgroundColor: '#003E7A',
             }
