@@ -3,6 +3,7 @@ const dotenv = require('dotenv')
 const http = require('http')
 const app = require('./app')
 const connectDatabase = require('./config/database')
+const logger = require('./utils/winston')
 const { initializeSocket } = require('./utils/location')
 
 // CONFIG -
@@ -17,7 +18,7 @@ initializeSocket(server)
 // HANDLING UNCAUGHT EXCEPTION -
 process.on('uncaughtException', (err) => {
   console.log(`ERROR: ${err.message}`)
-  console.log('SHUTTING DOWN SERVER DUE TO UNCAUGHT EXCEPTION')
+  logger('error', err.message)
   process.exit(1)
 })
 
@@ -32,6 +33,6 @@ const runner = server.listen(process.env.PORT, () => {
 // UNHANDLED PROMISE REJECTION -
 process.on('unhandledRejection', (err) => {
   console.log(`ERROR: ${err.message}`)
-  console.log('SHUTTING DOWN SERVER DUE TO UNHANDLED PROMISE REJECTION')
+  logger('error', err.message)
   runner.close(() => process.exit(1))
 })
