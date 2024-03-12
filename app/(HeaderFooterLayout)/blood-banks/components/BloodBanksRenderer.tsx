@@ -36,7 +36,7 @@ const BloodBanksRenderer = () => {
       console.log(err)
       toast.error(err!.response!.data!.message!);
     })
-  }, [isAuth])
+  }, [isAuth, dispatch])
 
   //set default values for sector and blood group
   useMemo(() => {
@@ -67,6 +67,7 @@ const BloodBanksRenderer = () => {
     if (userLocation.lat === 0 && userLocation.lng === 0) {
       getUserCoordinates();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   //get address from lat long
@@ -94,13 +95,13 @@ const BloodBanksRenderer = () => {
   const earthRadius = 6378137;
   const toRadius = (value: number): number => (value * Math.PI) / 180;
 
-  const useDistance = ({ from, to }: UseDistanceTypes): number => {
+  const calDistance = ({ from, to }: UseDistanceTypes): number => {
     const distance =
       Math.acos(
         Math.sin(toRadius(to.latitude)) * Math.sin(toRadius(from.latitude)) +
         Math.cos(toRadius(to.latitude)) * Math.cos(toRadius(from.latitude)) * Math.cos(toRadius(from.longitude) - toRadius(to.longitude)),
       ) * earthRadius;
-    return convertDistance(distance, 'km').toFixed(2) as any;
+    return Number(convertDistance(distance, 'km').toFixed(2)) as number;
   };
 
   // Convert to a different unit 
@@ -120,7 +121,7 @@ const BloodBanksRenderer = () => {
   const bloodBanksWithDistance = [...bloodBanks]
 
   bloodBanks.forEach((BB_Data, index) => {
-    const distance = useDistance({
+    const distance = calDistance({
       from: {
         latitude: userLocation.lat,
         longitude: userLocation.lng

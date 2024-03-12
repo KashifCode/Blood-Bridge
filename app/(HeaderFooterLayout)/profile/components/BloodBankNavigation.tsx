@@ -85,7 +85,7 @@ const BloodBankNavigation = () => {
                 </div>
             </Link>
 
-            <Link href={'/profile/bloodBank/request'}>
+            <Link href={'/profile/bloodBank/request-users'}>
                 <div className='w-full flex justify-center'>
                     <Button className='!h-auto !font-LatoMedium !text-white !bg-darkRed hover:!bg-red-800 !rounded-[48px] !text-xl !pb-1.5 !pt-1 !px-6 w-max mx-auto'>Request</Button>
                 </div>

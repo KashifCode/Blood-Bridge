@@ -58,18 +58,20 @@ const BloodTypesChart = ({ selectedMonth }: { selectedMonth: number }) => {
             return (+month === selectedMonth && +year === currentDate.getFullYear())
         })
 
-        allEntriesDates = Array.from(new Set(allEntriesDates));
-        //add the 1st of current month and current date to the array
-        allEntriesDates.push(`${currentDate.getFullYear()}-${currentMonth}-1`);
-        allEntriesDates.push(`${currentDate.getFullYear()}-${currentMonth}-${currentDay}`);
+        //add the 1st of current month (2 digit) and current date to the array
+        allEntriesDates.push(`${currentDate.getFullYear()}-${currentMonth.toString().padStart(2, '0')}-1`);
+        allEntriesDates.push(`${currentDate.getFullYear()}-${currentMonth.toString().padStart(2, '0')}-${currentDay}`);
 
         //sort the dates
         allEntriesDates = allEntriesDates.sort((a: any, b: any) => new Date(a).getTime() - new Date(b).getTime());
+        //remove duplicates
+        allEntriesDates = Array.from(new Set(allEntriesDates));
 
         //for each date, list stock history for each blood type
         const bloodTypeStock = allEntriesDates.map((date: any) => {
             let stockEveryDate: any = [];
             bloodType.forEach((bloodTypeData: any) => {
+                //if the date is the current date, add the stock for the current date
                 if(date.split("-")[2] == currentDate.getDate()) {
                     stockEveryDate.push({ stock: bloodTypeData.stock, date, bloodGroup: bloodTypeData.bloodGroup});
                     return;

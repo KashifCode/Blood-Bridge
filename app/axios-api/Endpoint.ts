@@ -123,3 +123,7 @@ export const modifyEvent = () => {
 export const eventNotifyUsers = () => {
   return encodeURI(`bloodBank/event/notify`);
 };
+
+export const getNearby = () => {
+  return encodeURI(`bloodBank/action`);
+};

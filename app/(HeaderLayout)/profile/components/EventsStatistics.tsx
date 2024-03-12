@@ -102,10 +102,6 @@ const EventsStatistics = () => {
                     <h3 className='font-PlayfairDisplayBold capitalize text-white text-xl leading-5'>Pending</h3>
                     <h3 className='font-PlayfairDisplayBold capitalize text-white text-xl leading-5'>{allEvents?.filter((event) => event.eventDate >= (new Date()).toISOString()).length}</h3>
                 </div>
-                {/* <div className='py-3 px-4 rounded-xl bg-[#267778] min-w-[155px]'>
-                    <h3 className='font-PlayfairDisplayBold capitalize text-white text-xl leading-5'>Canceled</h3>
-                    <h3 className='font-PlayfairDisplayBold capitalize text-white text-xl leading-5'>{allEvents?.length}</h3>
-                </div> */}
             </div>
 
             <p className='font-DMSansSemiBold text-slate-900 capitalize pb-1.5 pt-4 mt-4'>List of Events</p>
