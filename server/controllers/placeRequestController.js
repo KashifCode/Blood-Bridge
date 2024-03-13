@@ -4,6 +4,7 @@ const catchAsyncErr = require('../middlewares/catchAsyncErr')
 const userModel = require('../models/userModel')
 const bloodBankModel = require('../models/bloodBankModel')
 const bloodGroupModel = require('../models/BloodGroupModel')
+const saveRequestModel = require('../models/SaveRequestModel')
 const sendEmail = require('../utils/email')
 
 // GET NEARBY BLOOD BANKS FOR BLOOD BANK -
@@ -83,9 +84,32 @@ exports.getNearBy = catchAsyncErr(async (req, res, next) => {
     )
   }
 
+  await saveRecord(req, nearbyBloodBanks)
+
   res.status(200).json({
     success: true,
     message: `The request for ${req.body.bloodType} blood type has been placed.`,
+  })
+})
+
+// SAVE RECORD -
+const saveRecord = async (req, bloodBanks) => {
+  await saveRequestModel.create({
+    Requester: req.authUser.id,
+    bloodType: req.body.bloodType,
+    bloodBags: req.body.bloodBags,
+    urgent: req.body.urgent,
+    bloodBanks,
+  })
+}
+
+// GET RECORDS -
+exports.getRecords = catchAsyncErr(async (req, res) => {
+  const records = await saveRequestModel.find()
+
+  res.status(200).json({
+    success: true,
+    records,
   })
 })
 
@@ -184,7 +208,7 @@ const emailBloodBanks = async (bloodBanks, bloodType, bloodBank) => {
       email: bank?.email,
       subject: 'Blood Bridge: Blood Type Request',
       message: html,
-    });
+    })
 
     await Promise.all([emailPromise])
   }
