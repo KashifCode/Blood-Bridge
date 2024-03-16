@@ -2,3 +2,8 @@
 {"level":"error","message":"Blood type not found","service":"user-service"}
 {"level":"error","message":"Blood type not found","service":"user-service"}
 {"level":"error","message":"Blood type not found","service":"user-service"}
+{"level":"error","message":"You have already submitted a blood request. Please wait 24 hours before submitting another request","service":"user-service"}
+{"level":"error","message":"You have already submitted a blood request. Please wait 24 hours before submitting another request","service":"user-service"}
+{"level":"error","message":"The request for A+ blood type cannot be placed at this time","service":"user-service"}
+{"level":"error","message":"The request for O+ blood type cannot be placed at this time","service":"user-service"}
+{"level":"error","message":"The request for O+ blood type cannot be placed at this time","service":"user-service"}

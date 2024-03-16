@@ -16,12 +16,14 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 import toast from 'react-hot-toast'
+import { useQueryClient, useMutation, useQuery } from '@tanstack/react-query'
+import { getNearby, placeRequestToUsers } from '@/app/axios-api/Endpoint'
+import { axiosInstance as axios } from '@/app/axios-api/axios'
+import Loader from '@/app/components/Loader'
 // import { getNearby } from '@/app/axios-api/Endpoint'
-// import { axiosInstance as axios } from '@/app/axios-api/axios'
 
 const NewRequestForm = () => {
-    const [selectedItems, setSelectedItems] = useState<string[]>(["Rawal Blood Bank"]);
-    const [selectedUsers, setSelectedUsers] = useState<number[]>([1]);
+    const [selectedUsers, setSelectedUsers] = useState<string>("");
     const [selectedArea, setSelectedArea] = useState<string>("");
     const [bloodType, setBloodType] = useState<string>("");
     const [bloodBags, setBloodBags] = useState<number>(0);
@@ -34,18 +36,17 @@ const NewRequestForm = () => {
     const bloodTypes = ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"]
     const bloodBagsQuantity = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50]
 
+    const queryClient = useQueryClient()
+
     const FormSchema = z.object({
-        bloodBanks: z.array(z.string()).refine((value) => value.some((item) => item), {
-            message: "You have to select at least one Blood Bank.",
-        }),
-        users: z.array(z.number()).optional(),
+        bloodBanks: z.array(z.any()).optional(),
         area: z.string().optional(),
         bloodType: z.string().optional(),
         bloodBags: z.number().optional(),
-        isRequiredUrgently: z.boolean().optional(),
+        urgent: z.boolean().optional(),
     })
 
-    const { register, handleSubmit, formState: { errors } } = useForm<z.infer<typeof FormSchema>>({
+    const { handleSubmit, formState: { errors } } = useForm<z.infer<typeof FormSchema>>({
         resolver: zodResolver(FormSchema),
         defaultValues: {
             bloodBanks: ["Rawal Blood Bank"],
@@ -63,20 +64,47 @@ const NewRequestForm = () => {
         toast.error(errorMessage);
     };
 
+    const { data: nearByBB, isLoading } = useQuery({
+        queryKey: ['nearByBloodBanks'],
+        queryFn: async () => {
+            const url = getNearby();
+            const { data } = await axios.get(url);
+            return data?.nearbyBloodBanks;
+        }
+    })
+
+    const { mutate: placeRequest } = useMutation({
+        mutationFn: async (data: any) => {
+            const url = placeRequestToUsers();
+            const { data: resData } = await axios.post(url, data);
+            return resData;
+        },
+        onSuccess: (data) => {
+            queryClient.invalidateQueries({ queryKey: ['allRequestToUsers'] })
+            toast.success(data?.message);
+        },
+        onError: (error: any) => {
+            if (error?.response?.data?.message) {
+                toast.error(error?.response?.data?.message);
+            } else {
+                toast.error("Your request could not be placed. Please try again.");
+            }
+        },
+    })
+
     const submitData = (data: any) => {
         data.area = selectedArea;
         if (selectedArea === "") {
             notifyError("You have to select an Area.");
             return;
         }
-        data.users = selectedUsers;
-        if (data.users.length === 0) {
-            notifyError("You have to select at least one User.");
+        if (selectedUsers === "") {
+            notifyError("You have to select the Users.");
             return;
         }
-        data.bloodBanks = selectedItems;
+        data.bloodBanks = nearByBB.map((bloodBank: any) => bloodBank._id);
         if (data.bloodBanks.length === 0) {
-            notifyError("You have to select at least one Blood Bank.");
+            notifyError("There are no Blood Banks Nearby!");
             return;
         }
         data.bloodType = bloodType;
@@ -89,21 +117,12 @@ const NewRequestForm = () => {
             notifyError("You have to select a No. of Blood Bags.");
             return;
         }
-        data.isRequiredUrgently = isRequiredUrgently;
-        console.log(data);
+        data.urgent = isRequiredUrgently;
+
+        placeRequest(data);
     }
 
-    // useEffect(() => {
-    //     const url = getNearby();
-    //     axios.get(url).then((res) => {
-    //         console.log(res.data);
-    //     }).catch((err) => {
-    //         console.log(err);
-    //     })
-    // }, [])
-
-    const allBloodBanks = [{ id: 1, label: 'Rawal Blood Bank' }, { id: 2, label: 'PIMS Blood Bank' }, { id: 3, label: 'Shifa Blood Bank' }, { id: 4, label: 'CDA Blood Bank' }, { id: 5, label: 'PAF Blood Bank' }, { id: 6, label: 'NIBD Blood Bank' }, { id: 7, label: 'AFIRM Blood Bank' }, { id: 8, label: 'PAEC Blood Bank' }, { id: 9, label: 'Fauji Foundation Blood Bank' }, { id: 10, label: 'HBS Blood Bank' }, { id: 11, label: 'Al-Mustafa Blood Bank' }]
-    const allUsers = [{ id: 1, label: "Kashif Mehmood" }, { id: 2, label: "Shoaib Anwar" }, { id: 3, label: "Wali Muhammad" }, { id: 4, label: "Muhammad Huzaifa" }, { id: 5, label: "Khayam Sarhadi" }]
+    if (isLoading) return <div className='w-full grid place-items-center'><Loader /></div>
 
     return (
         <form onSubmit={handleSubmit(submitData)} className='w-4/5 pl-6 flex flex-col gap-y-6 mb-6'>
@@ -126,45 +145,24 @@ const NewRequestForm = () => {
             </div>
             {/* Users */}
             <div className='flex flex-col gap-y-1.5'>
-                <Label className='pl-2' htmlFor='area'>Users</Label>
-                <div className="w-full bg-[#e4e1fd] rounded-2xl py-3 px-4 max-h-[240px] overflow-y-scroll flex flex-col gap-y-1">
-                    {allUsers.map((item) => (
-                        <div key={item.id} className='flex items-center gap-x-3'>
-                            <Checkbox
-                                id={`user${item.id}`}
-                                checked={selectedUsers.includes(item.id)}
-                                onCheckedChange={(checked) => {
-                                    if (checked) {
-                                        setSelectedUsers((prevItems) => [...prevItems, item.id]);
-                                    } else {
-                                        setSelectedUsers((prevItems) => prevItems.filter((id) => id !== item.id));
-                                    }
-                                }}
-                            />
-                            <label htmlFor={`user${item.id}`}>{item.label}</label>
-                        </div>
-                    ))}
-                </div>
+                <Label className='pl-2' htmlFor='users'>Users</Label>
+                <Select onValueChange={(val) => setSelectedUsers(val)}>
+                    <SelectTrigger className="w-full bg-[#e4e1fd] rounded-2xl">
+                        <SelectValue placeholder="Select Users" />
+                    </SelectTrigger>
+                    <SelectContent>
+                        <SelectItem value="allUsers">All Users</SelectItem>
+                    </SelectContent>
+                </Select>
             </div>
             {/* Blood Banks */}
             <div className='flex flex-col gap-y-1.5'>
                 <Label className='pl-2' htmlFor='area'>Blood Banks</Label>
-                <div className="w-full bg-[#e4e1fd] rounded-2xl py-3 px-4 max-h-[240px] overflow-y-scroll flex flex-col gap-y-1">
-                    {allBloodBanks.map((item) => (
-                        <div key={item.id} className='flex items-center gap-x-3'>
-                            <Checkbox
-                                id={`bloodBank${item.id}`}
-                                {...register(`bloodBanks.${item.id}`)}
-                                checked={selectedItems.includes(item.label)}
-                                onCheckedChange={(checked) => {
-                                    if (checked) {
-                                        setSelectedItems((prevItems) => [...prevItems, item.label]);
-                                    } else {
-                                        setSelectedItems((prevItems) => prevItems.filter((label) => label !== item.label));
-                                    }
-                                }}
-                            />
-                            <label htmlFor={`bloodBank${item.id}`}>{item.label}</label>
+                <div className="w-full bg-[#e4e1fd] rounded-2xl py-3 px-5 max-h-[240px] overflow-y-scroll flex flex-col gap-y-1">
+                    {nearByBB.map((item: any, index: number) => (
+                        <div key={item._id} className='flex items-center gap-x-3'>
+                            <Checkbox checked={true} />
+                            <label htmlFor={`bloodBank${index}`}>{item.name}</label>
                         </div>
                     ))}
                 </div>
@@ -211,7 +209,7 @@ const NewRequestForm = () => {
             <div className='w-full flex justify-end mt-1'>
                 <button type='submit' className='bg-[#BF372A] text-white font-LatoMedium text-lg rounded-2xl py-0.5 px-6 w-max'>Request</button>
             </div>
-        </form>
+        </form >
     )
 }
 

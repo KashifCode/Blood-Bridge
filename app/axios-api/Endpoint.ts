@@ -125,5 +125,13 @@ export const eventNotifyUsers = () => {
 };
 
 export const getNearby = () => {
+  return encodeURI(`bloodBanks`);
+};
+
+export const placeRequestToUsers = () => {
   return encodeURI(`bloodBank/action`);
+};
+
+export const getAllRequestsToUsers = () => {
+  return encodeURI(`bloodBanks/records`);
 };
