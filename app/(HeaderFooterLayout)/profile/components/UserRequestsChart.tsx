@@ -31,29 +31,41 @@ const options = {
   },
 };
 
-const labels = ['Jan', 'Feb', 'March', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+const UserRequestsChart = ({ requests }: { requests: any }) => {
+  const labels = ['Jan', 'Feb', 'March', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
-const values = [2, 0, 6, 3, 4, 8, 1, 11, 0, 5, 9, 3];
+  //sort the labels as current month to be the last
+  const currentMonth = new Date().getMonth();
+  const sortedLabels = labels.slice(currentMonth + 1).concat(labels.slice(0, currentMonth + 1));
 
-const newLabels = labels.filter((_, ind) => values[ind] !== 0);
+  //add no of requests per month
+  const values = new Array(12).fill(0);
+  requests.forEach((request: any) => {
+    const date = new Date(request.bloodNeededOn.split('T')[0]);
+    values[date.getMonth()] += 1;
+  });
 
-const newValues = values.filter((val) => val !== 0);
+  //sort the values as the same order of labels
+  const sortedValues = values.slice(currentMonth + 1).concat(values.slice(0, currentMonth + 1));
 
-const data = {
-  labels: newLabels,
-  datasets: [
-    {
-      label: '',
-      data: newLabels.map((_, ind) => newValues[ind]),
-      borderColor: '#BF372A',
-      backgroundColor: '#DF372A',
-    }
-  ],
-};
+  const newLabels = sortedLabels.filter((_, ind) => sortedValues[ind] !== 0);
 
-const UserRequestsChart = () => {
+  const newValues = sortedValues.filter((val) => val !== 0);
+
+  const data = {
+    labels: newLabels,
+    datasets: [
+      {
+        label: '',
+        data: newLabels.map((_, ind) => newValues[ind]),
+        borderColor: '#BF372A',
+        backgroundColor: '#DF372A',
+      }
+    ],
+  };
+
   return (
-    <div className='flex flex-col justify-between w-full relative'>
+    <div className='flex flex-col justify-between w-[90%] mx-auto relative'>
       <h3 className='text-black font-RobotoBold text-xl mb-4 capitalize'>Blood Requests</h3>
       <Line options={options} data={data} />
     </div>

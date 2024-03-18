@@ -46,13 +46,13 @@ const BloodTypesNav = () => {
                     ))}
                 </div>
                 <div className='w-max flex flex-col gap-y-5 mt-6 mb-3'>
-                    <div className='w-full bg-[#E3E3E3] rounded-[10px] py-5 flex gap-x-32 items-center justify-between px-6 cursor-pointer' onClick={() => handleRedirect("/profile/bloodBank/blood/blood-donations")}>
+                    <div className='w-full bg-[#E3E3E3] rounded-[10px] py-5 flex gap-x-32 items-center justify-between px-6 cursor-pointer' onClick={() => handleRedirect("/profile/bloodBank/donation")}>
                         <div className='flex gap-x-3 items-center'>
                             <p className='text-black font-LatoBold text-lg'>Blood Donations</p>
                         </div>
                         <ChevronRight size={24} color={'black'} />
                     </div>
-                    <div className='w-full bg-[#E3E3E3] rounded-[10px] py-5 flex gap-x-32 items-center justify-between px-6 cursor-pointer' onClick={() => handleRedirect("/profile/bloodBank/blood/blood-requests")}>
+                    <div className='w-full bg-[#E3E3E3] rounded-[10px] py-5 flex gap-x-32 items-center justify-between px-6 cursor-pointer' onClick={() => handleRedirect("/profile/bloodBank/requests")}>
                         <div className='flex gap-x-3 items-center'>
                             <p className='text-black font-LatoBold text-lg'>Blood Requests</p>
                         </div>

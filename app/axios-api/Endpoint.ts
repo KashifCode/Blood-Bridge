@@ -76,6 +76,14 @@ export const requestBloodUrl = () => {
   return encodeURI(`bloodBank/blood/request`);
 };
 
+export const getUserBloodRequests = () => {
+  return encodeURI(`user/blood/request/all`);
+};
+
+export const getUserBloodDonations = () => {
+  return encodeURI(`user/blood/donation/all`);
+};
+
 export const donateBloodUrl = () => {
   return encodeURI(`bloodBank/blood/donation`);
 };
@@ -134,4 +142,8 @@ export const placeRequestToUsers = () => {
 
 export const getAllRequestsToUsers = () => {
   return encodeURI(`bloodBanks/records`);
+};
+
+export const submitUserFeedback = () => {
+  return encodeURI(`user/feedback`);
 };
