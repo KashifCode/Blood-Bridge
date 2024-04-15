@@ -32,7 +32,7 @@ const requestRecordSchema = new mongoose.Schema({
 
   area: {
     type: String,
-    required: true
+    required: true,
   },
 
   createdAt: {

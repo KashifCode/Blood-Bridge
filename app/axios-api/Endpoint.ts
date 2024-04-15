@@ -147,3 +147,7 @@ export const getAllRequestsToUsers = () => {
 export const submitUserFeedback = () => {
   return encodeURI(`user/feedback`);
 };
+
+export const reviewBloodBank = () => {
+  return encodeURI(`user/review/bloodBank`);
+};

@@ -1,16 +1,16 @@
-import React from 'react'
-import RequestDonateBlood from '../components/RequestDonateBlood'
+import React from "react";
+import RequestDonateBlood from "../components/RequestDonateBlood";
 
 type SearchParamsType = {
-    searchParams: {
-        [key: string]: string | string[] | undefined
-    }
-}
+  searchParams: {
+    [key: string]: string | string[] | undefined;
+  };
+};
 
-const page = ({searchParams}: SearchParamsType) => {
+const page = ({ searchParams }: SearchParamsType) => {
   return (
-    <RequestDonateBlood callType='donate' bloodBankId={searchParams?.id} />
-  )
-}
+    <RequestDonateBlood callType="donate" bloodBankId={searchParams?.id} />
+  );
+};
 
-export default page
+export default page;

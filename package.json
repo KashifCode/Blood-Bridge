@@ -6,7 +6,12 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "npm run lint:eslint && npm run lint:prettier && npm run lint:spelling",
+    "fix": "npm run lint:eslint --fix && npm run lint:prettier --write",
+    "format": "npx prettier **/*.{html,js,jsx,tsx,ts} -w",
+    "lint:prettier": "prettier --cache --list-different .",
+    "lint:eslint": "eslint --cache --ext .js,.jsx,.ts,.tsx .",
+    "lint:spelling": "cspell --cache --no-must-find-files --quiet \"**/*.*\""
   },
   "dependencies": {
     "@hookform/resolvers": "^3.3.4",
@@ -36,11 +41,13 @@
     "date-fns": "^3.3.1",
     "eslint": "8.49.0",
     "eslint-config-next": "13.4.19",
+    "eslint-config-prettier": "^9.1.0",
     "fluentreports": "^1.4.3",
     "leaflet": "^1.9.4",
     "lucide-react": "^0.276.0",
     "next": "13.4.19",
     "postcss": "8.4.29",
+    "prettier": "^3.2.5",
     "react": "18.2.0",
     "react-chartjs-2": "^5.2.0",
     "react-circular-progressbar": "^2.1.0",

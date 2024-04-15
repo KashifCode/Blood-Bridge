@@ -10,7 +10,7 @@ class _Constants {
     extraLong: 6000,
   };
 
-  readonly DATE_TIME_LOCALE = 'en';
+  readonly DATE_TIME_LOCALE = "en";
   readonly phoneRegExp = /^0\d{10}$/;
   readonly CNIC_REGEXP = /^\d{5}-\d{7}-\d{1}$/;
 
@@ -19,7 +19,7 @@ class _Constants {
 
   readonly DEFAULT_APP_LOCALE = "en-US";
 
-  readonly bloodGroups = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-']
+  readonly bloodGroups = ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"];
 }
 
 export const Constants = new _Constants();

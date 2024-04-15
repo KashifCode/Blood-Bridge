@@ -1,12 +1,8 @@
-import TanstackProvider from '@/app/providers/TanstackProvider'
-import React from 'react'
+import TanstackProvider from "@/app/providers/TanstackProvider";
+import React from "react";
 
 const layout = ({ children }: { children: React.ReactNode }) => {
-    return (
-        <TanstackProvider>
-            {children}
-        </TanstackProvider>
-    )
-}
+  return <TanstackProvider>{children}</TanstackProvider>;
+};
 
-export default layout
+export default layout;

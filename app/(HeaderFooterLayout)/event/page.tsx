@@ -1,6 +1,6 @@
-import React from 'react'
-import HomeIntro from '@/app/components/HomeIntro'
-import UserEvents from './components/UserEvents'
+import React from "react";
+import HomeIntro from "@/app/components/HomeIntro";
+import UserEvents from "./components/UserEvents";
 
 const page = () => {
   return (
@@ -8,7 +8,7 @@ const page = () => {
       <HomeIntro isSecondImage={true} />
       <UserEvents />
     </>
-  )
-}
+  );
+};
 
-export default page
+export default page;

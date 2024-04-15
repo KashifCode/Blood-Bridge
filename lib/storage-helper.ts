@@ -15,7 +15,7 @@ function removeItem(key: any) {
 }
 
 function getItem(key: any) {
-  if (typeof window !== 'undefined') {
+  if (typeof window !== "undefined") {
     const value = localStorage.getItem(key);
     if (value !== null) {
       try {
@@ -29,6 +29,7 @@ function getItem(key: any) {
   return null;
 }
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default {
   removeItem,
   StorageKeys,

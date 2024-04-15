@@ -1,10 +1,8 @@
-import React from 'react'
-import BloodBanksRenderer from './components/BloodBanksRenderer'
+import React from "react";
+import BloodBanksRenderer from "./components/BloodBanksRenderer";
 
 const page = () => {
-  return (
-    <BloodBanksRenderer />
-  )
-}
+  return <BloodBanksRenderer />;
+};
 
-export default page
+export default page;

@@ -8,13 +8,12 @@ const handleAuth = () => {
 };
 
 export const ourFileRouter = {
-  serverImage: f({image: {maxFileSize: "4MB", maxFileCount: 1}})
-  .middleware(() => handleAuth())
-  .onUploadComplete(() => {}),
+  serverImage: f({ image: { maxFileSize: "4MB", maxFileCount: 1 } })
+    .middleware(() => handleAuth())
+    .onUploadComplete(() => {}),
   messageFile: f(["image"])
-  .middleware(() => handleAuth())
-  .onUploadComplete(() => {})
-
+    .middleware(() => handleAuth())
+    .onUploadComplete(() => {}),
 } satisfies FileRouter;
 
 export type OurFileRouter = typeof ourFileRouter;
