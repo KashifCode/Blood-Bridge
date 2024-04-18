@@ -8,7 +8,6 @@ import {
   getBloodBankDetailsUrl,
 } from "@/app/axios-api/Endpoint";
 import storageHelper from "@/lib/storage-helper";
-import toast from "react-hot-toast";
 import { useBBSelector } from "@/redux/store";
 import { useRouter } from "next/navigation";
 
@@ -20,7 +19,7 @@ const EnsureLogin = () => {
       let user: any = null;
       const role = await storageHelper.getItem(storageHelper.StorageKeys.Role);
       const url =
-        role === "user"
+        role === "user" || role === "admin"
           ? getUserDetailsUrl()
           : role === "bloodBank"
             ? getBloodBankDetailsUrl()
@@ -34,7 +33,7 @@ const EnsureLogin = () => {
             },
           })
           .then((res) => {
-            user = role === "user" ? res.data.user : res.data.bloodBank;
+            user = role === "user" || role === "admin" ? res.data.user : res.data.bloodBank;
             dispatch(updateUser({ user } as any));
           })
           .catch(() => {

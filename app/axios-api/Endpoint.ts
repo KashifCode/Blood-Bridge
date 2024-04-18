@@ -151,3 +151,23 @@ export const submitUserFeedback = () => {
 export const reviewBloodBank = () => {
   return encodeURI(`user/review/bloodBank`);
 };
+
+export const admGetAllRequests = () => {
+  return encodeURI(`admin/bloodBank/blood/requests`);
+}
+
+export const admGetAllDonations = () => {
+  return encodeURI(`admin/bloodBank/blood/donations`);
+}
+
+export const admGetAllBloodBanks = () => {
+  return encodeURI(`admin/bloodBank/all`);
+}
+
+export const admGetAllUsers = () => {
+  return encodeURI(`admin/user/all`);
+}
+
+export const admUserActions = () => {
+  return encodeURI(`admin/user/`);
+}

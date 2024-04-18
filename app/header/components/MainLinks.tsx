@@ -4,9 +4,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useBBSelector } from "@/redux/store";
 import Link from "next/link";
-import { axiosInstance as axios } from "@/app/axios-api/axios";
 import React from "react";
-import { logOutUserUrl } from "@/app/axios-api/Endpoint";
 import { logOut } from "@/redux/features/authSlice";
 import { useDispatch } from "react-redux";
 import toast from "react-hot-toast";
@@ -52,6 +50,8 @@ const MainLinks = () => {
   const handleProfile = () => {
     if (user.role === "bloodBank") {
       push("/profile/bloodBank/settings/management");
+    } else if (user.role === "admin") {
+      push("/admin/dashboard")
     } else {
       push("/profile/user/donations");
     }
@@ -61,10 +61,10 @@ const MainLinks = () => {
   return (
     <div
       className={cx("flex items-center justify-center", {
-        "!gap-x-1.5": user?.role === "bloodBank",
+        "!gap-x-1.5": user?.role === "bloodBank" || user?.role === "admin",
       })}
     >
-      {user?.role !== "bloodBank" && (
+      {(user?.role !== "bloodBank" && user?.role !== "admin") && (
         <>
           <Button
             variant={"ghost"}
@@ -104,6 +104,13 @@ const MainLinks = () => {
           </div>
         </div>
       )}
+      {user?.role === "admin" && (
+        <div className="flex items-center gap-x-0.5">
+          <div className="w-7 h-7 cursor-pointer" onClick={handleLogout}>
+            <LogoutIcon svgClass="w-full h-full" />
+          </div>
+        </div>
+      )}
       <ClientOnly>
         {isLoading ? (
           <div className="w-5 h-5 border-t-2 border-zinc-500 rounded-full animate-spin" />
@@ -128,25 +135,26 @@ const MainLinks = () => {
                       "text-black font-RobotoBold tracking-[2.75px] uppercase",
                       {
                         "!font-LatoMedium !capitalize !tracking-normal w-max":
-                          user.role === "bloodBank",
+                          user.role === "bloodBank" || user.role === "admin",
                       },
                     )}
                   >
                     {user?.role === "user"
                       ? user.firstName.split(" ")[0]
-                      : user.name}
+                      : user?.role === "admin" ? user?.firstName + " " + user?.lastName : user.name
+                    }
                   </p>
                   <div
                     className={cx("w-5 h-5 cursor-pointer", {
-                      "!w-7 !h-7": user?.role === "bloodBank",
+                      "!w-7 !h-7": user?.role === "bloodBank" || user?.role === "admin",
                     })}
                     onClick={
-                      user?.role === "bloodBank"
+                      (user?.role === "bloodBank" || user?.role === "admin")
                         ? handleProfile
                         : () => setShowDropdown(!showDropdown)
                     }
                   >
-                    {user?.role === "bloodBank" ? (
+                    {(user?.role === "bloodBank" || user?.role === "admin") ? (
                       <>
                         <Image
                           src={user.avatar}

@@ -18,7 +18,7 @@ const Header = () => {
   const user = useBBSelector((state) => state.authReducer.value.user);
   const isLoading = useBBSelector((state) => state.authReducer.value.isLoading);
 
-  const showNavbarBB = pathname.startsWith("/profile/bloodBank/")
+  const showNavbarBB = pathname.startsWith("/profile/bloodBank/") || pathname.startsWith("/admin/")
     ? false
     : true;
 
@@ -35,23 +35,21 @@ const Header = () => {
           <div
             className={cx(
               "relative w-full pl-[6%] pr-[3%] flex items-center justify-between pt-2 lg:pt-5",
-              { "!pt-0 lg:!pt-0 !pl-0 !pr-0": user?.role === "bloodBank" },
+              { "!pt-0 lg:!pt-0 !pl-0 !pr-0": user?.role === "bloodBank" || user?.role === "admin"},
             )}
           >
             <Link
               className={cx(
-                { "bg-white w-[164px] py-2": user?.role === "bloodBank" },
+                { "bg-white w-[164px] py-2": user?.role === "bloodBank" || user?.role === "admin"},
                 {
-                  [shadow.lightShadow]: pathname.startsWith(
-                    "/profile/bloodBank/",
-                  ),
+                  [shadow.lightShadow]: pathname.startsWith("/profile/bloodBank/") || pathname.startsWith("/admin/"),
                 },
               )}
               href="/"
             >
               <div
                 className={cx("w-full flex items-center", {
-                  "justify-center": user?.role === "bloodBank",
+                  "justify-center": user?.role === "bloodBank" || user?.role === "admin",
                 })}
               >
                 <div className="w-10 lg:!w-12 h-10 lg:!h-12">
@@ -68,7 +66,7 @@ const Header = () => {
                 </p>
               </div>
             </Link>
-            {user?.role !== "bloodBank" && (
+            {(user?.role !== "bloodBank" && user?.role !== "admin") && (
               <>
                 <div className="lg:hidden">
                   <div
@@ -101,7 +99,7 @@ const Header = () => {
                 </div>
               </>
             )}
-            {user?.role === "bloodBank" && (
+            {(user?.role === "bloodBank" || user?.role === "admin") && (
               <div
                 className={cx({
                   "flex flex-col items-end pr-[2%] gap-y-1": showNavbarBB,
