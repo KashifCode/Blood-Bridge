@@ -5,7 +5,6 @@ import shadow from "@/app/components/shadow.module.css";
 import { usePathname } from "next/navigation";
 import cx from "classnames";
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
 import { useDispatch } from "react-redux";
 import { logOut } from "@/redux/features/authSlice";
 import storageHelper from "@/lib/storage-helper";
@@ -23,7 +22,6 @@ const AdminNavigation = () => {
     const isAdmEvents = pathname.startsWith("/admin/events");
     const isAdmDonation = pathname.startsWith("/admin/donations");
     const isAdmRequests = pathname.startsWith("/admin/requests");
-    const isAdmPolicies = pathname.startsWith("/admin/policies");
 
     const handleLogout = () => {
         dispatch(logOut());
@@ -137,23 +135,6 @@ const AdminNavigation = () => {
                         })}
                     >
                         Requests
-                    </p>
-                </div>
-            </Link>
-            <Link href={"/admin/policies"}>
-                <div className="w-full relative flex items-center gap-x-2 py-2 ps-5">
-                    <div
-                        className={cx(
-                            "hidden absolute top-0 left-0 h-full border-l-[3px] border-bloodBankNavRed",
-                            { "!block": isAdmPolicies },
-                        )}
-                    />
-                    <p
-                        className={cx("text-[#3F3F3F] font-LatoBold italic uppercase tracking-wider", {
-                            "!text-bloodBankNavRed": isAdmPolicies,
-                        })}
-                    >
-                        Policies
                     </p>
                 </div>
             </Link>

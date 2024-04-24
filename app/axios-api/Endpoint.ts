@@ -171,3 +171,19 @@ export const admGetAllUsers = () => {
 export const admUserActions = () => {
   return encodeURI(`admin/user/`);
 }
+
+export const admGetAllBloodTypes = () => {
+  return encodeURI(`admin/bloodType/all`);
+}
+
+export const admBloodBankActions = () => {
+  return encodeURI(`admin/bloodBank/`);
+}
+
+export const admVerifyBloodBank = () => {
+  return encodeURI(`admin/bloodBank/verification/`);
+}
+
+export const admGetAllEvents = () => {
+  return encodeURI(`admin/bloodBank/events/all`);
+}

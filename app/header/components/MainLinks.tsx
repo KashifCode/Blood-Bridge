@@ -145,7 +145,7 @@ const MainLinks = () => {
                     }
                   </p>
                   <div
-                    className={cx("w-5 h-5 cursor-pointer", {
+                    className={cx("w-5 h-5 cursor-pointer mr-4", {
                       "!w-7 !h-7": user?.role === "bloodBank" || user?.role === "admin",
                     })}
                     onClick={

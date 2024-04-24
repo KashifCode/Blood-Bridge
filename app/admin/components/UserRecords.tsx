@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/table";
 import Link from 'next/link';
 import { Ban, ChevronLeft, Eye, Trash2 } from 'lucide-react';
+import AdminUsersChart from '@/app/admin/components/AdminUsersChart';
 
 const UserRecords = ({ isFromBlocked }: { isFromBlocked?: boolean }) => {
     const [users, setUsers] = useState<any[]>([]);
@@ -95,7 +96,7 @@ const UserRecords = ({ isFromBlocked }: { isFromBlocked?: boolean }) => {
 
     return (
         <div className='flex flex-col gap-y-8'>
-            <div className='flex items-center justify-between px-5 pt-5'>
+            <div className='flex items-center justify-between px-5 pt-4'>
                 <h3 className='pb-4 text-xl text-black font-LatoMedium'>{!isFromBlocked ? <span>Users</span> :
                     <div className='flex items-center gap-x-1'>
                         <Link href={"/admin/users"}><ChevronLeft size={22} /></Link>
@@ -103,6 +104,9 @@ const UserRecords = ({ isFromBlocked }: { isFromBlocked?: boolean }) => {
                     </div>
                 }</h3>
                 <Link href={'/admin/users/blocked'} className='flex items-center gap-x-1.5 text-darkRed'>Blocked Users</Link>
+            </div>
+            <div className='w-5/6 mx-auto'>
+                <AdminUsersChart />
             </div>
             <Table className="!rounded-lg overflow-hidden">
                 <TableHeader>

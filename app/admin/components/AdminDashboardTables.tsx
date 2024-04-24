@@ -85,7 +85,7 @@ const AdminDashboardTables = () => {
                             ))
                         ) : (
                             <TableRow>
-                                <TableCell colSpan={9} className="text-center">
+                                <TableCell colSpan={6} className="text-center">
                                     No Users Found
                                 </TableCell>
                             </TableRow>
