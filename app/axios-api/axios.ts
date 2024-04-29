@@ -2,7 +2,8 @@ import storageHelper from "@/lib/storage-helper";
 import axios, { AxiosResponse, AxiosRequestConfig } from "axios";
 
 export const axiosInstance = axios.create({
-  baseURL: "http://localhost:5000/api/",
+  baseURL: "https://blood-bridge-inky.vercel.app/api/",
+  // baseURL: "http://localhost:5000/api/",
 });
 const ResponseInterceptor = (response: AxiosResponse) => {
   return response;
