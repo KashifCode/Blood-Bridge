@@ -11,8 +11,8 @@ if (process.env.NODE_ENV !== 'PRODUCTION') {
 // CALLING THE STARTUP FUNCTION -
 require('./start/routes')(app)
 
-// // FOR DEPLOYMENT -
-// app.get("/", (req, res) => {
+ // FOR DEPLOYMENT -
+//  app.get("/", (_req, res) => {
 //   res.send("<h1>Processing</h1>");
 // });
 
