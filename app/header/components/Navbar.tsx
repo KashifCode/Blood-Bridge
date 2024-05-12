@@ -40,26 +40,6 @@ const Navbar = ({ isMbl }: { isMbl?: boolean }) => {
               "text-zinc-500 font-medium font-LatoMedium uppercase tracking-[2px]",
               {
                 "!text-red-700 pb-1 border-b border-red-700":
-                  isActive("/about-us") && !isMbl,
-              },
-              { "bg-red-700  !text-white": isActive("/about-us") && isMbl },
-              {
-                "inline-block min-w-[180px] sm:!min-w-[240px] !text-center rounded-sm py-1":
-                  isMbl,
-              },
-              { "hover:text-red-700": !isActive("/about-us") && isMbl },
-            )}
-            href="/"
-          >
-            About Us
-          </Link>
-        </li>
-        <li>
-          <Link
-            className={cx(
-              "text-zinc-500 font-medium font-LatoMedium uppercase tracking-[2px]",
-              {
-                "!text-red-700 pb-1 border-b border-red-700":
                   isActive("/blood-banks") && !isMbl,
               },
               { "bg-red-700  !text-white": isActive("/blood-banks") && isMbl },
@@ -112,26 +92,6 @@ const Navbar = ({ isMbl }: { isMbl?: boolean }) => {
             href="/reviews"
           >
             Reviews
-          </Link>
-        </li>
-        <li>
-          <Link
-            className={cx(
-              "text-zinc-500 font-medium font-LatoMedium uppercase tracking-[2px]",
-              {
-                "!text-red-700 pb-1 border-b border-red-700":
-                  isActive("/contact") && !isMbl,
-              },
-              { "bg-red-700  !text-white": isActive("/contact") && isMbl },
-              {
-                "inline-block min-w-[180px] sm:!min-w-[240px] !text-center rounded-sm py-1":
-                  isMbl,
-              },
-              { "hover:text-red-700": !isActive("/contact") && isMbl },
-            )}
-            href="/contact"
-          >
-            Contact
           </Link>
         </li>
       </ul>

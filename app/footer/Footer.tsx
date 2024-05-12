@@ -24,9 +24,9 @@ const Footer = () => {
             </div>
             <nav>
               <ul className="flex items-center gap-x-8">
-                <Link href={"/about-us"}>
+                <Link href={"/reviews"}>
                   <li className="tracking-tight font-LatoRegular text-white  first-letter:uppercase">
-                    About
+                    Reviews
                   </li>
                 </Link>
                 <Link href={"/blood-banks"}>
@@ -37,11 +37,6 @@ const Footer = () => {
                 <Link href={"/event"}>
                   <li className="tracking-tight font-LatoRegular text-white  first-letter:uppercase">
                     Events
-                  </li>
-                </Link>
-                <Link href={"/contact"}>
-                  <li className="tracking-tight font-LatoRegular text-white  first-letter:uppercase">
-                    Contact Us
                   </li>
                 </Link>
               </ul>
