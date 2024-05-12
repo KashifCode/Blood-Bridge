@@ -1,4 +1,5 @@
-export const BASE = "https://blood-bridge-umber.vercel.app/api/";
+// export const BASE = "https://blood-bridge-umber.vercel.app/api/";
+export const BASE = "http://localhost:5000/api/";
 
 export const registerUserUrl = () => {
   return encodeURI(`auth/user/register`);
@@ -34,6 +35,10 @@ export const getUserLocationUrl = () => {
 
 export const getAllBloodBanksUrl = () => {
   return encodeURI(`user/bloodBanks/all`);
+};
+
+export const getBloodBanksHome = () => {
+  return encodeURI(`bloodBanks`);
 };
 
 export const registerBloodBankUrl = () => {
@@ -86,6 +91,10 @@ export const getUserBloodDonations = () => {
 
 export const donateBloodUrl = () => {
   return encodeURI(`bloodBank/blood/donation`);
+};
+
+export const donateBloodManualUrl = () => {
+  return encodeURI(`bloodBank/blood/manualDonation`);
 };
 
 export const addBloodGroup = () => {
@@ -150,6 +159,14 @@ export const submitUserFeedback = () => {
 
 export const reviewBloodBank = () => {
   return encodeURI(`user/review/bloodBank`);
+};
+
+export const getReviewsBloodBank = () => {
+  return encodeURI(`bloodBank/reviews`);
+};
+
+export const getReviewsHome = () => {
+  return encodeURI(`user/feedbacks`);
 };
 
 export const admGetAllRequests = () => {

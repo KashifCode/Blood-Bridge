@@ -1,60 +1,40 @@
-"use client";
-import React, { useState } from "react";
+import React from "react";
 import Image from "next/image";
 import shadow from "@/app/components/shadow.module.css";
-import { BloodBankInterface } from "@/app/components/BloodBanks";
 import cx from "classnames";
 
-const BloodBankCard = ({ bloodBank }: { bloodBank: BloodBankInterface }) => {
-  const highestQuantityBlood = bloodBank.availableBloodGroups.reduce(
-    (prev, current) => (prev.quantity > current.quantity ? prev : current),
-  );
-  const [bloodBankGroup, setBloodBankGroup] = useState(highestQuantityBlood);
+const BloodBankCard = ({ bloodBank }: { bloodBank: any }) => {
   return (
     <div
-      className={`w-4/5 mx-auto sm:mx-0 sm:w-full bg-white flex flex-col lg:h-[95vh] xl:h-[82vh] ${shadow.lightShadow}`}
+      className={`w-4/5 mx-auto sm:mx-0 sm:w-full bg-white flex flex-col lg:h-[72vh] xl:h-[59vh] relative ${shadow.lightShadow}`}
     >
+      <div className={cx("absolute right-2.5 top-2.5 rounded-3xl bg-darkRed", {'!bg-green-700': bloodBank?.status === "open"})}>
+        <p className="text-white font-semibold pt-0.5 pb-1 px-3">{bloodBank?.status}</p>
+      </div>
+      
       <Image
-        className="w-full lg:h-1/2 xl:h-[55%] object-contain"
-        src={bloodBank.image}
+        className="!w-full h-[40vh] object-contain"
+        src={bloodBank?.avatar}
         alt="Blood Bank Logo"
+        width={1500}
+        height={1500}
       />
-      <div className="w-full flex flex-col items-start px-4 pb-5 gap-y-0.5 pt-5 lg:h-1/2 xl:h-[45%]">
+      <div className="w-full flex flex-col items-start px-4 pb-5 gap-y-0.5 pt-5">
         <h3 className="text-black text-xl font-PlayfairDisplaySemiBold">
-          {bloodBank.name}
+          {bloodBank?.name}
         </h3>
         <p className="text-black font-PlayfairDisplaySemiBold">
-          {bloodBank.address}
+          {bloodBank?.address}
         </p>
         <p className="text-black font-PlayfairDisplaySemiBold">
-          {bloodBank.location.lat}, {bloodBank.location.lng}
+          {bloodBank?.contact}
         </p>
-        <div className="w-full px-3 mt-2 py-1 flex items-center bg-darkRed justify-between">
-          <p className="text-white font-PlayfairDisplaySemiBold">
-            {bloodBankGroup.bloodType}
-          </p>
-          <p className="text-white font-PlayfairDisplaySemiBold">
-            {bloodBankGroup.quantity} Bags
-          </p>
-        </div>
-        <div className="w-full mt-2 flex items-center flex-wrap gap-x-4 gap-y-2">
-          {bloodBank.availableBloodGroups.map((bloodGroup, groupIndex) => (
-            <span
-              key={groupIndex}
-              className={cx(
-                "text-black font-PlayfairDisplaySemiBold px-1 border border-darkRed min-w-[40px] text-center hover:bg-darkRed hover:text-white hover:cursor-pointer",
-                { "!hidden": bloodGroup.quantity <= 0 },
-                {
-                  "!bg-darkRed !text-white":
-                    bloodBankGroup.bloodType === bloodGroup.bloodType,
-                },
-              )}
-              onClick={() => setBloodBankGroup(bloodGroup)}
-            >
-              {bloodGroup.bloodType}
-            </span>
-          ))}
-        </div>
+        <p className="text-black font-PlayfairDisplaySemiBold">
+          {bloodBank?.sector}
+        </p>
+        <p className="text-black font-PlayfairDisplaySemiBold">
+          {bloodBank?.location?.coordinates?.[0]}, {bloodBank?.location?.coordinates?.[1]}
+        </p>
       </div>
     </div>
   );

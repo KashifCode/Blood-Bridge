@@ -42,7 +42,7 @@ const BloodBanksRenderer = () => {
       })
       .catch((err) => {
         console.log(err);
-        toast.error(err!.response!.data!.message!);
+        toast.error(err?.response?.data?.message);
       });
   }, [isAuth, dispatch]);
 

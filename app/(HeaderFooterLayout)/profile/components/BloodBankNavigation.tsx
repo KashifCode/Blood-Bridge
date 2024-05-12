@@ -3,7 +3,7 @@
 import React from "react";
 import shadow from "@/app/components/shadow.module.css";
 import Dashboard from "@/globals/icons/dashboard";
-import { CalendarClock, Droplets, ShoppingBag, User } from "lucide-react";
+import { CalendarClock, Droplets, MessageCircle, ShoppingBag, User } from "lucide-react";
 import { usePathname } from "next/navigation";
 import cx from "classnames";
 import Link from "next/link";
@@ -22,6 +22,7 @@ const BloodBankNavigation = () => {
   const isBBOrders = pathname.startsWith("/profile/bloodBank/requests");
   const isBBEvents = pathname.startsWith("/profile/bloodBank/events");
   const isBBTypesBlood = pathname.startsWith("/profile/bloodBank/types-blood");
+  const isBBReviews = pathname.startsWith("/profile/bloodBank/reviews");
   const isBBBlood = pathname.startsWith("/profile/bloodBank/blood");
   const isBBDonation = pathname.startsWith("/profile/bloodBank/donation");
   const isBBSettings = pathname.startsWith("/profile/bloodBank/settings");
@@ -163,6 +164,24 @@ const BloodBankNavigation = () => {
             })}
           >
             Blood Types
+          </p>
+        </div>
+      </Link>
+      <Link href={"/profile/bloodBank/reviews"}>
+        <div className="w-full relative flex items-center gap-x-1 py-2 ps-5">
+          <div
+            className={cx(
+              "hidden absolute top-0 left-0 h-full border-l-[3px] border-bloodBankNavRed",
+              { "!block": isBBReviews },
+            )}
+          />
+          <MessageCircle size={22} color={isBBReviews ? "#BF372A" : "#1C1A19"}/>
+          <p
+            className={cx("text-[#1C1A19] font-DMSansBold capitalize", {
+              "!text-bloodBankNavRed": isBBReviews,
+            })}
+          >
+            Reviews
           </p>
         </div>
       </Link>

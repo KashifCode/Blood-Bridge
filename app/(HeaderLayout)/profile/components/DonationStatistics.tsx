@@ -18,6 +18,8 @@ import {
 import toast from "react-hot-toast";
 import { X } from "lucide-react";
 import cx from "classnames";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 const DonationStatistics = () => {
   const [bloodDonations, setbloodDonations] = useState<any[]>();
@@ -209,63 +211,68 @@ const DonationStatistics = () => {
             </div>
           </div>
         </div>
-        <div className="w-full flex gap-x-7 items-center">
-          <div className="py-3 px-4 rounded-xl bg-[#20283E] min-w-[155px]">
-            <h3 className="font-PlayfairDisplayBold capitalize text-white text-lg leading-5">
-              Total Donations
-            </h3>
-            <h3 className="font-PlayfairDisplayBold capitalize text-white text-lg leading-5">
-              {bloodDonations?.length}
-            </h3>
+        <div className="flex items-center justify-between">
+          <div className="w-full flex gap-x-7 items-center">
+            <div className="py-3 px-4 rounded-xl bg-[#20283E] min-w-[155px]">
+              <h3 className="font-PlayfairDisplayBold capitalize text-white text-lg leading-5">
+                Total Donations
+              </h3>
+              <h3 className="font-PlayfairDisplayBold capitalize text-white text-lg leading-5">
+                {bloodDonations?.length}
+              </h3>
+            </div>
+            <div className="py-3 px-4 rounded-xl bg-[#0A5620] min-w-[155px]">
+              <h3 className="font-PlayfairDisplayBold capitalize text-white text-lg leading-5">
+                Completed
+              </h3>
+              <h3 className="font-PlayfairDisplayBold capitalize text-white text-lg leading-5">
+                {
+                  bloodDonations?.filter(
+                    (donation) => donation.donationStatus === "Completed",
+                  ).length
+                }
+              </h3>
+            </div>
+            <div className="py-3 px-4 rounded-xl bg-[#55acce] min-w-[155px]">
+              <h3 className="font-PlayfairDisplayBold capitalize text-white text-lg leading-5">
+                Accepted
+              </h3>
+              <h3 className="font-PlayfairDisplayBold capitalize text-white text-lg leading-5">
+                {
+                  bloodDonations?.filter(
+                    (donation) => donation.donationStatus === "Accepted",
+                  ).length
+                }
+              </h3>
+            </div>
+            <div className="py-3 px-4 rounded-xl bg-[#B3C100] min-w-[155px]">
+              <h3 className="font-PlayfairDisplayBold capitalize text-white text-lg leading-5">
+                Pending
+              </h3>
+              <h3 className="font-PlayfairDisplayBold capitalize text-white text-lg leading-5">
+                {
+                  bloodDonations?.filter(
+                    (donation) => donation.donationStatus === "Pending",
+                  ).length
+                }
+              </h3>
+            </div>
+            <div className="py-3 px-4 rounded-xl bg-[#AC3E31] min-w-[155px]">
+              <h3 className="font-PlayfairDisplayBold capitalize text-white text-lg leading-5">
+                Rejected
+              </h3>
+              <h3 className="font-PlayfairDisplayBold capitalize text-white text-lg leading-5">
+                {
+                  bloodDonations?.filter(
+                    (donation) => donation.donationStatus === "Rejected",
+                  ).length
+                }
+              </h3>
+            </div>
           </div>
-          <div className="py-3 px-4 rounded-xl bg-[#0A5620] min-w-[155px]">
-            <h3 className="font-PlayfairDisplayBold capitalize text-white text-lg leading-5">
-              Completed
-            </h3>
-            <h3 className="font-PlayfairDisplayBold capitalize text-white text-lg leading-5">
-              {
-                bloodDonations?.filter(
-                  (donation) => donation.donationStatus === "Completed",
-                ).length
-              }
-            </h3>
-          </div>
-          <div className="py-3 px-4 rounded-xl bg-[#55acce] min-w-[155px]">
-            <h3 className="font-PlayfairDisplayBold capitalize text-white text-lg leading-5">
-              Accepted
-            </h3>
-            <h3 className="font-PlayfairDisplayBold capitalize text-white text-lg leading-5">
-              {
-                bloodDonations?.filter(
-                  (donation) => donation.donationStatus === "Accepted",
-                ).length
-              }
-            </h3>
-          </div>
-          <div className="py-3 px-4 rounded-xl bg-[#B3C100] min-w-[155px]">
-            <h3 className="font-PlayfairDisplayBold capitalize text-white text-lg leading-5">
-              Pending
-            </h3>
-            <h3 className="font-PlayfairDisplayBold capitalize text-white text-lg leading-5">
-              {
-                bloodDonations?.filter(
-                  (donation) => donation.donationStatus === "Pending",
-                ).length
-              }
-            </h3>
-          </div>
-          <div className="py-3 px-4 rounded-xl bg-[#AC3E31] min-w-[155px]">
-            <h3 className="font-PlayfairDisplayBold capitalize text-white text-lg leading-5">
-              Rejected
-            </h3>
-            <h3 className="font-PlayfairDisplayBold capitalize text-white text-lg leading-5">
-              {
-                bloodDonations?.filter(
-                  (donation) => donation.donationStatus === "Rejected",
-                ).length
-              }
-            </h3>
-          </div>
+          <Link href="/profile/bloodBank/donation/manual">
+            <Button className="!h-auto !font-LatoMedium !text-white !bg-darkRed hover:!bg-red-800 !rounded-3xl !text-xl !pt-0.5 !pb-1.5 !px-5 min-w-max mx-auto">Manual Donation</Button>
+          </Link>
         </div>
 
         <div

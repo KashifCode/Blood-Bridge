@@ -28,7 +28,7 @@ const BBDashboardUsers = () => {
 
         [...bloodDonations, ...bloodRequests].forEach((item) => {
           if (item.user !== null) {
-            const userId = item.user._id;
+            const userId = item.user?._id;
             if (!uniqueUsersMap.has(userId)) {
               uniqueUsersMap.set(userId, {
                 user: item.user,

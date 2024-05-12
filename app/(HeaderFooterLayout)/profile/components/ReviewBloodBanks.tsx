@@ -122,7 +122,7 @@ const ReviewBloodBanks = () => {
                     className="!w-full !h-full rounded-full object-cover"
                     width={48}
                     height={48}
-                    src={user.avatar}
+                    src={user?.avatar}
                     alt="UserImg"
                   />
                 </div>
@@ -200,27 +200,35 @@ const ReviewBloodBanks = () => {
               <h3 className="text-black font-RobotoBold text-xl py-2">
                 Feedback
               </h3>
-              <textarea
-                className="w-full bg-[#FAFAFA] rounded-md px-3 py-2 text-black font-medium placeholder:text-black placeholder:font-medium"
-                placeholder="Write feedback here..."
-                rows={10}
-                value={feedback}
-                onChange={(e) => setFeedback(e.target.value)}
-                style={{ resize: "none" }}
-              />
-              <div className="w-full flex justify-end mt-2">
-                <button
-                  className="bg-red-700 text-white rounded-md px-4 py-2"
-                  onClick={handleSubmit}
-                >
-                  Submit
-                </button>
-              </div>
+              {!toView?.reviewed ? (
+                <>
+                  <textarea
+                    className="w-full bg-[#FAFAFA] rounded-md px-3 py-2 text-black font-medium placeholder:text-black placeholder:font-medium"
+                    placeholder="Write feedback here..."
+                    rows={10}
+                    value={feedback}
+                    onChange={(e) => setFeedback(e.target.value)}
+                    style={{ resize: "none" }}
+                  />
+                  <div className="w-full flex justify-end mt-2">
+                    <button
+                      className="bg-red-700 text-white rounded-md px-4 py-2"
+                      onClick={handleSubmit}
+                    >
+                      Submit
+                    </button>
+                  </div>
+                </>
+              ) : <>
+                <p className="text-black font-RobotoRegular text-lg">
+                  Show feedback here
+                </p>
+              </>}
             </>
           )}
         </div>
       </div>
-    </div>
+    </div >
   );
 };
 

@@ -100,26 +100,6 @@ const Navbar = ({ isMbl }: { isMbl?: boolean }) => {
               "text-zinc-500 font-medium font-LatoMedium uppercase tracking-[2px]",
               {
                 "!text-red-700 pb-1 border-b border-red-700":
-                  isActive("/news") && !isMbl,
-              },
-              { "!bg-red-700  !text-white": isActive("/news") && isMbl },
-              {
-                "inline-block min-w-[180px] sm:!min-w-[240px] !text-center rounded-sm py-1":
-                  isMbl,
-              },
-              { "hover:text-red-700": !isActive("/news") && isMbl },
-            )}
-            href="/news"
-          >
-            News
-          </Link>
-        </li>
-        <li>
-          <Link
-            className={cx(
-              "text-zinc-500 font-medium font-LatoMedium uppercase tracking-[2px]",
-              {
-                "!text-red-700 pb-1 border-b border-red-700":
                   isActive("/reviews") && !isMbl,
               },
               { "bg-red-700  !text-white": isActive("/reviews") && isMbl },

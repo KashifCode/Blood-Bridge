@@ -39,11 +39,6 @@ const Footer = () => {
                     Events
                   </li>
                 </Link>
-                <Link href={"/news"}>
-                  <li className="tracking-tight font-LatoRegular text-white  first-letter:uppercase">
-                    News
-                  </li>
-                </Link>
                 <Link href={"/contact"}>
                   <li className="tracking-tight font-LatoRegular text-white  first-letter:uppercase">
                     Contact Us
