@@ -17,7 +17,7 @@ const BloodBankCard = ({ bloodBanks }: BloodBankCardProps) => {
     <div className="w-4/5 mx-auto grid grid-cols-3 gap-x-14 gap-y-10 py-10">
       {bloodBanks.map((BB_Data, index) => (
         <div
-          className={`w-full h-[95vh] flex flex-col justify-between px-3 rounded-sm ${shadow.lightShadow}`}
+          className={`w-full h-[68vh] flex flex-col justify-between px-3 rounded-sm ${shadow.lightShadow}`}
           key={index}
         >
           <div className="w-full h-[91%] flex flex-col gap-y-1.5">
@@ -96,7 +96,7 @@ const BloodBankCard = ({ bloodBanks }: BloodBankCardProps) => {
             >
               <Button
                 variant={"outline"}
-                className="!py-0.5 !pr-0 !h-auto uppercase tracking-[5px] !rounded-full !border-2 !border-red-700 hover:!bg-red-700 hover:!text-white min-w-[100px] md:min-w-[108px] lg:min-w-[120px] font-DMSansMedium focus:!ring-0 text-xs md:text-sm lg:text-base !pl-1"
+                className="!py-0.5 !pr-0 !h-auto uppercase tracking-[5px] !rounded-full !border-2 !border-red-700 hover:!bg-red-700 hover:!text-white min-w-[100px] md:!min-w-[108px] lg:!min-w-[120px] font-DMSansMedium focus:!ring-0 text-xs md:!text-sm lg:!text-base !pl-1"
               >
                 Request
               </Button>
@@ -106,7 +106,7 @@ const BloodBankCard = ({ bloodBanks }: BloodBankCardProps) => {
             >
               <Button
                 variant={"outline"}
-                className="!py-0.5 !pr-0 !h-auto uppercase tracking-[5px] !rounded-full !border-2 !border-red-700 hover:!bg-red-700 hover:!text-white min-w-[100px] md:min-w-[108px] lg:min-w-[120px] font-DMSansMedium focus:!ring-0 text-xs md:text-sm lg:text-base !pl-1"
+                className="!py-0.5 !pr-0 !h-auto uppercase tracking-[5px] !rounded-full !border-2 !border-red-700 hover:!bg-red-700 hover:!text-white min-w-[100px] md:!min-w-[108px] lg:!min-w-[120px] font-DMSansMedium focus:!ring-0 text-xs md:!text-sm lg:!text-base !pl-1"
               >
                 Donate
               </Button>

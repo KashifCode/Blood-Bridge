@@ -143,3 +143,5 @@
 {"level":"error","message":"Please login to continue","service":"user-service"}
 {"level":"error","message":"Please login to continue","service":"user-service"}
 {"level":"error","message":"Resource not found","service":"user-service"}
+{"level":"error","message":"We appreciate your willingness to donate blood regularly. To maintain donor eligibility and ensure a healthy blood donation experience, we recommend waiting until Mon Aug 12 2024 19:42:18 GMT+0500 (Pakistan Standard Time) to schedule your next blood donation","service":"user-service"}
+{"level":"error","message":"Request not found","service":"user-service"}

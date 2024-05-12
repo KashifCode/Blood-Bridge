@@ -7,6 +7,7 @@ import toast from 'react-hot-toast'
 import shadow from '@/app/components/shadow.module.css'
 import cx from 'classnames'
 import { useBBSelector } from '@/redux/store'
+import Image from 'next/image'
 
 const ReviewsStatistics = () => {
     const [reviews, setReviews] = useState<any>()
@@ -27,7 +28,6 @@ const ReviewsStatistics = () => {
     }, [])
 
     console.log(reviews)
-    const bloodTypesRequested = ['A+', 'A-', 'B+']
 
     return (
         <>
@@ -37,20 +37,15 @@ const ReviewsStatistics = () => {
             <div className='flex flex-col gap-y-6 mx-[5%]'>
                 {reviews?.map((review: any, index: number) => (
                     <div key={index} className={cx('w-full flex flex-col items-center rounded-xl p-4', [shadow.lightShadow])}>
-                        <div className='w-full flex items-center justify-between mb-2'>
-                            <p className='text-black text-lg font-LatoMedium'><span className='font-DMSansSemiBold text-darkRed'>Recipient:</span> {review?.user?.firstName} {review?.user?.lastName}</p>
-                            <p className='text-black text-lg font-DMSansSemiBold'>{review?.createdAt?.split('T')[0]}</p>
+                        <div className='w-full flex items-center justify-between mb-3'>
+                            <div className='flex items-center gap-x-4'>
+                                <Image src={review?.user?.avatar} alt='User Avatar' width={50} height={50} className='rounded-full !w-[50px] !h-[50px] object-cover' />
+                                <p className='text-black text-lg font-LatoMedium'>{review?.user?.firstName} {review?.user?.lastName}</p>
+                            </div>
                         </div>
                         <div className='w-full flex flex-col gap-y-2'>
-                            <p className='text-black text-lg font-LatoMedium'><span className='font-DMSansSemiBold text-darkRed'>Type:</span> Blood Request</p>
-                            <div className='flex items-center gap-x-3'>
-                                <p className='text-black text-lg font-LatoMedium'><span className='font-DMSansSemiBold text-darkRed'>Blood Requested:</span> </p>
-                                {bloodTypesRequested.map((type, index) => (
-                                    <div key={index} className='bg-[#BF372A] rounded py-0.5 px-1'>
-                                        <p className='text-white font-PlayfairDisplayMedium text-center text-sm'>{type}</p>
-                                    </div>
-                                ))}
-                            </div>
+                            <p className='text-black text-lg font-LatoMedium'><span className='font-DMSansSemiBold text-darkRed'>Type:</span> {review?.reqType === "request" ? "Blood Request" : "Blood Donation"}</p>
+                            <p className='text-black text-lg font-LatoMedium'><span className='font-DMSansSemiBold text-darkRed'>Reviewed On:</span> {review?.createdAt?.split('T')[0]}</p>
                             <p className='text-black text-lg font-LatoMedium'><span className='font-DMSansSemiBold text-darkRed'>Review:</span> {review?.comment}</p>
                         </div>
                     </div>
