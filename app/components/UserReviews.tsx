@@ -44,6 +44,11 @@ const UserReviews = () => {
                 pagination={{
                     clickable: true,
                 }}
+                loop={true}
+                autoplay={{
+                    delay: 3000,
+                    disableOnInteraction: false
+                }}
                 modules={[Pagination]}
                 className="mySwiper w-full min-h-[60vh]"
             >
