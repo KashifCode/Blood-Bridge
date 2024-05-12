@@ -18,16 +18,20 @@ const UserFeedbackForm = () => {
       toast.error("Feedback must be at least 20 characters long");
       return;
     }
+    if (feedback.length > 200) {
+      toast.error("Feedback must be less than or 200 characters long");
+      return;
+    }
 
     const url = submitUserFeedback();
     axios
       .post(url, { feedback })
       .then((res) => {
-        toast.success(res.data?.message);
+        console.log(res.data);
+        toast.success(res?.data?.message);
         setFeedback("");
       })
       .catch((err) => {
-        console.log(err);
         toast.error(err?.response?.data?.message || "Something went wrong");
       });
   };

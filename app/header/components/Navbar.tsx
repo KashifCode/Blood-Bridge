@@ -12,7 +12,7 @@ const Navbar = ({ isMbl }: { isMbl?: boolean }) => {
   };
 
   return (
-    <nav className="w-full">
+    <nav>
       <ul className={cx("flex items-center gap-x-3", { "flex-col": isMbl })}>
         <li>
           <Link

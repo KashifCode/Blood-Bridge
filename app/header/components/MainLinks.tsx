@@ -17,10 +17,12 @@ import Image from "next/image";
 import shadow from "@/app/components/shadow.module.css";
 import LogoutIcon from "@/globals/icons/logout";
 import storageHelper from "@/lib/storage-helper";
+import { usePathname } from "next/navigation";
 
 const MainLinks = () => {
   const dispatch = useDispatch();
   const { push } = useRouter();
+  const path = usePathname();
   const [showDropdown, setShowDropdown] = useState<boolean>(false);
 
   const handleLogout = () => {
@@ -145,8 +147,10 @@ const MainLinks = () => {
                     }
                   </p>
                   <div
-                    className={cx("w-5 h-5 cursor-pointer mr-4", {
+                    className={cx("w-5 h-5 cursor-pointer", {
                       "!w-7 !h-7": user?.role === "bloodBank" || user?.role === "admin",
+                    }, {
+                      'mr-4': path.startsWith("/profile/bloodBank/") || path.startsWith("/admin/")
                     })}
                     onClick={
                       (user?.role === "bloodBank" || user?.role === "admin")
