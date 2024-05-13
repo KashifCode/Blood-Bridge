@@ -6,6 +6,7 @@ import "./globals.css";
 import "@/globals/fonts.css";
 import { ReduxProvider } from "@/redux/provider";
 import EnsureLogin from "@/app/components/EnsureLogin";
+import { Suspense } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 

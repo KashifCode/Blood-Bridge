@@ -182,7 +182,7 @@ const NewRequestForm = () => {
           <SelectContent>
             <SelectGroup>
               <SelectLabel>Islamabad</SelectLabel>
-              {islamabadSectors.map((sector, index) => (
+              {islamabadSectors?.map((sector, index) => (
                 <SelectItem
                   key={index}
                   value={sector}
@@ -212,7 +212,7 @@ const NewRequestForm = () => {
           Blood Banks
         </Label>
         <div className="w-full bg-[#e4e1fd] rounded-2xl py-3 px-5 max-h-[240px] overflow-y-scroll flex flex-col gap-y-1">
-          {nearByBB.map((item: any, index: number) => (
+          {nearByBB?.map((item: any, index: number) => (
             <div key={item._id} className="flex items-center gap-x-3">
               <Checkbox checked={true} />
               <label htmlFor={`bloodBank${index}`}>{item.name}</label>
@@ -246,7 +246,7 @@ const NewRequestForm = () => {
             <SelectValue placeholder="Select No. of Blood Bags" />
           </SelectTrigger>
           <SelectContent>
-            {bloodBagsQuantity.map((bloodBagQuantity, index) => (
+            {bloodBagsQuantity?.map((bloodBagQuantity, index) => (
               <SelectItem
                 key={index}
                 value={bloodBagQuantity.toString()}

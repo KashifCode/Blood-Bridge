@@ -41,6 +41,7 @@ const BloodBankSigninForm = () => {
   });
 
   const submitData = (data: SigninData) => {
+    if (data.licenseNo.includes('@') || data.licenseNo.includes(".com")) return toast.error("Invalid License Number");
     const url = loginBloodBankUrl();
     axios
       .post(url, data, {
