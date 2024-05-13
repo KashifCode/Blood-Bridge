@@ -5,6 +5,8 @@ import UserRequestsChart from "@/app/(HeaderFooterLayout)/profile/components/Use
 import TableCard from "./TableCard";
 import { getUserBloodRequests } from "@/app/axios-api/Endpoint";
 import { axiosInstance as axios } from "@/app/axios-api/axios";
+import { ChevronLeft } from "lucide-react";
+import Link from "next/link";
 
 const UserRequestsMain = () => {
   const [requests, setRequests] = React.useState([]);
@@ -22,6 +24,14 @@ const UserRequestsMain = () => {
 
   return (
     <div className="w-full flex flex-col">
+      <div className="w-full flex justify-start md:!hidden">
+        <Link className="w-max" href="/profile/user">
+          <div className="flex items-center gap-x-1 mb-2 cursor-pointer">
+            <ChevronLeft size={20} />
+            <h1 className="font-LatoBold font-semibold">Back</h1>
+          </div>
+        </Link>
+      </div>
       <UserRequestsChart requests={requests} />
       <div className="w-full mt-7 flex flex-col gap-y-0.5">
         <TableCard

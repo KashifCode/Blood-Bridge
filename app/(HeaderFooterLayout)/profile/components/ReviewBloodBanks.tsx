@@ -12,7 +12,7 @@ import { useBBSelector } from "@/redux/store";
 import toast from "react-hot-toast";
 import Image from "next/image";
 import cx from "classnames";
-import { set } from "date-fns";
+import { ChevronLeft } from "lucide-react";
 
 const ReviewBloodBanks = () => {
   const [userRequests, setUserRequests] = useState<any[]>([]);
@@ -80,7 +80,7 @@ const ReviewBloodBanks = () => {
     const review = reviews.find((review) => review.typeId === item._id);
     return review ? { ...item, reviewed: true, feedback: review.comment } : item;
   });
-  
+
 
   const handleSubmit = () => {
     if (feedback === "") {
@@ -115,10 +115,14 @@ const ReviewBloodBanks = () => {
       });
   };
 
+  const handleGoBack = () => {
+    setToView(undefined);
+  }
+
   return (
     <div className="mb-6">
-      <div className="flex items-center justify-between">
-        <h3 className="text-black font-RobotoBold text-xl mb-6">Reviews</h3>
+      <div className="flex items-center justify-end md:!justify-between">
+        <h3 className="text-black font-RobotoBold text-xl mb-6 hidden md:!block">Reviews</h3>
         <select
           className="outline-0 border-none focus:border-none focus:outline-0 bg-red-700 text-white p-1 rounded-lg cursor-pointer"
           value={selected}
@@ -133,8 +137,8 @@ const ReviewBloodBanks = () => {
         <div className="w-full flex items-center justify-center">
           <div className="bg-transparent w-[50px] h-[50px] rounded-full border-t-[3px] border-red-700 animate-spin" />
         </div> :
-        <div className="w-full flex items-start gap-x-12">
-          <div className="w-2/6 flex flex-col gap-y-4">
+        <div className="w-full flex flex-col md:!flex-row items-start gap-x-12">
+          <div className={cx("w-full md:!w-2/6 mt-4 md:!mt-0 md:!flex flex-col gap-y-4", { '!hidden': toView })}>
             {filtered3.length > 0 &&
               filtered3.map((item, index) => (
                 <div
@@ -175,11 +179,17 @@ const ReviewBloodBanks = () => {
                 </div>
               ))}
           </div>
-          <div className="w-4/6 bg-[#F3F3F3] p-4">
+          <div className="w-full md:!w-4/6 bg-[#F3F3F3] p-4">
             {toView && (
               <>
+                <div className="flex md:!hidden w-full justify-start">
+                  <div className="w-max flex items-center gap-x-1 mt-2 mb-4 cursor-pointer" onClick={handleGoBack}>
+                    <ChevronLeft size={20} />
+                    <h1 className="text-lg font-LatoBold font-semibold">Back</h1>
+                  </div>
+                </div>
                 <h3 className="text-black font-RobotoBold text-xl py-2">
-                  Reviews
+                  Review
                 </h3>
                 <div className="flex flex-col gap-y-1">
                   <p className="text-black font-RobotoRegular text-lg">

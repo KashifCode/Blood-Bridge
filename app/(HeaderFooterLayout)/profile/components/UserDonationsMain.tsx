@@ -6,6 +6,8 @@ import { getUserBloodDonations } from "@/app/axios-api/Endpoint";
 import { axiosInstance as axios } from "@/app/axios-api/axios";
 import UserDonationsChart from "./UserDonationsChart";
 import toast from "react-hot-toast";
+import Link from "next/link";
+import { ChevronLeft } from "lucide-react";
 
 const UserDonationsMain = () => {
   const [donations, setDonations] = useState([]);
@@ -26,6 +28,14 @@ const UserDonationsMain = () => {
 
   return (
     <div className="w-full flex flex-col">
+      <div className="w-full flex justify-start md:!hidden">
+        <Link className="w-max" href="/profile/user">
+          <div className="flex items-center gap-x-1 mb-2 cursor-pointer">
+            <ChevronLeft size={20} />
+            <h1 className="font-LatoBold font-semibold">Back</h1>
+          </div>
+        </Link>
+      </div>
       <UserDonationsChart donations={donations} />
       <div className="w-full mt-7 flex flex-col gap-y-0.5">
         <TableCard

@@ -77,7 +77,7 @@ const UserInfo = () => {
   };
 
   return (
-    <div className="w-[30%] mb-5">
+    <div className="w-full md:!w-[30%] mb-5">
       <div
         className={cx(
           "w-full h-full absolute left-0 top-0 z-10 bg-black bg-opacity-30 hidden items-center justify-center",

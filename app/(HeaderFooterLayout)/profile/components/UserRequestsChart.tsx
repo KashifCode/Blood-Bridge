@@ -82,8 +82,8 @@ const UserRequestsChart = ({ requests }: { requests: any }) => {
   };
 
   return (
-    <div className="flex flex-col justify-between w-[90%] mx-auto relative">
-      <h3 className="text-black font-RobotoBold text-xl mb-4 capitalize">
+    <div className="flex flex-col justify-between w-full md:!w-[90%] mx-auto relative">
+      <h3 className="text-black font-RobotoBold text-base md:!text-xl mb-2 md:!mb-4 capitalize">
         Blood Requests
       </h3>
       <Line options={options} data={data} />

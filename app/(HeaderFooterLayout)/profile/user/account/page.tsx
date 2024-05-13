@@ -4,7 +4,7 @@ import UpdateUserProfile from "@/app/(HeaderFooterLayout)/profile/components/Upd
 const page = () => {
   return (
     <div className="w-full bg-[#F8F6F6] py-6 rounded-[33px]">
-      <div className="w-full px-8">
+      <div className="w-full px-2 md:!px-8">
         <UpdateUserProfile />
       </div>
     </div>

@@ -27,8 +27,6 @@ const ReviewsStatistics = () => {
 
     }, [])
 
-    console.log(reviews)
-
     return (
         <>
             <p className="font-DMSansSemiBold mb-4 text-xl text-slate-900 capitalize">

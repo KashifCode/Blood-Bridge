@@ -18,6 +18,7 @@ import shadow from "@/app/components/shadow.module.css";
 import LogoutIcon from "@/globals/icons/logout";
 import storageHelper from "@/lib/storage-helper";
 import { usePathname } from "next/navigation";
+import { isMobile } from "react-device-detect";
 
 const MainLinks = () => {
   const dispatch = useDispatch();
@@ -55,7 +56,11 @@ const MainLinks = () => {
     } else if (user.role === "admin") {
       push("/admin/dashboard")
     } else {
-      push("/profile/user/donations");
+      if(isMobile) {
+        push("/profile/user");
+      } else {
+        push("/profile/user/donations");
+      }
     }
     setShowDropdown(false);
   };
@@ -63,24 +68,26 @@ const MainLinks = () => {
   return (
     <div
       className={cx("flex items-center justify-center", {
-        "!gap-x-1.5": user?.role === "bloodBank" || user?.role === "admin",
+        "!gap-x-1 sm:!gap-x-1.5": user?.role === "bloodBank" || user?.role === "admin",
       })}
     >
       {(user?.role !== "bloodBank" && user?.role !== "admin") && (
         <>
-          <Button
-            variant={"ghost"}
-            className="!py-0 !px-1 !rounded-[3px] !h-auto flex items-center gap-x-1.5"
-          >
-            <Image
-              className="!w-5 !h-5 object-contain"
-              src={mapIcon}
-              alt="Map Icon"
-            />
-            <p className="text-zinc-500 text-xs sm:!text-sm font-LatoRegular uppercase tracking-[2px]">
-              locate
-            </p>
-          </Button>
+          <Link href={"/blood-banks"}>
+            <Button
+              variant={"ghost"}
+              className="!py-0 !px-1 !rounded-[3px] !h-auto flex items-center gap-x-1.5"
+            >
+              <Image
+                className="!w-5 !h-5 object-contain"
+                src={mapIcon}
+                alt="Map Icon"
+              />
+              <p className="hidden sm:!block text-zinc-500 text-xs sm:!text-sm font-LatoRegular uppercase tracking-[2px]">
+                locate
+              </p>
+            </Button>
+          </Link>
           <div className="border-r-2 border-zinc-500 h-3 mx-2" />
           <Link href={"/blood-banks"}>
             <Button className="!bg-red-700 !bg-opacity-70 !py-0 !px-1 !rounded-[3px] !h-auto text-xs sm:!text-sm font-LatoRegular uppercase tracking-[2px]">
@@ -131,10 +138,10 @@ const MainLinks = () => {
               </>
             ) : (
               <div className="relative">
-                <div className="flex items-center gap-x-1.5">
+                <div className="flex items-center gap-x-1 sm:!gap-x-1.5">
                   <p
                     className={cx(
-                      "text-black font-RobotoBold tracking-[2.75px] uppercase",
+                      "text-black font-RobotoBold tracking-[2px] text-sm sm:text-base sm:tracking-[2.75px] uppercase",
                       {
                         "!font-LatoMedium !capitalize !tracking-normal w-max":
                           user.role === "bloodBank" || user.role === "admin",

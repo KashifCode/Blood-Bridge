@@ -26,7 +26,7 @@ const TableCard = (props: TableCardProps) => {
           )}
         >
           <p
-            className={cx("text-black font-LatoRegular text-sm text-center", {
+            className={cx("text-black font-LatoRegular text-[12px] md:!text-sm text-center", {
               "!font-RobotoMedium": props.type === "heading",
             })}
           >
@@ -36,12 +36,12 @@ const TableCard = (props: TableCardProps) => {
       )}
       <div
         className={cx(
-          "w-full bg-[#F3EDED] py-2.5 flex items-center justify-center col-span-2",
+          "w-full bg-[#F3EDED] py-2.5 flex items-center justify-center col-span-3 md:!col-span-2",
           { "!bg-[#D9D9D9] border border-stone-200": props.type === "heading" },
         )}
       >
         <p
-          className={cx("text-black font-LatoRegular text-sm text-center", {
+          className={cx("text-black font-LatoRegular text-[12px] md:!text-sm text-center", {
             "!font-RobotoMedium": props.type === "heading",
           })}
         >
@@ -50,12 +50,12 @@ const TableCard = (props: TableCardProps) => {
       </div>
       <div
         className={cx(
-          "w-full bg-[#F3EDED] py-2.5 flex items-center justify-center",
+          "w-full bg-[#F3EDED] py-2.5 flex items-center justify-center col-span-2 md:!col-span-1",
           { "!bg-[#D9D9D9] border border-stone-200": props.type === "heading" },
         )}
       >
         <p
-          className={cx("text-black font-LatoRegular text-sm text-center", {
+          className={cx("text-black font-LatoRegular text-[12px] md:!text-sm text-center", {
             "!font-RobotoMedium": props.type === "heading",
           })}
         >
@@ -72,7 +72,7 @@ const TableCard = (props: TableCardProps) => {
           )}
         >
           <p
-            className={cx("text-black font-LatoRegular text-sm text-center", {
+            className={cx("text-black font-LatoRegular text-[12px] md:!text-sm text-center", {
               "!font-RobotoMedium": props.type === "heading",
             })}
           >
@@ -82,12 +82,12 @@ const TableCard = (props: TableCardProps) => {
       )}
       <div
         className={cx(
-          "w-full bg-[#F3EDED] py-2.5 flex items-center justify-center col-span-2",
+          "w-full bg-[#F3EDED] py-2.5 hidden md:!flex items-center justify-center col-span-2",
           { "!bg-[#D9D9D9] border border-stone-200": props.type === "heading" },
         )}
       >
         <p
-          className={cx("text-black font-LatoRegular text-sm text-center", {
+          className={cx("text-black font-LatoRegular text-[12px] md:!text-sm text-center", {
             "!font-RobotoMedium": props.type === "heading",
           })}
         >
@@ -101,7 +101,7 @@ const TableCard = (props: TableCardProps) => {
         )}
       >
         <p
-          className={cx("text-black font-LatoRegular text-sm text-center", {
+          className={cx("text-black font-LatoRegular text-[12px] md:!text-sm text-center", {
             "!font-RobotoMedium": props.type === "heading",
           })}
         >
@@ -115,7 +115,7 @@ const TableCard = (props: TableCardProps) => {
         )}
       >
         <p
-          className={cx("text-black font-LatoRegular text-sm text-center", {
+          className={cx("text-black font-LatoRegular text-[12px] md:!text-sm text-center", {
             "!font-RobotoMedium": props.type === "heading",
           })}
         >

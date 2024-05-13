@@ -3,7 +3,7 @@ import ReviewBloodBanks from "@/app/(HeaderFooterLayout)/profile/components/Revi
 
 const page = () => {
   return (
-    <div className="w-full flex flex-col gap-y-2 px-[5%] mt-6">
+    <div className="w-full flex flex-col gap-y-2 px-[5%] mt-12 md:!mt-6">
       <ReviewBloodBanks />
     </div>
   );

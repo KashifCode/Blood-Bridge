@@ -170,7 +170,7 @@ const RequestDonateBlood = ({
   dayAfterTomorrow.setDate(dayAfterTomorrow.getDate() + 2);
 
   return (
-    <div className="w-full my-6">
+    <div className="w-full my-12 sm:!my-6">
       <div className="w-full">
         <Image
           src={isRequest ? mainImg : mainDonationImg}
@@ -178,16 +178,18 @@ const RequestDonateBlood = ({
           className="w-full object-contain"
         />
         <div className="w-full px-[8%]">
-          <Link href="/blood-banks">
-            <div className="flex items-center gap-x-1 my-4 cursor-pointer">
-              <ChevronLeft size={20} />
-              <h1 className="text-lg font-LatoBold font-semibold">Back</h1>
-            </div>
-          </Link>
+          <div className="w-full flex justify-start">
+            <Link className="w-max" href="/blood-banks">
+              <div className="flex items-center gap-x-1 my-4 cursor-pointer">
+                <ChevronLeft size={20} />
+                <h1 className="text-lg font-LatoBold font-semibold">Back</h1>
+              </div>
+            </Link>
+          </div>
           <h1 className="mb-6 text-black text-2xl font-PlayfairDisplayBold">
             {isRequest ? "Need Blood?" : "Donate Blood!"}
           </h1>
-          <div className="w-full flex items-start gap-x-[9%]">
+          <div className="w-full flex flex-col md:!flex-row items-start gap-y-8 sm:!gap-y-0 sm:!gap-x-[9%]">
             <div className="w-full">
               <form
                 onSubmit={handleSubmit(submitForm)}

@@ -14,18 +14,18 @@ interface BloodBankCardProps {
 
 const BloodBankCard = ({ bloodBanks }: BloodBankCardProps) => {
   return (
-    <div className="w-4/5 mx-auto grid grid-cols-3 gap-x-14 gap-y-10 py-10">
+    <div className="w-[90%] py-10 mt-4 sm:!mt-0 sm:!w-4/5 mx-auto grid grid-cols-1 md:!grid-cols-2 lg:!grid-cols-3 sm:!gap-x-14 gap-y-12 sm:!gap-y-10 sm:py-10">
       {bloodBanks.map((BB_Data, index) => (
         <div
-          className={`w-full h-[68vh] flex flex-col justify-between px-3 rounded-sm ${shadow.lightShadow}`}
+          className={`w-full h-auto sm:!h-[68vh] flex flex-col justify-between px-3 pb-4 sm:!pb-0 rounded-sm ${shadow.lightShadow}`}
           key={index}
         >
-          <div className="w-full h-[91%] flex flex-col gap-y-1.5">
-            <div className="w-full h-[41%]">
+          <div className="w-full sm:h-[91%] flex flex-col gap-y-1.5">
+            <div className="w-full sm:h-[41%]">
               <Image
                 src={BB_Data?.bloodBank?.avatar!}
                 alt="Blood Bank Image"
-                className="!h-full object-contain object-top"
+                className="sm:!h-full object-contain object-top"
                 width={1000}
                 height={1000}
               />
