@@ -80,7 +80,7 @@ const UserInfo = () => {
           { "!flex": isShowUpload },
         )}
       >
-        <div className="w-4/5 md:!w-3/5 h-[40vh] md:!h-[60vh] bg-white rounded-3xl flex items-center justify-center relative">
+        <div className="w-[90%] md:!w-3/5 h-[40vh] md:!h-[60vh] bg-white rounded-3xl flex items-center justify-center relative">
           <X
             className="absolute top-2.5 right-2.5 cursor-pointer"
             size={20}
