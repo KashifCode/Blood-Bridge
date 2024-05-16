@@ -228,7 +228,7 @@ const EditEvent = ({
                 color: "#000000",
               },
             }}
-            endpoint="serverImage"
+            endpoint="imageUploader"
             onClientUploadComplete={(res) => {
               setImage(res);
               toast.success("Upload Completed");

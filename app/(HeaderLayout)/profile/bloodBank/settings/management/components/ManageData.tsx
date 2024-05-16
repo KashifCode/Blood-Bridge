@@ -223,7 +223,7 @@ const UserData = () => {
           <FileUpload
             onChange={handleImageChange}
             value="abc"
-            endpoint="serverImage"
+            endpoint="imageUploader"
           />
         </div>
       </div>
