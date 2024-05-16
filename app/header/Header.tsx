@@ -77,7 +77,7 @@ const Header = () => {
                   </div>
                   <div
                     className={cx(
-                      "absolute top-0 right-0 w-[60vw] sm:!w-[50vw] md:!w-[40vw] bg-white shadow-lg z-[6] min-h-screen animate-right-to-left",
+                      "absolute top-0 right-0 w-[60vw] sm:!w-[50vw] md:!w-[40vw] bg-white shadow-lg z-[9999] min-h-screen animate-right-to-left",
                       { "!hidden !animate-left-to-right": !showNavbar },
                     )}
                   >

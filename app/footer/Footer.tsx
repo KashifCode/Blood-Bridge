@@ -7,17 +7,19 @@ import { Facebook, Instagram, Linkedin, Twitter } from "lucide-react";
 const Footer = () => {
   return (
     <div className="w-full py-[4%] bg-darkRed">
-      <div className="px-[8%] h-[40vh] flex flex-col justify-between">
+      <div className="px-[4%] md:!px-[8%] h-[32vh] md:!h-[40vh] flex flex-col justify-between">
         <div className="flex items-start justify-between">
           <div className="flex flex-col gap-y-5">
             <div className="flex items-center">
               <Image
                 src={logo}
                 alt="Logo"
-                className="w-14 h-14 object-contain"
+                width={56}
+                height={56}
+                className="!w-12 !h-12 md:!w-14 md:!h-14 object-contain"
               />
               <p
-                className={`w-min text-white text-lg md:text-xl font-black uppercase tracking-[6px] font-LatoBold !leading-[26px]`}
+                className={`w-min text-white text-base md:text-xl font-black uppercase tracking-[6px] font-LatoBold !leading-5 md:!leading-[26px]`}
               >
                 Blood Bridge
               </p>
@@ -78,27 +80,27 @@ const Footer = () => {
         </div>
         <div className="w-full border-t-2 border-zinc-400">
           <nav className="mt-7">
-            <ul className="flex items-center gap-x-5">
+            <ul className="flex items-center gap-x-2 sm:!gap-x-3 md:!gap-x-5">
               <Link href={"/"}>
-                <li className="tracking-tight font-LatoRegular text-zinc-400 text-sm  first-letter:uppercase">
+                <li className="tracking-tight font-LatoRegular text-zinc-400 text-xs md:!text-sm  first-letter:uppercase">
                   Terms & Conditions
                 </li>
               </Link>
               <div className="border-r border-zinc-400 h-3.5" />
               <Link href={"/"}>
-                <li className="tracking-tight font-LatoRegular text-zinc-400 text-sm  first-letter:uppercase">
+                <li className="tracking-tight font-LatoRegular text-zinc-400 text-xs md:!text-sm  first-letter:uppercase">
                   Privacy Policy
                 </li>
               </Link>
               <div className="border-r border-zinc-400 h-3.5" />
               <Link href={"/"}>
-                <li className="tracking-tight font-LatoRegular text-zinc-400 text-sm  first-letter:uppercase">
+                <li className="tracking-tight font-LatoRegular text-zinc-400 text-xs md:!text-sm  first-letter:uppercase">
                   Accessibility
                 </li>
               </Link>
               <div className="border-r border-zinc-400 h-3.5" />
               <Link href={"/"}>
-                <li className="tracking-tight font-LatoRegular text-zinc-400 text-sm  first-letter:uppercase">
+                <li className="tracking-tight font-LatoRegular text-zinc-400 text-xs md:!text-sm  first-letter:uppercase">
                   Legal
                 </li>
               </Link>

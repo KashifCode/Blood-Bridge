@@ -6,7 +6,7 @@ import cx from "classnames";
 const BloodBankCard = ({ bloodBank }: { bloodBank: any }) => {
   return (
     <div
-      className={`w-4/5 mx-auto sm:mx-0 sm:w-full bg-white flex flex-col lg:h-[72vh] xl:h-[59vh] relative ${shadow.lightShadow}`}
+      className={`w-[90%] mx-auto sm:mx-0 sm:w-full bg-white flex flex-col lg:h-[72vh] xl:h-[59vh] relative ${shadow.lightShadow}`}
     >
       <div className={cx("absolute right-2.5 top-2.5 rounded-3xl bg-darkRed", {'!bg-green-700': bloodBank?.status === "open"})}>
         <p className="text-white font-semibold pt-0.5 pb-1 px-3">{bloodBank?.status}</p>

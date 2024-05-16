@@ -13,11 +13,11 @@ const Navbar = ({ isMbl }: { isMbl?: boolean }) => {
 
   return (
     <nav>
-      <ul className={cx("flex items-center gap-x-3", { "flex-col": isMbl })}>
+      <ul className={cx("flex items-center gap-x-3 gap-y-3 sm:!gap-y-0", { "flex-col": isMbl })}>
         <li>
           <Link
             className={cx(
-              "text-zinc-500 font-medium font-LatoMedium uppercase tracking-[2px]",
+              "text-zinc-500 text-sm sm:!text-base font-medium font-LatoMedium uppercase tracking-[2px]",
               {
                 "!text-red-700 pb-1 border-b border-red-700":
                   isActive("/") && !isMbl,
@@ -37,7 +37,7 @@ const Navbar = ({ isMbl }: { isMbl?: boolean }) => {
         <li>
           <Link
             className={cx(
-              "text-zinc-500 font-medium font-LatoMedium uppercase tracking-[2px]",
+              "text-zinc-500 text-sm sm:!text-base font-medium font-LatoMedium uppercase tracking-[2px]",
               {
                 "!text-red-700 pb-1 border-b border-red-700":
                   isActive("/blood-banks") && !isMbl,
@@ -57,7 +57,7 @@ const Navbar = ({ isMbl }: { isMbl?: boolean }) => {
         <li>
           <Link
             className={cx(
-              "text-zinc-500 font-medium font-LatoMedium uppercase tracking-[2px]",
+              "text-zinc-500 text-sm sm:!text-base font-medium font-LatoMedium uppercase tracking-[2px]",
               {
                 "!text-red-700 pb-1 border-b border-red-700":
                   isActive("/event") && !isMbl,
@@ -77,7 +77,7 @@ const Navbar = ({ isMbl }: { isMbl?: boolean }) => {
         <li>
           <Link
             className={cx(
-              "text-zinc-500 font-medium font-LatoMedium uppercase tracking-[2px]",
+              "text-zinc-500 text-sm sm:!text-base font-medium font-LatoMedium uppercase tracking-[2px]",
               {
                 "!text-red-700 pb-1 border-b border-red-700":
                   isActive("/reviews") && !isMbl,

@@ -12,7 +12,6 @@ import {
   User2,
   X,
 } from "lucide-react";
-import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
 import cx from "classnames";
 import { UploadCloud } from "lucide-react";
@@ -21,18 +20,15 @@ import { axiosInstance as axios } from "@/app/axios-api/axios";
 import { userUpdateDetailsUrl } from "@/app/axios-api/Endpoint";
 import { FileUpload } from "@/app/components/FileUpload";
 import { updateUser } from "@/redux/features/authSlice";
+import { isMobile } from "react-device-detect";
+import Link from "next/link";
 
 const UserInfo = () => {
   const dispatch = useDispatch();
   const [isShowUpload, setIsShowUplaod] = useState<boolean>(false);
-  const { push } = useRouter();
   const path = usePathname();
   const isLoading = useBBSelector((state) => state.authReducer.value.isLoading);
   const user = useBBSelector((state) => state.authReducer.value.user);
-
-  const handleRedirect = (path: string) => {
-    push(path);
-  };
 
   const isCurrentPath = (pathCheck: string) => {
     return pathCheck === path;
@@ -84,7 +80,7 @@ const UserInfo = () => {
           { "!flex": isShowUpload },
         )}
       >
-        <div className="w-3/5 h-[60vh] bg-white rounded-3xl flex items-center justify-center relative">
+        <div className="w-4/5 md:!w-3/5 h-[40vh] md:!h-[60vh] bg-white rounded-3xl flex items-center justify-center relative">
           <X
             className="absolute top-2.5 right-2.5 cursor-pointer"
             size={20}
@@ -114,7 +110,7 @@ const UserInfo = () => {
               Profile
             </p>
             <div
-              onClick={isAccountActive ? handleUpload : () => {}}
+              onClick={(isAccountActive || isMobile) ? handleUpload : () => { }}
               className={cx("relative w-44 h-44", {
                 "group cursor-pointer": isAccountActive,
               })}
@@ -134,102 +130,106 @@ const UserInfo = () => {
             <p className="capitalize text-black text-3xl font-LateefRegular">{`${user?.firstName} ${user?.lastName}`}</p>
           </div>
           <div className="w-full mt-6 flex flex-col gap-y-3">
-            <div
-              className="w-full bg-[#EEEBEB] rounded-[10px] py-5 flex items-center justify-between px-6 cursor-pointer"
-              onClick={() => handleRedirect("/profile/user/donations")}
-            >
-              <div className="flex gap-x-3 items-center">
-                <Image
-                  className="w-5 object-contain"
-                  src={
-                    isDonationsActive
-                      ? bloodDonationIcon
-                      : bloodDonationBlackIcon
-                  }
-                  alt="Blood Donations"
+            <Link href="/profile/user/donations">
+              <div
+                className="w-full bg-[#EEEBEB] rounded-[10px] py-5 flex items-center justify-between px-6 cursor-pointer"
+              >
+                <div className="flex gap-x-3 items-center">
+                  <Image
+                    className="w-5 object-contain"
+                    src={
+                      isDonationsActive
+                        ? bloodDonationIcon
+                        : bloodDonationBlackIcon
+                    }
+                    alt="Blood Donations"
+                  />
+                  <p
+                    className={cx("text-black font-LatoBold text-lg", {
+                      "!text-[#CB5C52]": isDonationsActive,
+                    })}
+                  >
+                    Blood Donation
+                  </p>
+                </div>
+                <ChevronRight
+                  size={20}
+                  color={isDonationsActive ? "#CB5C52" : "black"}
                 />
-                <p
-                  className={cx("text-black font-LatoBold text-lg", {
-                    "!text-[#CB5C52]": isDonationsActive,
-                  })}
-                >
-                  Blood Donation
-                </p>
               </div>
-              <ChevronRight
-                size={20}
-                color={isDonationsActive ? "#CB5C52" : "black"}
-              />
-            </div>
+            </Link>
 
-            <div
-              className="w-full bg-[#EEEBEB] rounded-[10px] py-5 flex items-center justify-between px-6 cursor-pointer"
-              onClick={() => handleRedirect("/profile/user/requests")}
-            >
-              <div className="flex gap-x-3 items-center">
-                <Newspaper
+            <Link href="/profile/user/requests">
+              <div
+                className="w-full bg-[#EEEBEB] rounded-[10px] py-5 flex items-center justify-between px-6 cursor-pointer"
+              >
+                <div className="flex gap-x-3 items-center">
+                  <Newspaper
+                    size={20}
+                    color={isRequestsActive ? "#CB5C52" : "black"}
+                  />
+                  <p
+                    className={cx("text-black font-LatoBold text-lg", {
+                      "!text-[#CB5C52]": isRequestsActive,
+                    })}
+                  >
+                    Blood Requests
+                  </p>
+                </div>
+                <ChevronRight
                   size={20}
                   color={isRequestsActive ? "#CB5C52" : "black"}
                 />
-                <p
-                  className={cx("text-black font-LatoBold text-lg", {
-                    "!text-[#CB5C52]": isRequestsActive,
-                  })}
-                >
-                  Blood Requests
-                </p>
               </div>
-              <ChevronRight
-                size={20}
-                color={isRequestsActive ? "#CB5C52" : "black"}
-              />
-            </div>
+            </Link>
 
-            <div
-              className="w-full bg-[#EEEBEB] rounded-[10px] py-5 flex items-center justify-between px-6 cursor-pointer"
-              onClick={() => handleRedirect("/profile/user/account")}
-            >
-              <div className="flex gap-x-3 items-center">
-                <User2
+            <Link href="/profile/user/account">
+              <div
+                className="w-full bg-[#EEEBEB] rounded-[10px] py-5 flex items-center justify-between px-6 cursor-pointer"
+              >
+                <div className="flex gap-x-3 items-center">
+                  <User2
+                    size={20}
+                    color={isAccountActive ? "#CB5C52" : "black"}
+                  />
+                  <p
+                    className={cx("text-black font-LatoBold text-lg", {
+                      "!text-[#CB5C52]": isAccountActive,
+                    })}
+                  >
+                    Account
+                  </p>
+                </div>
+                <ChevronRight
                   size={20}
                   color={isAccountActive ? "#CB5C52" : "black"}
                 />
-                <p
-                  className={cx("text-black font-LatoBold text-lg", {
-                    "!text-[#CB5C52]": isAccountActive,
-                  })}
-                >
-                  Account
-                </p>
               </div>
-              <ChevronRight
-                size={20}
-                color={isAccountActive ? "#CB5C52" : "black"}
-              />
-            </div>
+            </Link>
 
-            <div
-              className="w-full bg-[#EEEBEB] rounded-[10px] py-5 flex items-center justify-between px-6 cursor-pointer"
-              onClick={() => handleRedirect("/profile/user/feedback")}
-            >
-              <div className="flex gap-x-3 items-center">
-                <MessagesSquare
+            <Link href="/profile/user/feedback">
+              <div
+                className="w-full bg-[#EEEBEB] rounded-[10px] py-5 flex items-center justify-between px-6 cursor-pointer"
+              >
+                <div className="flex gap-x-3 items-center">
+                  <MessagesSquare
+                    size={20}
+                    color={isFeedbackActive ? "#CB5C52" : "black"}
+                  />
+                  <p
+                    className={cx("text-black font-LatoBold text-lg", {
+                      "!text-[#CB5C52]": isFeedbackActive,
+                    })}
+                  >
+                    Feedback
+                  </p>
+                </div>
+                <ChevronRight
                   size={20}
                   color={isFeedbackActive ? "#CB5C52" : "black"}
                 />
-                <p
-                  className={cx("text-black font-LatoBold text-lg", {
-                    "!text-[#CB5C52]": isFeedbackActive,
-                  })}
-                >
-                  Feedback
-                </p>
               </div>
-              <ChevronRight
-                size={20}
-                color={isFeedbackActive ? "#CB5C52" : "black"}
-              />
-            </div>
+            </Link>
           </div>
         </>
       )}

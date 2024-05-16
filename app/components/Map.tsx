@@ -7,6 +7,8 @@ import {
   useJsApiLoader,
 } from "@react-google-maps/api";
 import cx from "classnames";
+import { isMobile } from "react-device-detect";
+import ClientOnly from "./ClientOnly";
 
 interface MapProps {
   bloodBanks: any[];
@@ -108,11 +110,13 @@ const Map = ({
     <div className="relative w-full h-[70vh]">
       <div className="absolute z-[999] left-0 top-8 w-full grid grid-cols-2 gap-x-12 px-[6%]">
         <select
-          className="bg-darkRed text-white rounded-[5px] w-full py-2 px-3.5 focus:outline-0"
+          className="bg-darkRed text-white rounded-[5px] w-full py-2 px-3.5 focus:outline-0 text-sm sm:!text-base"
           onChange={handleSectorChange}
           value={selectedSector}
         >
-          <option value="">Select Your Area/Sector</option>
+          <ClientOnly>
+            <option value="">{isMobile ? "Select Area" : "Select Your Area/Sector"}</option>
+          </ClientOnly>
           {islamabadSectors.map((sector) => (
             <option key={sector} value={sector}>
               {sector}
@@ -120,7 +124,7 @@ const Map = ({
           ))}
         </select>
         <select
-          className="bg-darkRed text-white rounded-[5px] w-full py-2 px-3.5 focus:outline-0"
+          className="bg-darkRed text-white rounded-[5px] w-full py-2 px-3.5 focus:outline-0 text-sm sm:!text-base"
           onChange={handleBloodGroupChange}
           value={selectedBloodGroup}
         >
@@ -234,7 +238,7 @@ const Map = ({
                               "!border-none":
                                 BB_Data?.bloodGroups.length >= 4
                                   ? index + 1 === BB_Data?.bloodGroups.length ||
-                                    index + 1 === 4
+                                  index + 1 === 4
                                   : index + 1 === BB_Data?.bloodGroups.length,
                             },
                           )}

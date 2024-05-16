@@ -6,7 +6,17 @@ const nextConfig = {
     appDir: true,
   },
   images: {
-    domains: ["utfs.io", "images.unsplash.com"],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'utfs.io',
+        pathname: '**',
+      },
+      {
+        protocol: 'https',
+        hostname: '**.unsplash.com',
+      },
+    ],
   },
 };
 
