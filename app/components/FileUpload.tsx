@@ -2,13 +2,12 @@
 
 // IMPORTS -
 import { UploadDropzone } from "@/lib/uploadthing";
-import "@uploadthing/react/styles.css";
 
 // PARTIALS -
 interface FileUploadProps {
   onChange: (url?: string) => void;
   value: string;
-  endpoint: "serverImage";
+  endpoint: "imageUploader";
 }
 
 export const FileUpload = ({ onChange, value, endpoint }: FileUploadProps) => {
