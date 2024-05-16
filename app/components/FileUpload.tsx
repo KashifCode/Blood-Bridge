@@ -2,6 +2,7 @@
 
 // IMPORTS -
 import { UploadDropzone } from "@/lib/uploadthing";
+import toast from "react-hot-toast";
 
 // PARTIALS -
 interface FileUploadProps {
@@ -20,6 +21,7 @@ export const FileUpload = ({ onChange, value, endpoint }: FileUploadProps) => {
       }}
       onUploadError={(error: Error) => {
         console.log(error);
+        toast.error("Error uploading image");
       }}
     />
   );

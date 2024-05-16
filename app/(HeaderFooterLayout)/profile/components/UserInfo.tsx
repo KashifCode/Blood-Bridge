@@ -112,7 +112,7 @@ const UserInfo = () => {
             <div
               onClick={(isAccountActive || isMobile) ? handleUpload : () => { }}
               className={cx("relative w-44 h-44", {
-                "group cursor-pointer": isAccountActive,
+                "group cursor-pointer": (isAccountActive || isMobile),
               })}
             >
               <Image
