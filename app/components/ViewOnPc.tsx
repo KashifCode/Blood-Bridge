@@ -5,7 +5,7 @@ import Link from 'next/link';
 
 const ViewOnPc = () => {
     return (
-        <div className='w-full h-screen flex flex-col gap-y-7 items-center justify-center px-[5%] bg-gradient-to-b from-red-600 to-red-500'>
+        <div className='w-full min-h-screen max-h-screen overflow-hidden flex flex-col gap-y-7 items-center justify-center px-[5%] bg-gradient-to-b from-red-600 to-red-400'>
             <div className='bg-white w-[86px] h-[90px] rounded-3xl flex items-center justify-center'>
                 <div className="w-16 h-16">
                     <Image
