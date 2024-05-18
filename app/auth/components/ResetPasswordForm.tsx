@@ -83,16 +83,16 @@ const ResetPasswordForm = () => {
 
   return (
     <div className="flex flex-col items-center justify-center w-full">
-      <h1 className="text-zinc-500 text-xl font-LatoBold uppercase mb-6 tracking-[4px]">
+      <h1 className="text-zinc-500 text-base sm:!text-lg md:!text-xl font-LatoBold uppercase mb-6 tracking-[4px]">
         Reset your Password
       </h1>
       <form className="w-full" onSubmit={handleSubmit(submitData)}>
-        <div className="w-3/4 grid mx-auto gap-x-32 gap-y-6">
+        <div className="w-[94%] md:!w-3/4 grid mx-auto gap-x-32 gap-y-6">
           <div className="w-full relative">
             <div className="w-full flex flex-col-reverse">
               <label
                 htmlFor="password"
-                className="text-zinc-500 text-xs font-normal font-LatoRegular capitalize tracking-[3.50px] pl-3 pt-0.5"
+                className="text-zinc-500 text-[11px] md:!text-xs font-normal font-LatoRegular capitalize tracking-[2.50px] md:!tracking-[3.50px] pl-3 pt-0.5"
               >
                 Combination of alphanumerics & symbols
               </label>
@@ -106,7 +106,7 @@ const ResetPasswordForm = () => {
                 })}
                 type={isShowPassword ? "text" : "password"}
                 placeholder="New Password"
-                className="placeholder:uppercase placeholder:font-LatoRegular placeholder:text-zinc-500 placeholder:text-base md:placeholder:text-lg focus:outline-0 focus:border-b focus:shadow-none border-b outline-0 shadow-none border-black w-full py-[5px] px-3 tracking-[3px]"
+                className="placeholder:uppercase placeholder:font-LatoRegular placeholder:text-zinc-500 text-sm md:!text-base placeholder:text-sm md:placeholder:text-lg focus:outline-0 focus:border-b focus:shadow-none border-b outline-0 shadow-none border-black w-full py-[5px] px-3 tracking-[3px]"
               />
             </div>
             <div
@@ -134,7 +134,7 @@ const ResetPasswordForm = () => {
             <div className="w-full flex flex-col-reverse">
               <label
                 htmlFor="confirmPassword"
-                className="text-zinc-500 text-xs font-normal font-LatoRegular capitalize tracking-[3.50px] pl-3 pt-0.5"
+                className="text-zinc-500 text-[11px] md:!text-xs font-normal font-LatoRegular capitalize tracking-[2.50px] md:!tracking-[3.50px] pl-3 pt-0.5"
               >
                 Combination of alphanumerics & symbols
               </label>
@@ -142,7 +142,7 @@ const ResetPasswordForm = () => {
                 {...register("confirmPassword")}
                 type={isShowPassword ? "text" : "password"}
                 placeholder="Confirm Password"
-                className="placeholder:uppercase placeholder:font-LatoRegular placeholder:text-zinc-500 placeholder:text-base md:placeholder:text-lg focus:outline-0 focus:border-b focus:shadow-none border-b outline-0 shadow-none border-black w-full py-[5px] px-3 tracking-[3px]"
+                className="placeholder:uppercase placeholder:font-LatoRegular placeholder:text-zinc-500 text-sm md:!text-base placeholder:text-sm md:placeholder:text-lg focus:outline-0 focus:border-b focus:shadow-none border-b outline-0 shadow-none border-black w-full py-[5px] px-3 tracking-[3px]"
               />
             </div>
             <div
@@ -152,7 +152,7 @@ const ResetPasswordForm = () => {
               {isShowPassword ? <ShowPassword /> : <HidePassword />}
             </div>
           </div>
-          <p className="text-zinc-500 text-xs font-normal font-LatoRegular capitalize tracking-[2px] mt-1.5 text-right">
+          <p className="text-zinc-500 text-[11px] md:!text-xs font-normal font-LatoRegular capitalize tracking-[2px] mt-1.5 text-right">
             <span className="text-zinc-500 cursor-pointer capitalize underline">
               Resend Code
             </span>
@@ -160,12 +160,12 @@ const ResetPasswordForm = () => {
         </div>
         <div className="w-3/4 mx-auto">
           <Button
-            className="w-full rounded-3xl bg-red-700 font-LatoBold uppercase tracking-[3.50px] hover:bg-red-800 mt-6 mb-5"
+            className="w-full rounded-3xl bg-red-700 font-LatoBold uppercase tracking-[2.50px] md:!tracking-[3.50px] hover:bg-red-800 mt-6 mb-5"
             type="submit"
           >
             Reset Password
           </Button>
-          <p className="text-zinc-500 text-xs font-normal font-LatoRegular capitalize tracking-[2px] mt-3">
+          <p className="text-zinc-500 text-[11px] md:!text-xs font-normal font-LatoRegular capitalize tracking-[2px] mt-3">
             <Link
               href={"/auth/signIn?view=BloodRecipient"}
               className="text-blue-600 cursor-pointer capitalize underline"

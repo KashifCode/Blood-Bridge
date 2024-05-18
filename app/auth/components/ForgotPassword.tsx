@@ -69,11 +69,11 @@ const ForgotPassword = () => {
 
   return (
     <div className="flex flex-col items-center justify-center w-full">
-      <h1 className="text-zinc-500 text-xl font-LatoBold uppercase mb-6 tracking-[4px]">
+      <h1 className="text-zinc-500 text-base sm:!text-lg md:!text-xl font-LatoBold uppercase mb-6 tracking-[4px]">
         Forgot your Password
       </h1>
       <form className="w-full" onSubmit={handleSubmit(submitData)}>
-        <div className="w-3/4 grid mx-auto gap-x-32 gap-y-6">
+        <div className="w-[94%] md:!w-3/4 grid mx-auto gap-x-32 gap-y-6">
           <InputField
             fieldName="email"
             fieldType="email"

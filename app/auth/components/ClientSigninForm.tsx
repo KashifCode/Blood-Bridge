@@ -73,7 +73,7 @@ const ClientSigninForm = () => {
 
   return (
     <form className="w-full" onSubmit={handleSubmit(submitData)}>
-      <div className="w-3/4 grid mx-auto gap-x-32 gap-y-6">
+      <div className="w-[94%] md:!w-3/4 grid mx-auto gap-x-32 gap-y-6">
         <InputField
           fieldName="email"
           fieldType="email"
@@ -86,14 +86,14 @@ const ClientSigninForm = () => {
           <div className="w-full flex flex-col-reverse">
             <label
               htmlFor="password"
-              className="text-zinc-500 text-xs font-normal font-LatoRegular capitalize tracking-[3.50px] pl-3 pt-0.5"
+              className="text-zinc-500 text-[11px] md:!text-xs font-normal font-LatoRegular capitalize tracking-[2.50px] md:!tracking-[3.50px] pl-3 pt-0.5"
             >
               Enter password set at creating account
             </label>
             <input
               type={isShowPassword ? "text" : "password"}
               placeholder="Password"
-              className="placeholder:uppercase placeholder:font-LatoRegular placeholder:text-zinc-500 placeholder:text-base md:placeholder:text-lg focus:outline-0 focus:border-b focus:shadow-none border-b outline-0 shadow-none border-black w-full py-[5px] px-3 tracking-[3px]"
+              className="placeholder:uppercase placeholder:font-LatoRegular placeholder:text-zinc-500 text-sm md:!text-base placeholder:text-sm md:placeholder:text-lg focus:outline-0 focus:border-b focus:shadow-none border-b outline-0 shadow-none border-black w-full py-[5px] px-3 tracking-[3px]"
               {...register("password")}
             />
           </div>

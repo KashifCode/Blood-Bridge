@@ -74,7 +74,7 @@ const BloodBankSigninForm = () => {
 
   return (
     <form className="w-full" onSubmit={handleSubmit(submitData)}>
-      <div className="w-3/4 grid mx-auto gap-x-32 gap-y-6">
+      <div className="w-[94%] md:!w-3/4 grid mx-auto gap-x-32 gap-y-6">
         <InputField
           fieldName="licenseNo"
           fieldType="text"
@@ -88,14 +88,14 @@ const BloodBankSigninForm = () => {
           <div className="w-full flex flex-col-reverse">
             <label
               htmlFor="password"
-              className="text-zinc-500 text-xs font-normal font-LatoRegular capitalize tracking-[3.50px] pl-3 pt-0.5"
+              className="text-zinc-500 text-[11px] md:!text-xs font-normal font-LatoRegular capitalize tracking-[2.50px] md:!tracking-[3.50px] pl-3 pt-0.5"
             >
               Enter password set at creating account
             </label>
             <input
               type={isShowPassword ? "text" : "password"}
               placeholder="Password"
-              className="placeholder:uppercase placeholder:font-LatoRegular placeholder:text-zinc-500 placeholder:text-base md:placeholder:text-lg focus:outline-0 focus:border-b focus:shadow-none border-b outline-0 shadow-none border-black w-full py-[5px] px-3 tracking-[3px]"
+              className="placeholder:uppercase placeholder:font-LatoRegular placeholder:text-zinc-500 text-sm md:!text-base placeholder:text-sm md:placeholder:text-lg focus:outline-0 focus:border-b focus:shadow-none border-b outline-0 shadow-none border-black w-full py-[5px] px-3 tracking-[3px]"
               {...register("password")}
             />
           </div>
@@ -106,7 +106,7 @@ const BloodBankSigninForm = () => {
             {isShowPassword ? <ShowPassword /> : <HidePassword />}
           </div>
         </div>
-        <p className="text-zinc-500 text-xs font-normal font-LatoRegular capitalize tracking-[2px] mt-3 text-right">
+        <p className="text-zinc-500 text-[11px] md:!text-xs font-normal font-LatoRegular capitalize tracking-[2px] mt-3 text-right">
           forgot Password?{" "}
           <Link
             href={"/auth/forgot-password?type=bloodBank"}
@@ -118,12 +118,12 @@ const BloodBankSigninForm = () => {
       </div>
       <div className="w-3/4 mx-auto">
         <Button
-          className="w-full rounded-3xl bg-red-700 font-LatoBold uppercase tracking-[3.50px] hover:bg-red-800 mt-6 mb-5"
+          className="w-full rounded-3xl bg-red-700 font-LatoBold uppercase tracking-[2.50px] md:!tracking-[3.50px] hover:bg-red-800 mt-6 mb-5"
           type="submit"
         >
           Sign In
         </Button>
-        <p className="text-zinc-500 text-xs font-normal font-LatoRegular capitalize tracking-[2px] mt-3">
+        <p className="text-zinc-500 text-[11px] md:!text-xs font-normal font-LatoRegular capitalize tracking-[2px] mt-3">
           are you a new user?{" "}
           <Link
             href={"/auth/signUp?view=BloodBank"}

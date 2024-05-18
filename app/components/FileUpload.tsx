@@ -14,7 +14,7 @@ interface FileUploadProps {
 export const FileUpload = ({ onChange, value, endpoint }: FileUploadProps) => {
   return (
     <UploadDropzone
-      key={process.env.UPLOADTHING_SECRET}
+      // key={process.env.UPLOADTHING_SECRET}
       endpoint={endpoint}
       onClientUploadComplete={(res: any) => {
         onChange(res?.[0].url);

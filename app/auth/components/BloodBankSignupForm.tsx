@@ -157,7 +157,7 @@ const BloodBankSignupForm = () => {
 
   return (
     <form className="w-full" onSubmit={handleSubmit(SubmitData)}>
-      <div className="w-3/4 grid grid-cols-2 mx-auto gap-x-32 gap-y-6">
+      <div className="w-[94%] md:!w-3/4 grid grid-cols-1 md:!grid-cols-2 mx-auto gap-x-32 gap-y-6">
         <InputField
           fieldName="name"
           fieldType="text"
@@ -186,7 +186,7 @@ const BloodBankSignupForm = () => {
         />
 
         {/* <div className='w-full flex flex-col-reverse'>
-                    <label htmlFor="firstName" className='text-zinc-500 text-xs font-normal font-LatoRegular uppercase tracking-[3.50px] pl-3 pt-0.5'>Islamabad</label>
+                    <label htmlFor="firstName" className='text-zinc-500 text-[11px] md:!text-xs font-normal font-LatoRegular uppercase tracking-[2.50px] md:!tracking-[3.50px] pl-3 pt-0.5'>Islamabad</label>
                     <select className={cx('focus:outline-0 focus:border-b focus:shadow-none border-b outline-0 shadow-none border-black w-full py-[5px] px-3 tracking-[3px]', { '!border-red-500': errors?.city ? true : false })} {...register("city")}>
                         <option value="">Select City</option>
                         <option value="Islamabad">Islamabad</option>
@@ -208,7 +208,7 @@ const BloodBankSignupForm = () => {
           <div className="w-full flex flex-col-reverse">
             <label
               htmlFor="password"
-              className="text-zinc-500 text-xs font-normal font-LatoRegular capitalize tracking-[3.50px] pl-3 pt-0.5"
+              className="text-zinc-500 text-[11px] md:!text-xs font-normal font-LatoRegular capitalize tracking-[2.50px] md:!tracking-[3.50px] pl-3 pt-0.5"
             >
               Combination of alphanumerics & symbols
             </label>
@@ -223,7 +223,7 @@ const BloodBankSignupForm = () => {
               type={isShowPassword ? "text" : "password"}
               placeholder="Password"
               className={cx(
-                "placeholder:uppercase placeholder:font-LatoRegular placeholder:text-zinc-500 placeholder:text-base md:placeholder:text-lg focus:outline-0 focus:border-b focus:shadow-none border-b outline-0 shadow-none border-black w-full py-[5px] px-3 tracking-[3px] text-red-500",
+                "placeholder:uppercase placeholder:font-LatoRegular placeholder:text-zinc-500 text-sm md:!text-base placeholder:text-sm md:placeholder:text-lg focus:outline-0 focus:border-b focus:shadow-none border-b outline-0 shadow-none border-black w-full py-[5px] px-3 tracking-[3px] text-red-500",
                 { "!text-black": typedPasswordStrength === "Strong" },
               )}
             />
@@ -253,7 +253,7 @@ const BloodBankSignupForm = () => {
           <div className="w-full flex flex-col-reverse">
             <label
               htmlFor="confirmPassword"
-              className="text-zinc-500 text-xs font-normal font-LatoRegular capitalize tracking-[3.50px] pl-3 pt-0.5"
+              className="text-zinc-500 text-[11px] md:!text-xs font-normal font-LatoRegular capitalize tracking-[2.50px] md:!tracking-[3.50px] pl-3 pt-0.5"
             >
               Combination of alphanumerics & symbols
             </label>
@@ -261,7 +261,7 @@ const BloodBankSignupForm = () => {
               {...register("confirmPassword")}
               type={isShowPassword ? "text" : "password"}
               placeholder="Confirm Password"
-              className="placeholder:uppercase placeholder:font-LatoRegular placeholder:text-zinc-500 placeholder:text-base md:placeholder:text-lg focus:outline-0 focus:border-b focus:shadow-none border-b outline-0 shadow-none border-black w-full py-[5px] px-3 tracking-[3px]"
+              className="placeholder:uppercase placeholder:font-LatoRegular placeholder:text-zinc-500 text-sm md:!text-base placeholder:text-sm md:placeholder:text-lg focus:outline-0 focus:border-b focus:shadow-none border-b outline-0 shadow-none border-black w-full py-[5px] px-3 tracking-[3px]"
             />
           </div>
           <div
@@ -282,7 +282,7 @@ const BloodBankSignupForm = () => {
           />
           <label
             htmlFor="agreeTerms"
-            className="text-zinc-500 text-xs font-normal font-LatoRegular capitalize tracking-[2px] my-7"
+            className="text-zinc-500 text-[11px] md:!text-xs font-normal font-LatoRegular capitalize tracking-[2px] my-7"
           >
             I agree to{" "}
             <Link
@@ -294,13 +294,13 @@ const BloodBankSignupForm = () => {
           </label>
         </div>
         <Button
-          className="w-full rounded-3xl bg-red-700 font-LatoBold uppercase tracking-[3.50px] hover:bg-red-800"
+          className="w-full rounded-3xl bg-red-700 font-LatoBold uppercase tracking-[2.50px] md:!tracking-[3.50px] hover:bg-red-800"
           type="submit"
         >
           Sign Up
         </Button>
 
-        <p className="text-zinc-500 text-xs font-normal font-LatoRegular capitalize tracking-[2px] mt-4">
+        <p className="text-zinc-500 text-[11px] md:!text-xs font-normal font-LatoRegular capitalize tracking-[2px] mt-4">
           already have an account?{" "}
           <Link
             href={"/auth/signIn/?view=BloodBank"}

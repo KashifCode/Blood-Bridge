@@ -36,12 +36,12 @@ const SignIn = () => {
         </TabsTrigger>
       </TabsList>
       <TabsContent value="BloodRecipient">
-        <div className="w-full min-h-[80vh] flex items-center justify-center border border-zinc-300 rounded-md shadow-md bg-white overflow-hidden">
+        <div className="w-full min-h-[65vh] sm:!min-h-[70vh] md:!min-h-[80vh] flex items-center justify-center border border-zinc-300 rounded-md shadow-md bg-white overflow-hidden">
           <ClientSigninForm />
         </div>
       </TabsContent>
       <TabsContent value="BloodBank">
-        <div className="w-full min-h-[80vh] flex items-center justify-center border border-zinc-300 rounded-md shadow-md bg-white overflow-hidden">
+        <div className="w-full min-h-[65vh] sm:!min-h-[70vh] md:!min-h-[80vh] flex items-center justify-center border border-zinc-300 rounded-md shadow-md bg-white overflow-hidden">
           <BloodBankSigninForm />
         </div>
       </TabsContent>

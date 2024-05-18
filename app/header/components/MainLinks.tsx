@@ -52,7 +52,7 @@ const MainLinks = () => {
 
   const handleProfile = () => {
     if (user.role === "bloodBank") {
-      push("/profile/bloodBank/settings/management");
+      push("/profile/bloodBank/dashboard");
     } else if (user.role === "admin") {
       push("/admin/dashboard")
     } else {
@@ -105,17 +105,17 @@ const MainLinks = () => {
       )}
       {user?.role === "bloodBank" && (
         <div className="flex items-center gap-x-0.5">
-          <div className="w-7 h-7 cursor-pointer" onClick={handleLogout}>
+          <div className="w-6 h-6 md:!w-7 md:!h-7 cursor-pointer" onClick={handleLogout}>
             <LogoutIcon svgClass="w-full h-full" />
           </div>
           <div className="cursor-pointer">
-            <BellDot color="#ba5456" strokeWidth={1.4} size={24} />
+            <BellDot color="#ba5456" strokeWidth={1.4} size={isMobile ? "21": "24"} />
           </div>
         </div>
       )}
       {user?.role === "admin" && (
         <div className="flex items-center gap-x-0.5">
-          <div className="w-7 h-7 cursor-pointer" onClick={handleLogout}>
+          <div className="w-6 h-6 md:!w-7 md:!h-7 cursor-pointer" onClick={handleLogout}>
             <LogoutIcon svgClass="w-full h-full" />
           </div>
         </div>

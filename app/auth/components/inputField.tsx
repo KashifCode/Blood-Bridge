@@ -28,7 +28,7 @@ const InputField = ({
       <label
         htmlFor="firstName"
         className={cx(
-          "text-zinc-500 text-xs font-normal font-LatoRegular uppercase tracking-[3.50px] pl-3 pt-0.5",
+          "text-zinc-500 text-[11px] md:!text-xs font-normal font-LatoRegular uppercase tracking-[2.50px] md:!tracking-[3.50px] pl-3 pt-0.5",
           [titleCase],
         )}
       >
@@ -38,7 +38,7 @@ const InputField = ({
         type={fieldType}
         placeholder={fieldTitle}
         className={cx(
-          "placeholder:uppercase placeholder:font-LatoRegular placeholder:text-zinc-500 placeholder:text-base md:placeholder:text-lg focus:outline-0 focus:border-b focus:shadow-none border-b outline-0 shadow-none border-black w-full py-[5px] px-3 tracking-[3px]",
+          "placeholder:uppercase placeholder:font-LatoRegular text-sm md:!text-base placeholder:text-zinc-500 placeholder:text-sm md:placeholder:text-lg focus:outline-0 focus:border-b focus:shadow-none border-b outline-0 shadow-none border-black w-full py-[5px] px-3 tracking-[3px]",
           { "!border-red-500": isError },
         )}
         {...register(fieldName)}

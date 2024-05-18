@@ -22,14 +22,14 @@ const SignUp = () => {
       <TabsList>
         <TabsTrigger
           value="BloodRecipient"
-          className="!uppercase !bg-white data-[state=active]:!bg-[#BE382A] !text-zinc-500 data-[state=active]:!text-white !font-LatoRegular tracking-[5px]"
+          className="!uppercase !bg-white data-[state=active]:!bg-[#BE382A] !text-zinc-500 data-[state=active]:!text-white !font-LatoRegular tracking-[3px] sm:!tracking-[4px] md:!tracking-[5px]"
           onClick={() => handleUrlChange("BloodRecipient")}
         >
           Blood Recipient
         </TabsTrigger>
         <TabsTrigger
           value="BloodBank"
-          className="!uppercase !bg-white data-[state=active]:!bg-[#BE382A] !text-zinc-500 data-[state=active]:!text-white !font-LatoRegular tracking-[5px]"
+          className="!uppercase !bg-white data-[state=active]:!bg-[#BE382A] !text-zinc-500 data-[state=active]:!text-white !font-LatoRegular tracking-[3px] sm:!tracking-[4px] md:!tracking-[5px]"
           onClick={() => handleUrlChange("BloodBank")}
         >
           Blood Bank

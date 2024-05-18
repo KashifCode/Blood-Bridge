@@ -1,5 +1,5 @@
-export const BASE = "https://blood-bridge-umber.vercel.app/api/";
-// export const BASE = "http://localhost:5000/api/";
+// export const BASE = "https://blood-bridge-umber.vercel.app/api/";
+export const BASE = "http://localhost:5000/api/";
 
 export const registerUserUrl = () => {
   return encodeURI(`auth/user/register`);

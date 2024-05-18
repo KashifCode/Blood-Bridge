@@ -143,7 +143,7 @@ const ClientSignupForm = () => {
 
   return (
     <form className="w-full" onSubmit={handleSubmit(SubmitData)}>
-      <div className="w-3/4 grid grid-cols-2 mx-auto gap-x-32 gap-y-6">
+      <div className="w-[94%] md:!w-3/4 grid grid-cols-1 md:!grid-cols-2 mx-auto gap-x-32 gap-y-6">
         <InputField
           fieldName="firstName"
           fieldType="text"
@@ -178,12 +178,12 @@ const ClientSignupForm = () => {
         <div className="w-full flex flex-col-reverse">
           <label
             htmlFor="firstName"
-            className="text-zinc-500 text-xs font-normal font-LatoRegular uppercase tracking-[3.50px] pl-3 pt-0.5"
+            className="text-zinc-500 text-[11px] md:!text-xs font-normal font-LatoRegular uppercase tracking-[2.50px] md:!tracking-[3.50px] pl-3 pt-0.5"
           >
             Islamabad
           </label>
           <select
-            className="focus:outline-0 focus:border-b focus:shadow-none border-b outline-0 shadow-none border-black w-full py-[5px] px-3 tracking-[3px]"
+            className="focus:outline-0 focus:border-b focus:shadow-none text-sm md:!text-base border-b outline-0 shadow-none border-black w-full py-[5px] px-3 tracking-[3px]"
             {...register("city")}
           >
             <option value="">Select City</option>
@@ -195,12 +195,12 @@ const ClientSignupForm = () => {
         <div className="w-full flex flex-col-reverse">
           <label
             htmlFor="firstName"
-            className="text-zinc-500 text-xs font-normal font-LatoRegular uppercase tracking-[3.50px] pl-3 pt-0.5"
+            className="text-zinc-500 text-[11px] md:!text-xs font-normal font-LatoRegular uppercase tracking-[2.50px] md:!tracking-[3.50px] pl-3 pt-0.5"
           >
             Blood Group
           </label>
           <select
-            className="focus:outline-0 focus:border-b focus:shadow-none border-b outline-0 shadow-none border-black w-full py-[5px] px-3 tracking-[3px]"
+            className="focus:outline-0 focus:border-b focus:shadow-none text-sm md:!text-base border-b outline-0 shadow-none border-black w-full py-[5px] px-3 tracking-[3px]"
             {...register("bloodGroup")}
           >
             <option value="">Select Blood Group</option>
@@ -228,7 +228,7 @@ const ClientSignupForm = () => {
         <div className="w-full flex flex-col-reverse">
           <label
             htmlFor="firstName"
-            className="text-zinc-500 text-xs font-normal font-LatoRegular uppercase tracking-[3.50px] pl-3 pt-0.5"
+            className="text-zinc-500 text-[11px] md:!text-xsfont-normal font-LatoRegular uppercase tracking-[3.50px] pl-3 pt-0.5"
           >
             12345-6582314-2
           </label>
@@ -236,7 +236,7 @@ const ClientSignupForm = () => {
             {...register("cnic")}
             type="text"
             placeholder="CNIC"
-            className="placeholder:uppercase placeholder:font-LatoRegular placeholder:text-zinc-500 placeholder:text-base md:placeholder:text-lg focus:outline-0 focus:border-b focus:shadow-none border-b outline-0 shadow-none border-black w-full py-[5px] px-3 tracking-[3px]"
+            className="placeholder:uppercase placeholder:font-LatoRegular placeholder:text-zinc-500 text-sm md:!text-base placeholder:text-sm md:placeholder:text-lg focus:outline-0 focus:border-b focus:shadow-none border-b outline-0 shadow-none border-black w-full py-[5px] px-3 tracking-[3px]"
           />
         </div>
 
@@ -244,7 +244,7 @@ const ClientSignupForm = () => {
           <div className="w-full flex flex-col-reverse">
             <label
               htmlFor="password"
-              className="text-zinc-500 text-xs font-normal font-LatoRegular capitalize tracking-[3.50px] pl-3 pt-0.5"
+              className="text-zinc-500 text-[11px] md:!text-xs font-normal font-LatoRegular capitalize tracking-[3.50px] pl-3 pt-0.5"
             >
               Combination of alphanumerics & symbols
             </label>
@@ -259,7 +259,7 @@ const ClientSignupForm = () => {
               type={isShowPassword ? "text" : "password"}
               placeholder="Password"
               className={cx(
-                "placeholder:uppercase placeholder:font-LatoRegular placeholder:text-zinc-500 placeholder:text-base md:placeholder:text-lg focus:outline-0 focus:border-b focus:shadow-none border-b outline-0 shadow-none border-black w-full py-[5px] px-3 tracking-[3px] text-red-500",
+                "placeholder:uppercase placeholder:font-LatoRegular placeholder:text-zinc-500 text-sm md:!text-base placeholder:text-sm md:placeholder:text-lg focus:outline-0 focus:border-b focus:shadow-none border-b outline-0 shadow-none border-black w-full py-[5px] px-3 tracking-[3px] text-red-500",
                 { "!text-black": typedPasswordStrength === "Strong" },
               )}
             />
@@ -289,7 +289,7 @@ const ClientSignupForm = () => {
           <div className="w-full flex flex-col-reverse">
             <label
               htmlFor="confirmPassword"
-              className="text-zinc-500 text-xs font-normal font-LatoRegular capitalize tracking-[3.50px] pl-3 pt-0.5"
+              className="text-zinc-500 text-[11px] md:!text-xs font-normal font-LatoRegular capitalize tracking-[3.50px] pl-3 pt-0.5"
             >
               Combination of alphanumerics & symbols
             </label>
@@ -297,7 +297,7 @@ const ClientSignupForm = () => {
               {...register("confirmPassword")}
               type={isShowPassword ? "text" : "password"}
               placeholder="Confirm Password"
-              className="placeholder:uppercase placeholder:font-LatoRegular placeholder:text-zinc-500 placeholder:text-base md:placeholder:text-lg focus:outline-0 focus:border-b focus:shadow-none border-b outline-0 shadow-none border-black w-full py-[5px] px-3 tracking-[3px]"
+              className="placeholder:uppercase placeholder:font-LatoRegular placeholder:text-zinc-500 text-sm md:!text-base placeholder:text-sm md:placeholder:text-lg focus:outline-0 focus:border-b focus:shadow-none border-b outline-0 shadow-none border-black w-full py-[5px] px-3 tracking-[3px]"
             />
           </div>
           <div
@@ -318,7 +318,7 @@ const ClientSignupForm = () => {
           />
           <label
             htmlFor="agreeTerms"
-            className="text-zinc-500 text-xs font-normal font-LatoRegular capitalize tracking-[2px] my-7"
+            className="text-zinc-500 text-[11px] md:!text-xs font-normal font-LatoRegular capitalize tracking-[2px] my-7"
           >
             I agree to{" "}
             <Link
@@ -336,7 +336,7 @@ const ClientSignupForm = () => {
           Sign Up
         </Button>
 
-        <p className="text-zinc-500 text-xs font-normal font-LatoRegular capitalize tracking-[2px] mt-4">
+        <p className="text-zinc-500 text-[11px] md:!text-xs font-normal font-LatoRegular capitalize tracking-[2px] mt-4">
           already have an account?{" "}
           <Link
             href={"/auth/signIn/?view=BloodRecipient"}
