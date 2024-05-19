@@ -59,6 +59,8 @@ const EnsureLogin = () => {
       "/auth/forgot-password",
       "/:user/:id/verify/:token",
       "/blood-banks",
+      "/blood-banks/donate-blood",
+      "/blood-banks/request-blood",
       "/event",
       "/reviews",
       "/profile/user",
