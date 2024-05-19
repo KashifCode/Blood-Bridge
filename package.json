@@ -43,6 +43,7 @@
     "eslint": "8.49.0",
     "eslint-config-next": "13.4.19",
     "eslint-config-prettier": "^9.1.0",
+    "export-from-json": "^1.7.4",
     "fluentreports": "^1.4.3",
     "leaflet": "^1.9.4",
     "lucide-react": "^0.276.0",

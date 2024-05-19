@@ -18,7 +18,7 @@ import {
 } from "@/components/ui/table";
 import TickIcon from "@/globals/icons/TickIcon";
 import CrossIcon from "@/globals/icons/CrossIcon";
-// import { Report } from 'fluentReports/lib/esm/fluentReports.mjs';
+import exportFromJSON from 'export-from-json';
 
 const AllRequestToUsers = () => {
   const [selectedMonth, setSelectedMonth] = useState<string>("All");
@@ -55,10 +55,6 @@ const AllRequestToUsers = () => {
   const bloodTypes = ["All", "A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"];
 
   const filteredRecords = allRecords?.filter((record: any) => {
-    console.log(
-      record.createdAt.split("T")[0].split("-")[1],
-      (months.indexOf(selectedMonth) + 1).toString(),
-    );
     if (selectedMonth === "All" && selectedBloodType === "All") return record;
     if (selectedMonth === "All" && selectedBloodType !== "All")
       return record.bloodType === selectedBloodType;
@@ -75,15 +71,24 @@ const AllRequestToUsers = () => {
       );
   });
 
-  // // Our Simple Data in Object format:
-  // const data = [{ name: 'Elijah', age: 18 }, { name: 'Abraham', age: 22 }, { name: 'Gavin', age: 28 }];
+  const handleExport = () => {
+    console.log(filteredRecords, "Exporting data...");
+    let data: any = {};
+    data = filteredRecords.map((record: any) => {
+        const rowData: any = {};
+        const keys = Object.keys(record);
+        keys.forEach((key) => {
+            rowData[key] = record[key];
+        });
+        delete rowData._id
+        delete rowData.__v
+        delete rowData.createdAt
 
-  // // Create a Report
-  // const rpt = new Report("Report.pdf")
-  //     .pageHeader(["Employee Ages"])      // Add a simple (optional) page Header...
-  //     .data(data)	 			 	      // Add some Data (This is required)
-  //     .detail([['name', 200], ['age', 50]]) // Layout the report in a Grid of 200px & 50px
-  //     .render();
+        return rowData;
+    });
+
+    exportFromJSON({ data, fileName: "past-requests", exportType: exportFromJSON.types.xls });
+}
 
   if (isLoading) return <div>Loading...</div>;
   if (isError) return <div>There was an error, Try Again!!</div>;
@@ -98,10 +103,10 @@ const AllRequestToUsers = () => {
         </div>
         <div className="flex items-center gap-x-5">
           <Button
-            className="bg-[#255E79] hover:bg-[#255E69] text-white font-LatoBold !py-1 rounded-3xl"
-            onClick={() => console.log("Generate Report")}
+            className="bg-[#255E79] hover:bg-[#255E69] text-white font-LatoBold !h-auto !py-1.5 !px-6 rounded-3xl"
+            onClick={handleExport}
           >
-            Generate Report
+            Export
           </Button>
           <select
             className="rounded-lg py-1 px-3 focus:outline-none focus:ring-2 focus:ring-red-800 focus:border-0 bg-red-700 text-white transition-all"
