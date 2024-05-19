@@ -208,3 +208,5 @@
 {"level":"error","message":"Please login to continue","service":"user-service"}
 {"level":"error","message":"Please login to continue","service":"user-service"}
 {"level":"error","message":"Please login to continue","service":"user-service"}
+{"level":"error","message":"Blood type not found","service":"user-service"}
+{"level":"error","message":"Your email or password is incorrect","service":"user-service"}
