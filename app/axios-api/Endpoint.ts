@@ -142,7 +142,7 @@ export const eventNotifyUsers = () => {
 };
 
 export const getNearby = () => {
-  return encodeURI(`bloodBank/locate`);
+  return encodeURI(`bloodBanks/locate`);
 };
 
 export const placeRequestToUsers = () => {
