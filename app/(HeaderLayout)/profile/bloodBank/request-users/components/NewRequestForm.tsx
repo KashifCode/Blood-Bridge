@@ -112,8 +112,7 @@ const NewRequestForm = () => {
     queryFn: async () => {
       const url = getNearby();
       const { data } = await axios.get(url);
-      console.log(data);
-      return data;
+      return data?.nearbyBloodBanks;
     },
   });
 
