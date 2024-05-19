@@ -1,12 +1,25 @@
+"use client"
+
 import React from "react";
 import Image from "next/image";
 import homeIntro from "@/assets/homeIntro.png";
 import homeIntro2 from "@/assets/homeIntro2.png";
 import { Button } from "@/components/ui/button";
 import cx from "classnames";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useBBSelector } from "@/redux/store";
 
 const HomeIntro = ({ isSecondImage }: { isSecondImage?: boolean }) => {
+  const { push } = useRouter();
+  const auth = useBBSelector((state) => state.authReducer.value.isAuth);
+
+  const handleRequestDonate = () => {
+    if(auth) {
+      push("/blood-banks");
+    } else {
+      push("/auth/signIn");
+    }
+  }
   return (
     <div
       className={cx(
@@ -28,28 +41,23 @@ const HomeIntro = ({ isSecondImage }: { isSecondImage?: boolean }) => {
           and those in need. Our platform connects you with people who require
           blood transfusions and gives you the opportunity to make a life-saving
           difference. Whether you are a donor or in need, Blood Bridge makes the
-          process simple and convenient.{" "}
-          <span className=" uppercase text-blue-700 underline tracking-[3px] text-xs lg:text-sm pl-1">
-            Learn More
-          </span>
+          process simple and convenient.
         </p>
         <div className="flex items-center gap-x-3">
-          <Link href="/blood-banks">
-            <Button
-              variant={"outline"}
-              className="!py-1 !pr-0 !h-auto uppercase tracking-[5px] !rounded-full !border-2 !border-red-700 hover:!bg-red-700 hover:!text-white min-w-[100px] md:!min-w-[108px] lg:!min-w-[120px] font-DMSansMedium focus:!ring-0 text-xs md:!text-sm lg:!text-base !pl-1"
-            >
-              Request
-            </Button>
-          </Link>
-          <Link href="/blood-banks">
-            <Button
-              variant={"outline"}
-              className="!py-1 !pr-0 !h-auto uppercase tracking-[5px] !rounded-full !border-2 !border-red-700 hover:!bg-red-700 hover:!text-white min-w-[100px] md:!min-w-[108px] lg:!min-w-[120px] font-DMSansMedium focus:!ring-0 text-xs md:!text-sm lg:!text-base !pl-1"
-            >
-              Donate
-            </Button>
-          </Link>
+          <Button
+            onClick={handleRequestDonate}
+            variant={"outline"}
+            className="!py-1 !pr-0 !h-auto uppercase tracking-[5px] !rounded-full !border-2 !border-red-700 hover:!bg-red-700 hover:!text-white min-w-[100px] md:!min-w-[108px] lg:!min-w-[120px] font-DMSansMedium focus:!ring-0 text-xs md:!text-sm lg:!text-base !pl-1"
+          >
+            Request
+          </Button>
+          <Button
+            onClick={handleRequestDonate}
+            variant={"outline"}
+            className="!py-1 !pr-0 !h-auto uppercase tracking-[5px] !rounded-full !border-2 !border-red-700 hover:!bg-red-700 hover:!text-white min-w-[100px] md:!min-w-[108px] lg:!min-w-[120px] font-DMSansMedium focus:!ring-0 text-xs md:!text-sm lg:!text-base !pl-1"
+          >
+            Donate
+          </Button>
         </div>
       </div>
       {!isSecondImage && (

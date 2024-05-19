@@ -320,13 +320,7 @@ const ClientSignupForm = () => {
             htmlFor="agreeTerms"
             className="text-zinc-500 text-[11px] md:!text-xs font-normal font-LatoRegular capitalize tracking-[2px] my-7"
           >
-            I agree to{" "}
-            <Link
-              href={"/terms-and-conditions"}
-              className="text-blue-600 cursor-pointer"
-            >
-              terms & conditions
-            </Link>
+            I agree to terms & conditions
           </label>
         </div>
         <Button

@@ -3,9 +3,11 @@ import Link from "next/link";
 import React from "react";
 import { usePathname } from "next/navigation";
 import cx from "classnames";
+import { useBBSelector } from "@/redux/store";
 
 const Navbar = ({ isMbl }: { isMbl?: boolean }) => {
   const path = usePathname();
+  const auth = useBBSelector((state) => state.authReducer.value.isAuth);
 
   const isActive = (pathname: string) => {
     return path === pathname;
@@ -34,26 +36,28 @@ const Navbar = ({ isMbl }: { isMbl?: boolean }) => {
             Home
           </Link>
         </li>
-        <li>
-          <Link
-            className={cx(
-              "text-zinc-500 text-sm sm:!text-base font-medium font-LatoMedium uppercase tracking-[2px]",
-              {
-                "!text-red-700 pb-1 border-b border-red-700":
-                  isActive("/blood-banks") && !isMbl,
-              },
-              { "bg-red-700  !text-white": isActive("/blood-banks") && isMbl },
-              {
-                "inline-block min-w-[180px] sm:!min-w-[240px] !text-center rounded-sm py-1":
-                  isMbl,
-              },
-              { "hover:text-red-700": !isActive("/blood-banks") && isMbl },
-            )}
-            href="/blood-banks"
-          >
-            Blood Banks
-          </Link>
-        </li>
+        {auth && (
+          <li>
+            <Link
+              className={cx(
+                "text-zinc-500 text-sm sm:!text-base font-medium font-LatoMedium uppercase tracking-[2px]",
+                {
+                  "!text-red-700 pb-1 border-b border-red-700":
+                    isActive("/blood-banks") && !isMbl,
+                },
+                { "bg-red-700  !text-white": isActive("/blood-banks") && isMbl },
+                {
+                  "inline-block min-w-[180px] sm:!min-w-[240px] !text-center rounded-sm py-1":
+                    isMbl,
+                },
+                { "hover:text-red-700": !isActive("/blood-banks") && isMbl },
+              )}
+              href="/blood-banks"
+            >
+              Blood Banks
+            </Link>
+          </li>
+        )}
         <li>
           <Link
             className={cx(
@@ -74,26 +78,28 @@ const Navbar = ({ isMbl }: { isMbl?: boolean }) => {
             Event
           </Link>
         </li>
-        <li>
-          <Link
-            className={cx(
-              "text-zinc-500 text-sm sm:!text-base font-medium font-LatoMedium uppercase tracking-[2px]",
-              {
-                "!text-red-700 pb-1 border-b border-red-700":
-                  isActive("/reviews") && !isMbl,
-              },
-              { "bg-red-700  !text-white": isActive("/reviews") && isMbl },
-              {
-                "inline-block min-w-[180px] sm:!min-w-[240px] !text-center rounded-sm py-1":
-                  isMbl,
-              },
-              { "hover:text-red-700": !isActive("/reviews") && isMbl },
-            )}
-            href="/reviews"
-          >
-            Reviews
-          </Link>
-        </li>
+        {auth && (
+          <li>
+            <Link
+              className={cx(
+                "text-zinc-500 text-sm sm:!text-base font-medium font-LatoMedium uppercase tracking-[2px]",
+                {
+                  "!text-red-700 pb-1 border-b border-red-700":
+                    isActive("/reviews") && !isMbl,
+                },
+                { "bg-red-700  !text-white": isActive("/reviews") && isMbl },
+                {
+                  "inline-block min-w-[180px] sm:!min-w-[240px] !text-center rounded-sm py-1":
+                    isMbl,
+                },
+                { "hover:text-red-700": !isActive("/reviews") && isMbl },
+              )}
+              href="/reviews"
+            >
+              Reviews
+            </Link>
+          </li>
+        )}
       </ul>
     </nav>
   );

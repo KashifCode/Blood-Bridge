@@ -1,10 +1,14 @@
+"use client"
+
 import React from "react";
 import Image from "next/image";
 import logo from "@/assets/Logo.png";
 import Link from "next/link";
 import { Facebook, Instagram, Linkedin, Twitter } from "lucide-react";
+import { useBBSelector } from "@/redux/store";
 
 const Footer = () => {
+  const auth = useBBSelector((state) => state.authReducer.value.isAuth);
   return (
     <div className="w-full py-[4%] bg-darkRed">
       <div className="px-[4%] md:!px-[8%] h-[32vh] md:!h-[40vh] flex flex-col justify-between">
@@ -26,16 +30,20 @@ const Footer = () => {
             </div>
             <nav>
               <ul className="flex items-center gap-x-8">
-                <Link href={"/reviews"}>
-                  <li className="tracking-tight font-LatoRegular text-white  first-letter:uppercase">
-                    Reviews
-                  </li>
-                </Link>
-                <Link href={"/blood-banks"}>
-                  <li className="tracking-tight font-LatoRegular text-white  first-letter:uppercase">
-                    Blood Banks
-                  </li>
-                </Link>
+                {auth && (
+                  <>
+                    <Link href={"/reviews"}>
+                      <li className="tracking-tight font-LatoRegular text-white  first-letter:uppercase">
+                        Reviews
+                      </li>
+                    </Link>
+                    <Link href={"/blood-banks"}>
+                      <li className="tracking-tight font-LatoRegular text-white  first-letter:uppercase">
+                        Blood Banks
+                      </li>
+                    </Link>
+                  </>
+                )}
                 <Link href={"/event"}>
                   <li className="tracking-tight font-LatoRegular text-white  first-letter:uppercase">
                     Events

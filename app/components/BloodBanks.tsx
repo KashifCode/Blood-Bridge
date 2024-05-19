@@ -8,6 +8,8 @@ import { StaticImageData } from "next/image";
 import { getBloodBanksHome } from "../axios-api/Endpoint";
 import { axiosInstance as axios } from "../axios-api/axios";
 import toast from "react-hot-toast";
+import { useBBSelector } from "@/redux/store";
+import { useRouter } from "next/navigation";
 
 interface Location {
   lat: number;
@@ -28,6 +30,8 @@ export interface BloodBankInterface {
 }
 
 const BloodBanks = () => {
+  const { push } = useRouter();
+  const auth = useBBSelector((state) => state.authReducer.value.isAuth);
   const [bloodBanks, setBloodBanks] = useState<BloodBankInterface[]>([]);
 
   useEffect(() => {
@@ -40,6 +44,14 @@ const BloodBanks = () => {
     })
   }, []);
 
+  const handleViewMore = () => {
+    if(auth) {
+      push("/blood-banks");
+    } else {
+      push("/auth/signIn");
+    }
+  }
+
   return (
     <div className="w-full flex flex-col items-center pl-[6%] pr-[3%] my-6 gap-y-7">
       <h1 className=" text-zinc-800 italic text-3xl md:text-4xl font-PlayfairDisplayBold">
@@ -50,11 +62,11 @@ const BloodBanks = () => {
           <BloodBankCard key={index} bloodBank={bloodBank} />
         ))}
       </div>
-      <Link href={"/blood-banks"}>
-        <Button className="!bg-darkRed !rounded-full !min-w-[150px] !text-base lg:!text-lg !py-2">
-          View More
-        </Button>
-      </Link>
+      <Button
+        className="!bg-darkRed !rounded-full !min-w-[150px] !text-base lg:!text-lg !py-2"
+        onClick={handleViewMore}>
+        View More
+      </Button>
     </div>
   );
 };

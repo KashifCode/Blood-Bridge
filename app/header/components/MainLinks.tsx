@@ -69,9 +69,11 @@ const MainLinks = () => {
     <div
       className={cx("flex items-center justify-center", {
         "!gap-x-1 sm:!gap-x-1.5": user?.role === "bloodBank" || user?.role === "admin",
+      }, {
+        '!justify-end pr-3': isMobile && !isAuth
       })}
     >
-      {(user?.role !== "bloodBank" && user?.role !== "admin") && (
+      {(user?.role !== "bloodBank" && user?.role !== "admin" && isAuth) && (
         <>
           <Link href={"/blood-banks"}>
             <Button

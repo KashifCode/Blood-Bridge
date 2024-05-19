@@ -7,6 +7,7 @@ import { getAllUserEvents } from "@/app/axios-api/Endpoint";
 import shadow from "@/app/components/shadow.module.css";
 import toast from "react-hot-toast";
 import { Clock, MapPin } from "lucide-react";
+import cx from "classnames";
 
 const UserEvents = () => {
   const [events, setEvents] = useState<any[]>([]);
@@ -76,7 +77,7 @@ const UserEvents = () => {
           <option value="dec">December</option>
         </select>
       </div>
-      <div className="grid grid-cols-1 sm:!grid-cols-2 lg:!grid-cols-3 2xl:!grid-cols-4 gap-x-8 gap-y-6">
+      <div className={cx("grid grid-cols-1 gap-x-8 gap-y-6", {'!grid-cols-1 sm:!grid-cols-2 lg:!grid-cols-3 2xl:!grid-cols-4': filteredEvents.length !== 0})}>
         {filteredEvents?.map((event, index) => (
           <div
             key={index}
@@ -126,6 +127,13 @@ const UserEvents = () => {
             </div>
           </div>
         ))}
+        {filteredEvents.length === 0 && (
+          <div className="w-full flex justify-center items-center">
+            <p className="font-DMSansMedium text-lg text-black text-center">
+              No events found
+            </p>
+          </div>
+        )}
       </div>
     </div>
   );
