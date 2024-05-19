@@ -20,14 +20,21 @@ import { useQueryClient, useMutation, useQuery } from "@tanstack/react-query";
 import { getNearby, placeRequestToUsers } from "@/app/axios-api/Endpoint";
 import { axiosInstance as axios } from "@/app/axios-api/axios";
 import Loader from "@/app/components/Loader";
+import { useBBSelector } from "@/redux/store";
 // import { getNearby } from '@/app/axios-api/Endpoint'
 
 const NewRequestForm = () => {
   const [selectedUsers, setSelectedUsers] = useState<string>("");
-  const [selectedArea, setSelectedArea] = useState<string>("");
   const [bloodType, setBloodType] = useState<string>("");
   const [bloodBags, setBloodBags] = useState<number>(0);
   const [isRequiredUrgently, setIsRequiredUrgently] = useState<boolean>(false);
+  const bloodBank = useBBSelector((state) => state.authReducer.value.user);
+  const [selectedArea, setSelectedArea] = useState<string>("");
+
+  useEffect(() => {
+    setSelectedArea(bloodBank?.sector);
+  }, [bloodBank]);
+
   const islamabadSectors = [
     "D-12",
     "E-7",
@@ -105,7 +112,7 @@ const NewRequestForm = () => {
     queryFn: async () => {
       const url = getNearby();
       const { data } = await axios.get(url);
-      return data?.nearbyBloodBanks;
+      return data?.bloodBanks;
     },
   });
 
@@ -175,7 +182,7 @@ const NewRequestForm = () => {
         <Label className="pl-2" htmlFor="area">
           Area
         </Label>
-        <Select onValueChange={(val) => setSelectedArea(val)}>
+        <Select defaultValue={bloodBank?.sector} onValueChange={(val) => setSelectedArea(val)}>
           <SelectTrigger className="w-full bg-[#e4e1fd] rounded-2xl">
             <SelectValue placeholder="Select Area" />
           </SelectTrigger>
