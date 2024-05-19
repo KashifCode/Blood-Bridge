@@ -2,8 +2,8 @@ import storageHelper from "@/lib/storage-helper";
 import axios, { AxiosResponse, AxiosRequestConfig } from "axios";
 
 export const axiosInstance = axios.create({
-  // baseURL: "https://blood-bridge-umber.vercel.app/api/",
-  baseURL: "http://localhost:5000/api/",
+  baseURL: "https://blood-bridge-umber.vercel.app/api/",
+  // baseURL: "http://localhost:5000/api/",
 });
 const ResponseInterceptor = (response: AxiosResponse) => {
   return response;
@@ -34,11 +34,11 @@ axiosInstance.interceptors.response.use(
     } else {
       if (error.response.status === 401) {
         //logOut User
-        setTimeout(() => {
-          storageHelper.removeItem(storageHelper.StorageKeys.Access_Token);
-          storageHelper.removeItem(storageHelper.StorageKeys.Role);
-          window.location.href = "/";
-        }, 1000);
+        storageHelper.removeItem(storageHelper.StorageKeys.Access_Token);
+        storageHelper.removeItem(storageHelper.StorageKeys.Role);
+        // setTimeout(() => {
+        //   window.location.href = "/";
+        // }, 1000);
       }
       return Promise.reject(error);
     }
