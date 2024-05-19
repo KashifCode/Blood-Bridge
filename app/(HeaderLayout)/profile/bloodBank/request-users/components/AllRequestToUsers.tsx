@@ -66,7 +66,7 @@ const AllRequestToUsers = () => {
     if (selectedMonth !== "All" && selectedBloodType !== "All")
       return (
         record.createdAt.split("T")[0].split("-")[1] ===
-          months.indexOf(selectedMonth).toString().padStart(2, "0") &&
+        months.indexOf(selectedMonth).toString().padStart(2, "0") &&
         record.bloodType === selectedBloodType
       );
   });
@@ -74,23 +74,30 @@ const AllRequestToUsers = () => {
   const handleExport = () => {
     console.log(filteredRecords, "Exporting data...");
     let data: any = {};
+    let serial = 1;
     data = filteredRecords.map((record: any) => {
-        const rowData: any = {};
-        const keys = Object.keys(record);
-        keys.forEach((key) => {
-            rowData[key] = record[key];
-        });
-        delete rowData._id
-        delete rowData.__v
-        delete rowData.createdAt
+      const rowData: any = {};
+      let bloodBankNames = "";
+      record?.bloodBanks?.forEach((aBloodBank: any) => bloodBankNames += (aBloodBank?.name + ", "));
+      rowData["S.No"] = serial++;
+      rowData["Requester"] = record?.Requester?.name;
+      rowData["Users"] = "All Users";
+      rowData["Blood Banks"] = bloodBankNames?.slice(0, -2);
+      rowData["Blood Type"] = record?.bloodType;
+      rowData["Blood bags"] = record?.bloodBags;
+      rowData["Area"] = record?.area;
 
-        return rowData;
+      return rowData;
     });
 
     exportFromJSON({ data, fileName: "past-requests", exportType: exportFromJSON.types.xls });
-}
+  }
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return (
+    <div className="w-full flex justify-center">
+      <div className="w-12 h-12 rounded-full border-t-2 border-darkRed border-solid animate-spin" />
+    </div>
+  )
   if (isError) return <div>There was an error, Try Again!!</div>;
   return (
     <div>
