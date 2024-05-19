@@ -117,13 +117,16 @@ const RequestDonateBlood = ({
         return;
       }
 
-      if (
-        data?.receivedBlood &&
-        data?.receivedBlood.every((bloodGroup) => bloodGroup !== "")
-      ) {
-      } else {
-        toast.error("Please select blood groups in exchange");
-        return;
+      if (bloodBankOpen?.giveBlood === "true") {
+
+        if (
+          data?.receivedBlood &&
+          data?.receivedBlood.every((bloodGroup) => bloodGroup !== "")
+        ) {
+        } else {
+          toast.error("Please select blood groups in exchange");
+          return;
+        }
       }
     } else {
       if (data?.disease === "") {
