@@ -56,9 +56,6 @@ const EnsureLogin = () => {
 
   useEffect(() => {
     const userRoutes = [
-      "/",
-      "/auth/signIn",
-      "/auth/signUp",
       "/auth/forgot-password",
       "/:user/:id/verify/:token",
       "/blood-banks",
@@ -73,9 +70,6 @@ const EnsureLogin = () => {
     ]
 
     const bloodBankRoutes = [
-      "/",
-      "/auth/signIn",
-      "/auth/signUp",
       "/auth/forgot-password",
       "/:user/:id/verify/:token",
       "/profile/bloodBank/dashboard",
@@ -94,9 +88,6 @@ const EnsureLogin = () => {
     ]
 
     const adminRoutes = [
-      "/",
-      "/auth/signIn",
-      "/auth/signUp",
       "/auth/forgot-password",
       "/admin/dashboard",
       "/admin/users",
@@ -109,17 +100,30 @@ const EnsureLogin = () => {
       "/admin/requests",
     ]
 
-    if(!(userRoutes.includes(pathname)) && loggedInUser?.role === "user") {
+    const commonRoutes = [
+      "/",
+      "/auth/signIn",
+      "/auth/signUp",
+      "/auth/forgot-password",
+      "/auth/user/reset/:token",
+    ]
+
+    if(!(commonRoutes.includes(pathname)) && loggedInUser === null) {
       toast.error("You are not authorized to access this page");
       push("/");
     }
 
-    if(!(bloodBankRoutes.includes(pathname)) && loggedInUser?.role === "bloodBank") {
+    if((!(userRoutes.includes(pathname)) && !(commonRoutes.includes(pathname))) && loggedInUser?.role === "user") {
       toast.error("You are not authorized to access this page");
       push("/");
     }
 
-    if(!(adminRoutes.includes(pathname)) && loggedInUser?.role === "admin") {
+    if((!(bloodBankRoutes.includes(pathname)) && !(commonRoutes.includes(pathname))) && loggedInUser?.role === "bloodBank") {
+      toast.error("You are not authorized to access this page");
+      push("/");
+    }
+
+    if((!(adminRoutes.includes(pathname)) && !(commonRoutes.includes(pathname))) && loggedInUser?.role === "admin") {
       toast.error("You are not authorized to access this page");
       push("/");
     }
