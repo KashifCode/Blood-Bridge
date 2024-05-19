@@ -16,6 +16,7 @@ import {
   BBgetAllBloodRequestes,
 } from "@/app/axios-api/Endpoint";
 import toast from "react-hot-toast";
+import exportFromJSON from "export-from-json";
 
 const UserStatistics = () => {
   const [bloodDonations, setbloodDonations] = useState<any[]>();
@@ -83,6 +84,33 @@ const UserStatistics = () => {
     return Math.abs(ageDate.getUTCFullYear() - 1970);
   }
 
+  const handleExport = () => {
+    let data: any = {};
+    let serial = 1;
+    data = users.users!.map((record: any) => {
+      const rowData: any = {};
+      rowData["S.No"] = serial++;
+      rowData["Name"] = record?.user?.name;
+      rowData["Age"] = calculateAge(new Date(record?.user?.user?.dob?.split('T')[0]));
+      rowData["Phone"] = record?.user?.contact;
+      rowData["Blood Group"] = record?.user?.user?.bloodGroup;
+      rowData["Status"] = (record?.requests > 0 && record?.donations > 0) ? "Donor/Requester" : (record?.requests > 0 && record?.donations === 0) ? "Requester" : (record?.requests === 0 && record?.donations > 0) ? "Donor" : "-";
+
+      const keys = Object.keys(record);
+      keys.forEach((key) => {
+        rowData[key] = record[key];
+      });
+      delete rowData["__v"];
+      delete rowData["_id"];
+      delete rowData["createdAt"];
+      delete rowData["user"];
+
+      return rowData;
+    });
+
+    exportFromJSON({ data, fileName: "Users", exportType: exportFromJSON.types.xls });
+  }
+
   return (
     <div className="w-full">
       <div className="w-full flex gap-x-7 items-center">
@@ -119,6 +147,12 @@ const UserStatistics = () => {
 
       <div className="w-full flex justify-end">
         <div className="flex items-center gap-x-4">
+          <button
+            className="bg-[#255E79] hover:bg-[#255E69] text-white font-DMSansBold !h-auto !py-1.5 !px-6 rounded-3xl"
+            onClick={handleExport}
+          >
+            Export
+          </button>
           <p className="font-DMSansSemiBold text-slate-900 capitalize">
             Filter
           </p>
@@ -185,8 +219,8 @@ const UserStatistics = () => {
                   <TableCell className="text-center">
                     {aUser?.user?.user
                       ? calculateAge(
-                          new Date(aUser?.user?.user?.dob.split("T")[0]),
-                        )
+                        new Date(aUser?.user?.user?.dob.split("T")[0]),
+                      )
                       : "-"}
                   </TableCell>
                   <TableCell>{aUser?.user?.contact}</TableCell>
@@ -219,8 +253,8 @@ const UserStatistics = () => {
                   <TableCell className="text-center">
                     {aUser?.user?.user
                       ? calculateAge(
-                          new Date(aUser?.user?.user?.dob.split("T")[0]),
-                        )
+                        new Date(aUser?.user?.user?.dob.split("T")[0]),
+                      )
                       : "-"}
                   </TableCell>
                   <TableCell>{aUser?.user?.contact}</TableCell>
@@ -253,8 +287,8 @@ const UserStatistics = () => {
                   <TableCell className="text-center">
                     {aUser?.user?.user
                       ? calculateAge(
-                          new Date(aUser?.user?.user?.dob.split("T")[0]),
-                        )
+                        new Date(aUser?.user?.user?.dob.split("T")[0]),
+                      )
                       : "-"}
                   </TableCell>
                   <TableCell>{aUser?.user?.contact}</TableCell>

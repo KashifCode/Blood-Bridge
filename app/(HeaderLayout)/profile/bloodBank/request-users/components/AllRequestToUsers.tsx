@@ -72,7 +72,6 @@ const AllRequestToUsers = () => {
   });
 
   const handleExport = () => {
-    console.log(filteredRecords, "Exporting data...");
     let data: any = {};
     let serial = 1;
     data = filteredRecords.map((record: any) => {

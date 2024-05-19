@@ -19,6 +19,8 @@ import toast from "react-hot-toast";
 import { MoveRight, X } from "lucide-react";
 import cx from "classnames";
 import Link from "next/link";
+import exportFromJSON from "export-from-json";
+import { useBBSelector } from "@/redux/store";
 
 const RequestStatistics = ({
   isFromDashboard,
@@ -35,6 +37,7 @@ const RequestStatistics = ({
     time: "",
   });
   const [showModal, setShowModal] = useState(false);
+  const bloodbank = useBBSelector((state) => state.authReducer.value.user);
 
   const bloodTypes = ["All", "A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"];
   const monthOptions = [
@@ -145,6 +148,40 @@ const RequestStatistics = ({
         toast.error(err.response.data.message);
       });
   };
+
+  const handleExport = () => {
+    let data: any = {};
+    let serial = 1;
+    data = bloodRequests!.map((record: any) => {
+      const rowData: any = {};
+      let receivedBloodTypes = "";
+      record?.receivedBlood?.forEach((aBloodType: any) => receivedBloodTypes += (aBloodType + ", "));
+      rowData["S.No"] = serial++;
+      rowData["Request Date"] = record?.bloodNeededOn.split("T")[0];
+      rowData["Recieve Blood"] = receivedBloodTypes?.slice(0, -2);
+      rowData["Blood Bank"] = bloodbank?.name;
+      rowData["Blood Group"] = record?.bloodGroup?.bloodGroup;
+      const keys = Object.keys(record);
+      keys.forEach((key) => {
+        rowData[key] = record[key];
+      });
+      delete rowData["__v"];
+      delete rowData["_id"];
+      delete rowData["createdAt"];
+      delete rowData["bloodGroup"];
+      delete rowData["bloodNeededOn"];
+      delete rowData["receivedBlood"];
+      delete rowData["user"];
+      delete rowData["bloodBank"];
+      delete rowData["reviewed"];
+      rowData["Reviewed"] = record?.reviewed ? "Yes" : "No";
+
+      return rowData;
+    });
+
+    exportFromJSON({ data, fileName: "Requests", exportType: exportFromJSON.types.xls });
+  }
+
   return (
     <div
       className={cx(
@@ -306,6 +343,12 @@ const RequestStatistics = ({
                 List of Blood Requests
               </p>
               <div className="flex items-center justify-between gap-x-4">
+                <button
+                  className="bg-[#255E79] hover:bg-[#255E69] text-white font-DMSansBold !h-auto !py-1.5 !px-6 rounded-3xl"
+                  onClick={handleExport}
+                >
+                  Export
+                </button>
                 <p className="font-DMSansSemiBold text-slate-900 capitalize">
                   Filters:
                 </p>

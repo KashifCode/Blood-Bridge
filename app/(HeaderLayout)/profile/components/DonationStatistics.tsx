@@ -20,6 +20,8 @@ import { X } from "lucide-react";
 import cx from "classnames";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import exportFromJSON from "export-from-json";
+import { useBBSelector } from "@/redux/store";
 
 const DonationStatistics = () => {
   const [bloodDonations, setbloodDonations] = useState<any[]>();
@@ -32,6 +34,7 @@ const DonationStatistics = () => {
     time: "",
   });
   const [showModal, setShowModal] = useState(false);
+  const bloodbank = useBBSelector((state) => state.authReducer.value.user);
 
   const bloodTypes = ["All", "A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"];
   const monthOptions = [
@@ -139,6 +142,34 @@ const DonationStatistics = () => {
         toast.error(err.response.data.message);
       });
   };
+
+  const handleExport = () => {
+    let data: any = {};
+    let serial = 1;
+    data = bloodDonations!.map((record: any) => {
+      const rowData: any = {};
+      rowData["S.No"] = serial++;
+      rowData["Donation Date"] = record?.donationDate.split("T")[0];
+      rowData["Blood Bank"] = bloodbank?.name;
+      const keys = Object.keys(record);
+      keys.forEach((key) => {
+        rowData[key] = record[key];
+      });
+      delete rowData["__v"];
+      delete rowData["_id"];
+      delete rowData["createdAt"];
+      delete rowData["donationDate"];
+      delete rowData["user"];
+      delete rowData["bloodBank"];
+      delete rowData["reviewed"];
+      rowData["Reviewed"] = record?.reviewed ? "Yes" : "No";
+
+      return rowData;
+    });
+
+    exportFromJSON({ data, fileName: "Donations", exportType: exportFromJSON.types.xls });
+  }
+
   return (
     <div
       className={cx(
@@ -270,6 +301,12 @@ const DonationStatistics = () => {
               </h3>
             </div>
           </div>
+          <Button
+            className="bg-[#255E79] hover:bg-[#255E69] text-white font-LatoBold !h-auto !py-1.5 !px-6 rounded-3xl mr-3.5"
+            onClick={handleExport}
+          >
+            Export
+          </Button>
           <Link href="/profile/bloodBank/donation/manual">
             <Button className="!h-auto !font-LatoMedium !text-white !bg-darkRed hover:!bg-red-800 !rounded-3xl !text-xl !pt-0.5 !pb-1.5 !px-5 min-w-max mx-auto">Manual Donation</Button>
           </Link>

@@ -23,12 +23,14 @@ import { useDispatch } from "react-redux";
 import { updateAllEvents } from "@/redux/features/allEvents";
 import { useBBSelector } from "@/redux/store";
 import EditEvent from "@/app/(HeaderLayout)/profile/components/EditEvent";
+import exportFromJSON from "export-from-json";
 
 const EventsStatistics = () => {
   const allEvents = useBBSelector((state) => state.allEvents.value.events);
   const dispatch = useDispatch();
   const [eventToEdit, setEventToEdit] = React.useState<any>(null);
   const [isEventEdit, setIsEventEdit] = React.useState<boolean>(false);
+  const bloodBank = useBBSelector((state) => state.authReducer.value.user);
 
   useEffect(() => {
     const url = getAllEvents();
@@ -102,7 +104,38 @@ const EventsStatistics = () => {
     }
   };
 
-  useEffect(() => {}, [isEventEdit]);
+  useEffect(() => { }, [isEventEdit]);
+
+  const handleExport = () => {
+    console.log(allEvents, "Exporting data...");
+    let data: any = {};
+    let serial = 1;
+    data = allEvents!.map((record: any) => {
+      const rowData: any = {};
+      rowData["S.No"] = serial++;
+      let guestNames = "";
+      record?.guests?.forEach((aGuest: any) => guestNames += (aGuest + ", "));
+      rowData["Blood Bank"] = bloodBank?.name;
+      rowData["Guests"] = guestNames?.slice(0, -2);
+      rowData["Event Date"] = record?.eventTime?.split('T')[0];
+
+      const keys = Object.keys(record);
+      keys.forEach((key) => {
+        rowData[key] = record[key];
+      });
+      delete rowData["__v"];
+      delete rowData["_id"];
+      delete rowData["createdAt"];
+      delete rowData["guests"];
+      delete rowData["eventDate"];
+      delete rowData["image"];
+      delete rowData["bloodBank"];
+
+      return rowData;
+    });
+
+    exportFromJSON({ data, fileName: "Events", exportType: exportFromJSON.types.xls });
+  }
 
   return (
     <div className="w-full h-full pb-5">
@@ -141,9 +174,17 @@ const EventsStatistics = () => {
         </div>
       </div>
 
-      <p className="font-DMSansSemiBold text-slate-900 capitalize pb-1.5 pt-4 mt-4">
-        List of Events
-      </p>
+      <div className="w-full flex items-center justify-between">
+        <p className="font-DMSansSemiBold text-slate-900 capitalize pb-1.5 pt-4 mt-4">
+          List of Events
+        </p>
+        <button
+          className="bg-[#255E79] hover:bg-[#255E69] text-white font-DMSansBold !h-auto !py-1.5 !px-6 rounded-3xl"
+          onClick={handleExport}
+        >
+          Export
+        </button>
+      </div>
       <div className={`bg-white w-full flex gap-x-4 pb-4 px-2.5`}>
         <div className="w-[60%]">
           <Table
