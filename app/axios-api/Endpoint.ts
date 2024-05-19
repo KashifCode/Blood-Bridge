@@ -146,7 +146,7 @@ export const getNearby = () => {
 };
 
 export const placeRequestToUsers = () => {
-  return encodeURI(`bloodBank/action`);
+  return encodeURI(`bloodBank/locate`);
 };
 
 export const getAllRequestsToUsers = () => {

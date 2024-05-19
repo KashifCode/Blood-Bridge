@@ -92,6 +92,7 @@ const EnsureLogin = () => {
       "/profile/bloodBank/events",
       "/profile/bloodBank/blood",
       "/profile/bloodBank/donation",
+      "/profile/bloodBank/donation/manual",
       "/profile/bloodBank/types-blood",
       "/profile/bloodBank/reviews",
       "/profile/bloodBank/settings/management",
