@@ -6,6 +6,7 @@ type AuthState = {
   isAuth: boolean;
   user: any;
   token: string;
+  justLoggedOut: boolean;
 };
 
 type initialStateType = {
@@ -18,6 +19,7 @@ const initialState = {
     isAuth: false,
     user: null,
     token: "",
+    justLoggedOut: false,
   } as AuthState,
 } as initialStateType;
 
@@ -33,7 +35,7 @@ export const auth = createSlice({
     logOut: () => {
       storageHelper.removeItem(storageHelper.StorageKeys.Role);
       storageHelper.removeItem(storageHelper.StorageKeys.Access_Token);
-      return { value: { ...initialState.value, isLoading: false } };
+      return { value: { ...initialState.value, isLoading: false, justLoggedOut: true } };
     },
     logIn: (state, action: PayloadAction<LogInPayload>) => {
       storageHelper.saveItem(
@@ -51,6 +53,7 @@ export const auth = createSlice({
             isAuth: true,
             user: action.payload.user,
             token: action.payload.token,
+            justLoggedOut: false,
           },
         };
       }
@@ -63,6 +66,7 @@ export const auth = createSlice({
             isAuth: true,
             user: action.payload.user,
             token: action.payload.token,
+            justLoggedOut: false,
           },
         };
       }
@@ -73,9 +77,12 @@ export const auth = createSlice({
     completeProfile: (state) => {
       state.value.user = { ...state.value.user, profileVerified: true };
     },
+    updateJustLoggedOut: (state) => {
+      state.value.justLoggedOut = false;
+    }
   },
 });
 
-export const { logOut, logIn, notFound, updateUser, completeProfile } =
+export const { logOut, logIn, notFound, updateUser, completeProfile, updateJustLoggedOut } =
   auth.actions;
 export default auth.reducer;

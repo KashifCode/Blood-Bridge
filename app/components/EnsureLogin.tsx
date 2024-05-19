@@ -1,5 +1,5 @@
 "use client";
-import { updateUser, notFound } from "@/redux/features/authSlice";
+import { updateUser, notFound, updateJustLoggedOut } from "@/redux/features/authSlice";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { axiosInstance as axios } from "@/app/axios-api/axios";
@@ -18,7 +18,6 @@ const EnsureLogin = () => {
   const { push } = useRouter();
   const [emailVerified, setEmailVerified] = useState<boolean>(true);
   const pathname = usePathname();
-  const loggedInUser = useBBSelector((state) => state.authReducer.value.user);
 
   useEffect(() => {
     const reloadData = async () => {
@@ -54,8 +53,17 @@ const EnsureLogin = () => {
     reloadData();
   }, [dispatch]);
 
+  const isLoading = useBBSelector((state) => state.authReducer.value.isLoading);
+  const loggedInUser = useBBSelector((state) => state.authReducer.value.user);
+  const justLoggedOut = useBBSelector((state) => state.authReducer.value.justLoggedOut)
+
   useEffect(() => {
     const userRoutes = [
+      "/",
+      "/auth/signIn",
+      "/auth/signUp",
+      "/auth/forgot-password",
+      "/auth/user/reset/:token",
       "/auth/forgot-password",
       "/:user/:id/verify/:token",
       "/blood-banks",
@@ -72,6 +80,11 @@ const EnsureLogin = () => {
     ]
 
     const bloodBankRoutes = [
+      "/",
+      "/auth/signIn",
+      "/auth/signUp",
+      "/auth/forgot-password",
+      "/auth/user/reset/:token",
       "/auth/forgot-password",
       "/:user/:id/verify/:token",
       "/profile/bloodBank/dashboard",
@@ -90,6 +103,11 @@ const EnsureLogin = () => {
     ]
 
     const adminRoutes = [
+      "/",
+      "/auth/signIn",
+      "/auth/signUp",
+      "/auth/forgot-password",
+      "/auth/user/reset/:token",
       "/auth/forgot-password",
       "/admin/dashboard",
       "/admin/users",
@@ -102,41 +120,42 @@ const EnsureLogin = () => {
       "/admin/requests",
     ]
 
-    const commonRoutes = [
+    const routesWithNoAuth = [
       "/",
       "/auth/signIn",
       "/auth/signUp",
       "/auth/forgot-password",
       "/auth/user/reset/:token",
+      "/auth/forgot-password",
     ]
 
-    if(!(commonRoutes.includes(pathname)) && loggedInUser === null) {
-      toast.error("You are not authorized to access this page");
-      push("/");
+    if (routesWithNoAuth.includes(pathname)) {
+      return;
+    } else {
+      if (!justLoggedOut) {
+        if (!(userRoutes.includes(pathname)) && loggedInUser?.role === "user" && !isLoading) {
+          toast.error("You are not authorized to access this page");
+          push("/");
+        }
+        if (!(bloodBankRoutes.includes(pathname)) && loggedInUser?.role === "bloodBank" && !isLoading) {
+          toast.error("You are not authorized to access this page");
+          push("/");
+        }
+        if (!(adminRoutes.includes(pathname)) && loggedInUser?.role === "admin" && !isLoading) {
+          toast.error("You are not authorized to access this page");
+          push("/");
+        }
+      } else {
+        dispatch(updateJustLoggedOut())
+        return;
+      }
     }
+  }, [pathname, push, isLoading, justLoggedOut, loggedInUser, dispatch]);
 
-    if((!(userRoutes.includes(pathname)) && !(commonRoutes.includes(pathname))) && loggedInUser?.role === "user") {
-      toast.error("You are not authorized to access this page");
-      push("/");
-    }
-
-    if((!(bloodBankRoutes.includes(pathname)) && !(commonRoutes.includes(pathname))) && loggedInUser?.role === "bloodBank") {
-      toast.error("You are not authorized to access this page");
-      push("/");
-    }
-
-    if((!(adminRoutes.includes(pathname)) && !(commonRoutes.includes(pathname))) && loggedInUser?.role === "admin") {
-      toast.error("You are not authorized to access this page");
-      push("/");
-    }
-  }, [pathname, push, loggedInUser])
-
-  const isLoading = useBBSelector((state) => state.authReducer.value.isLoading);
-  const user = useBBSelector((state) => state.authReducer.value.user);
   useEffect(() => {
-    if (user?.role === "bloodBank") {
-      if (user) {
-        if (!user.profileVerified) {
+    if (loggedInUser?.role === "bloodBank") {
+      if (loggedInUser) {
+        if (!loggedInUser.profileVerified) {
           push("/profile/bloodBank/settings/management");
         }
       }

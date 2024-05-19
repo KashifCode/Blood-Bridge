@@ -27,17 +27,6 @@ const MainLinks = () => {
   const [showDropdown, setShowDropdown] = useState<boolean>(false);
 
   const handleLogout = () => {
-    // const url = logOutUserUrl();
-
-    // axios.get(url, {
-    //     withCredentials: true,
-    // }).then((res) => {
-    //     dispatch(logOut())
-    //     push("/")
-    //     toast.success(res.data.message);
-    // }).catch((err) => {
-    //     toast.error(err!.response!.data!.message!);
-    // })
     dispatch(logOut());
     //get token from local storage if empty then show logout successful
     if (localStorage.getItem(storageHelper.StorageKeys.Access_Token) === null) {
