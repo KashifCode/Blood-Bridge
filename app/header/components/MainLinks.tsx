@@ -9,7 +9,7 @@ import { logOut } from "@/redux/features/authSlice";
 import { useDispatch } from "react-redux";
 import toast from "react-hot-toast";
 import ClientOnly from "@/app/components/ClientOnly";
-import { BellDot, User } from "lucide-react";
+import { User } from "lucide-react";
 import { useRouter } from "next/navigation";
 import cx from "classnames";
 import mapIcon from "@/assets/MapIcon.png";
@@ -109,9 +109,6 @@ const MainLinks = () => {
         <div className="flex items-center gap-x-0.5">
           <div className="w-6 h-6 md:!w-7 md:!h-7 cursor-pointer" onClick={handleLogout}>
             <LogoutIcon svgClass="w-full h-full" />
-          </div>
-          <div className="cursor-pointer">
-            <BellDot color="#ba5456" strokeWidth={1.4} size={isMobile ? "21": "24"} />
           </div>
         </div>
       )}

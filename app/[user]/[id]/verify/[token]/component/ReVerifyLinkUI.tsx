@@ -7,11 +7,9 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { axiosInstance as axios } from "@/app/axios-api/axios";
 import toast from "react-hot-toast";
-import { useRouter } from "next/navigation";
 import { BadgeX } from "lucide-react";
 
-const ReVerifyLinkUI = ({ url }: { url: string }) => {
-  const { push } = useRouter();
+const ReVerifyLinkUI = ({ url, user }: { url: string, user: string }) => {
   const [isVerified, setIsVerified] = useState<boolean>(false);
   const [isError, setIsError] = useState<boolean>(false);
   useEffect(() => {
@@ -22,7 +20,6 @@ const ReVerifyLinkUI = ({ url }: { url: string }) => {
       .then((res) => {
         setIsVerified(true);
         toast.success(res!.data!.message!);
-        push("/");
       })
       .catch((err) => {
         toast.error(err!.response!.data!.message!);
@@ -37,9 +34,9 @@ const ReVerifyLinkUI = ({ url }: { url: string }) => {
         <>
           <Image className="w-28 h-28" src={verified} alt="Verified" />
           <p className="text-lg uppercase text-zinc-500 tracking-[3.75px] font-LatoMedium mt-3.5 text-center max-w-[35%]">
-            You have succsuccessfully verified your email
+            You have Successfully verified your email
           </p>
-          <Link href={"/profile/user/account"}>
+          <Link href={`/profile/${user}/${user === "user" ? "account": "dasboard"}`}>
             <Button className="!bg-darkRed !text-white !tracking-[5px] !font-LatoBold !rounded-full !text-xl !px-8 !py-6 pl-[5px] mt-9 uppercase">
               Go to Dashboard
             </Button>
@@ -52,6 +49,9 @@ const ReVerifyLinkUI = ({ url }: { url: string }) => {
               <BadgeX size={130} color="darkRed" />
               <p className="text-lg uppercase text-red-600 tracking-[3.75px] font-LatoMedium mt-3.5 text-center max-w-[35%]">
                 Invalid Email Verification Link
+              </p>
+              <p className="text-lg uppercase text-red-600 tracking-[3.75px] font-LatoMedium mt-3.5 text-center max-w-[35%]">
+                Your Email Has Not Been Verified!
               </p>
             </>
           ) : (

@@ -7,20 +7,16 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { axiosInstance as axios } from "@/app/axios-api/axios";
 import toast from "react-hot-toast";
-import { useRouter } from "next/navigation";
 import { BadgeX } from "lucide-react";
 
 const VerifyLinkUI = ({ url }: { url: string }) => {
-  const { push } = useRouter();
   const [isVerified, setIsVerified] = useState<boolean>(false);
   const [isError, setIsError] = useState<boolean>(false);
   useEffect(() => {
     axios
       .get(url)
       .then((res) => {
-        console.log(res.data);
         setIsVerified(true);
-        push("/auth/signIn");
       })
       .catch((err) => {
         toast.error(err!.response!.data!.message!);
@@ -28,6 +24,7 @@ const VerifyLinkUI = ({ url }: { url: string }) => {
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  
   return (
     <>
       {isVerified ? (
@@ -36,9 +33,9 @@ const VerifyLinkUI = ({ url }: { url: string }) => {
           <p className="text-lg uppercase text-zinc-500 tracking-[3.75px] font-LatoMedium mt-3.5 text-center max-w-[35%]">
             You have succsuccessfully verified your email
           </p>
-          <Link href={"/"}>
+          <Link href={"/auth/signIn"}>
             <Button className="!bg-darkRed !text-white !tracking-[5px] !font-LatoBold !rounded-full !text-xl !px-8 !py-6 pl-[5px] mt-9 uppercase">
-              Go to Dashboard
+              Go to Login
             </Button>
           </Link>
         </>
@@ -49,6 +46,9 @@ const VerifyLinkUI = ({ url }: { url: string }) => {
               <BadgeX size={130} color="darkRed" />
               <p className="text-lg uppercase text-red-600 tracking-[3.75px] font-LatoMedium mt-3.5 text-center max-w-[35%]">
                 Invalid Email Verification Link
+              </p>
+              <p className="text-lg uppercase text-red-600 tracking-[3.75px] font-LatoMedium mt-3.5 text-center max-w-[35%]">
+                Your Account Has Not Been Verified!
               </p>
             </>
           ) : (

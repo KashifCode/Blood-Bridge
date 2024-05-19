@@ -15,7 +15,7 @@ const page = ({
     <div
       className={`w-full mt-6 bg-white min-h-[76vh] flex flex-col items-center justify-center relative z-[3] ${shadow.lightShadow}`}
     >
-      <ReVerifyLinkUI url={requestURL} />
+      <ReVerifyLinkUI url={requestURL} user={user} />
     </div>
   );
 };
