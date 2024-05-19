@@ -39,7 +39,6 @@ const EnsureLogin = () => {
           })
           .then((res) => {
             user = role === "user" || role === "admin" ? res.data.user : res.data.bloodBank;
-            console.log(user);
             setEmailVerified(user.emailVerified);
             dispatch(updateUser({ user } as any));
           })
@@ -133,6 +132,10 @@ const EnsureLogin = () => {
       return;
     } else {
       if (!justLoggedOut) {
+        if (!(routesWithNoAuth.includes(pathname)) && loggedInUser === null && !isLoading) {
+          toast.error("You are not authorized to access this page");
+          push("/");
+        }
         if (!(userRoutes.includes(pathname)) && loggedInUser?.role === "user" && !isLoading) {
           toast.error("You are not authorized to access this page");
           push("/");
@@ -146,11 +149,11 @@ const EnsureLogin = () => {
           push("/");
         }
       } else {
-        dispatch(updateJustLoggedOut())
-        return;
+        dispatch(updateJustLoggedOut());
       }
     }
-  }, [pathname, push, isLoading, justLoggedOut, loggedInUser, dispatch]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pathname, push, isLoading, loggedInUser, dispatch]);
 
   useEffect(() => {
     if (loggedInUser?.role === "bloodBank") {
