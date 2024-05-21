@@ -8,7 +8,7 @@ const page = () => {
       className={`w-full bg-stone-200 pl-[5%] pr-[10%] pt-8 relative ${shadow.bloodBankNavHeight}`}
     >
       <p className="font-LatoBold mb-[1.125rem] text-2xl text-slate-900">
-        Create Blood Types
+        Blood Types
       </p>
       <div className="w-full flex justify-between">
         <div className="w-full">

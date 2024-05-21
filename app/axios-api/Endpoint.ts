@@ -101,6 +101,10 @@ export const addBloodGroup = () => {
   return encodeURI(`bloodBank/bloodType/new`);
 };
 
+export const updateBloodGroup = () => {
+  return encodeURI(`bloodBank/bloodType/update`);
+};
+
 export const BBgetAllBloodRequestes = () => {
   return encodeURI(`bloodBank/blood/request/all`);
 };
