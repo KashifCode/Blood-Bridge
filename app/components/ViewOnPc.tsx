@@ -3,7 +3,7 @@ import redLogo from "@/assets/redLogo.png";
 import Image from 'next/image';
 import Link from 'next/link';
 
-const ViewOnPc = () => {
+const ViewOnPc: React.FC<{ callFrom: string }> = ({ callFrom }) => {
     return (
         <div className='w-full min-h-screen max-h-screen overflow-hidden flex flex-col gap-y-7 items-center justify-center px-[5%] bg-gradient-to-b from-red-600 to-red-400'>
             <div className='bg-white w-[86px] h-[90px] rounded-3xl flex items-center justify-center'>
@@ -16,8 +16,8 @@ const ViewOnPc = () => {
                 </div>
             </div>
             <div className='flex flex-col gap-y-1'>
-                <h3 className='text-xl leading-9 text-white font-DMSansSemiBold text-center'>Blood Bank Portal is only available on desktop.</h3>
-                <h3 className='text-xl leading-9 text-white font-DMSansSemiBold text-center'>Sign in from your desktop to use Blood Bank Portal.</h3>
+                <h3 className='text-xl leading-9 text-white font-DMSansSemiBold text-center'>{`${callFrom}`} Portal is only available on desktop.</h3>
+                <h3 className='text-xl leading-9 text-white font-DMSansSemiBold text-center'>Sign in from your desktop to use {`${callFrom}`} Portal.</h3>
             </div>
             <Link href={"/"}>
                 <div className='w-max h-[80px] bg-white rounded-2xl px-3 py-2 !pl-1 flex items-center gap-x-1'>

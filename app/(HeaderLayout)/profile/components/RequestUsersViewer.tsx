@@ -9,23 +9,8 @@ import PastLists from "@/globals/icons/past-lists";
 
 const RequestUsersViewer = () => {
   const { push } = useRouter();
-  const [selectedMonth, setSelectedMonth] = useState<number>(
-    new Date().getMonth() + 1,
-  );
-  const options = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
+  const selectedMonth = new Date().getMonth() + 1;
+  const monthName = new Date().toLocaleString("default", { month: "long" });
 
   const handleRedirect = (path: string) => {
     push(path);
@@ -37,17 +22,9 @@ const RequestUsersViewer = () => {
         <p className="font-DMSansSemiBold text-xl text-slate-900 capitalize">
           Blood Consumed
         </p>
-        <select
-          className="outline-0 border-none focus:border-none focus:outline-0 bg-red-700 text-white p-1 rounded-lg"
-          defaultValue={selectedMonth}
-          onChange={(e) => setSelectedMonth(Number(e.target.value))}
-        >
-          {options.map((option: string, index: number) => (
-            <option key={index} value={index + 1}>
-              {option}
-            </option>
-          ))}
-        </select>
+        <p className="font-DMSansMedium text-xl text-slate-900 capitalize">
+          {monthName}
+        </p>
       </div>
       <BloodTypesChart selectedMonth={selectedMonth} />
       <div>

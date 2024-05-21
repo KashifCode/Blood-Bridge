@@ -34,7 +34,6 @@ const options = {
 };
 
 const BloodTypesChart = ({ selectedMonth }: { selectedMonth: number }) => {
-  const allBloodTypes = ["A+", "A-", "AB+", "AB-", "O+", "O-", "B+", "B-"];
   const [bloodTypes, setBloodTypes] = useState<any[]>([]);
 
   const filterStockHistory = (bloodType: any[]): any[] => {

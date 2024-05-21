@@ -1,27 +1,10 @@
-"use client";
-
-import React, { useState } from "react";
+import React from "react";
 import BloodTypesChart from "./BloodTypesChart";
 import BBDashboardUsers from "./BBDashboardUsers";
 
 const Dashboardviewer = () => {
-  const [selectedMonth, setSelectedMonth] = useState<number>(
-    new Date().getMonth() + 1,
-  );
-  const options = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
+  const selectedMonth = new Date().getMonth() + 1;
+  const monthName = new Date().toLocaleString("default", { month: "long" });
 
   return (
     <div className="w-full">
@@ -29,19 +12,11 @@ const Dashboardviewer = () => {
         <p className="font-DMSansSemiBold text-xl text-slate-900 capitalize">
           Blood Consumed
         </p>
-        <select
-          className="outline-0 border-none focus:border-none focus:outline-0 bg-red-700 text-white p-1 rounded-lg"
-          defaultValue={selectedMonth}
-          onChange={(e) => setSelectedMonth(Number(e.target.value))}
-        >
-          {options.map((option: string, index: number) => (
-            <option key={index} value={index + 1}>
-              {option}
-            </option>
-          ))}
-        </select>
+        <p className="font-DMSansMedium text-xl text-slate-900 capitalize">
+          {monthName}
+        </p>
       </div>
-      <BloodTypesChart selectedMonth={selectedMonth} />
+      <BloodTypesChart selectedMonth={selectedMonth}/>
       <BBDashboardUsers />
     </div>
   );

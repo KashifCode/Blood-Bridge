@@ -11,7 +11,7 @@ const Footer = () => {
   const auth = useBBSelector((state) => state.authReducer.value.isAuth);
   return (
     <div className="w-full py-[4%] bg-darkRed">
-      <div className="px-[4%] md:!px-[8%] h-[32vh] md:!h-[40vh] flex flex-col justify-between">
+      <div className="px-[4%] flex flex-col justify-between gap-y-16 md:!gap-y-24">
         <div className="flex items-start justify-between">
           <div className="flex flex-col gap-y-5">
             <div className="flex items-center">
@@ -29,7 +29,7 @@ const Footer = () => {
               </p>
             </div>
             <nav>
-              <ul className="flex items-center gap-x-8">
+              <ul className="flex items-center gap-x-5 md:!gap-x-8">
                 {auth && (
                   <>
                     <Link href={"/reviews"}>
@@ -52,7 +52,7 @@ const Footer = () => {
               </ul>
             </nav>
           </div>
-          <div className="flex flex-col gap-y-2.5">
+          {/* <div className="flex flex-col gap-y-2.5">
             <div className="bg-white rounded-full p-[3px]">
               <Facebook
                 className="min-w-[20px] min-h-[20px]"
@@ -84,10 +84,11 @@ const Footer = () => {
                 color="transparent"
               />
             </div>
-          </div>
+          </div> */}
         </div>
         <div className="w-full border-t-2 border-zinc-400">
-          <nav className="mt-7">
+          <p className="mt-7 tracking-tight font-LatoRegular text-zinc-400 text-xs md:!text-sm capitalize">All right reserved &copy; blood bridge 2024</p>
+          {/* <nav className="mt-7">
             <ul className="flex items-center gap-x-2 sm:!gap-x-3 md:!gap-x-5">
               <Link href={"/"}>
                 <li className="tracking-tight font-LatoRegular text-zinc-400 text-xs md:!text-sm  first-letter:uppercase">
@@ -114,7 +115,7 @@ const Footer = () => {
               </Link>
               <div className="border-r border-zinc-400 h-3.5" />
             </ul>
-          </nav>
+          </nav> */}
         </div>
       </div>
     </div>
