@@ -152,7 +152,7 @@ const UserRecords = ({ isFromBlocked }: { isFromBlocked?: boolean }) => {
                                 <TableCell className='text-center'>{user?.requestCount}</TableCell>
                                 <TableCell>
                                     <div className='flex items-center justify-center gap-x-3'>
-                                        <Link href={`/admin/users/${user._id}`}><Eye size={20} /></Link>
+                                        {/* <Link href={`/admin/users/${user._id}`}><Eye size={20} /></Link> */}
                                         <Ban className='cursor-pointer' size={20} onClick={() => handleBlockUser(user._id, isFromBlocked ? "unblocked" : "blocked")} />
                                         <Trash2 className='cursor-pointer' size={20} onClick={() => handleDeleteUser(user._id)} />
                                     </div>

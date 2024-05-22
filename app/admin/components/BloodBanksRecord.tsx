@@ -218,7 +218,7 @@ const BloodBanksRecord = ({ isFromBlocked }: { isFromBlocked?: boolean }) => {
                                 </TableCell>
                                 <TableCell>
                                     <div className='flex items-center justify-center gap-x-3'>
-                                        <Link href={`/admin/bloodBanks/${bloodBank._id}?ac=${bloodBank?.accomplishedCount}&pc=${bloodBank?.pendingCount}&rc=${bloodBank?.rejectedCount}&tb=${bloodBank?.totalBags}`}><Eye size={20} /></Link>
+                                        {/* <Link href={`/admin/bloodBanks/${bloodBank._id}?ac=${bloodBank?.accomplishedCount}&pc=${bloodBank?.pendingCount}&rc=${bloodBank?.rejectedCount}&tb=${bloodBank?.totalBags}`}><Eye size={20} /></Link> */}
                                         <Ban className='cursor-pointer' size={20} onClick={() => handleBlockBloodBank(bloodBank._id, isFromBlocked ? "unblocked" : "blocked")} />
                                         <Trash2 className='cursor-pointer' size={20} onClick={() => handleDeleteBloodBank(bloodBank._id)} />
                                     </div>
