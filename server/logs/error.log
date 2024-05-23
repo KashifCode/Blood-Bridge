@@ -233,3 +233,5 @@
 {"level":"error","message":"Please login to continue","service":"user-service"}
 {"level":"error","message":"Please login to continue","service":"user-service"}
 {"level":"error","message":"Blood type already exists","service":"user-service"}
+{"level":"error","message":"Json web token is expired, please try again!","service":"user-service"}
+{"level":"error","message":"Json web token is expired, please try again!","service":"user-service"}

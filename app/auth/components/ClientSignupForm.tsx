@@ -66,10 +66,10 @@ const ClientSignupForm = () => {
         .refine(
           (data) => {
             const dob = new Date(data);
-            return dob < today && data !== formattedDate;
+            return dob < new Date(today.setFullYear(today.getFullYear() - 18)) && data !== formattedDate;
           },
           {
-            message: `Date of Birth must not exceed ${formattedDate}`,
+            message: `You must be 18 years old to register`,
           },
         ),
       city: z.string().nonempty({ message: "City is required" }),
