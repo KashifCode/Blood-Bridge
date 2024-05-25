@@ -4,13 +4,12 @@ import React from "react";
 import Image from "next/image";
 import logo from "@/assets/Logo.png";
 import Link from "next/link";
-import { Facebook, Instagram, Linkedin, Twitter } from "lucide-react";
 import { useBBSelector } from "@/redux/store";
 
 const Footer = () => {
   const auth = useBBSelector((state) => state.authReducer.value.isAuth);
   return (
-    <div className="w-full py-[4%] bg-darkRed">
+    <div className="w-full pt-[4%] pb-[2%] bg-darkRed">
       <div className="px-[4%] flex flex-col justify-between gap-y-16 md:!gap-y-24">
         <div className="flex items-start justify-between">
           <div className="flex flex-col gap-y-5">
@@ -86,36 +85,8 @@ const Footer = () => {
             </div>
           </div> */}
         </div>
-        <div className="w-full border-t-2 border-zinc-400">
-          <p className="mt-7 tracking-tight font-LatoRegular text-zinc-400 text-xs md:!text-sm capitalize">All right reserved &copy; blood bridge 2024</p>
-          {/* <nav className="mt-7">
-            <ul className="flex items-center gap-x-2 sm:!gap-x-3 md:!gap-x-5">
-              <Link href={"/"}>
-                <li className="tracking-tight font-LatoRegular text-zinc-400 text-xs md:!text-sm  first-letter:uppercase">
-                  Terms & Conditions
-                </li>
-              </Link>
-              <div className="border-r border-zinc-400 h-3.5" />
-              <Link href={"/"}>
-                <li className="tracking-tight font-LatoRegular text-zinc-400 text-xs md:!text-sm  first-letter:uppercase">
-                  Privacy Policy
-                </li>
-              </Link>
-              <div className="border-r border-zinc-400 h-3.5" />
-              <Link href={"/"}>
-                <li className="tracking-tight font-LatoRegular text-zinc-400 text-xs md:!text-sm  first-letter:uppercase">
-                  Accessibility
-                </li>
-              </Link>
-              <div className="border-r border-zinc-400 h-3.5" />
-              <Link href={"/"}>
-                <li className="tracking-tight font-LatoRegular text-zinc-400 text-xs md:!text-sm  first-letter:uppercase">
-                  Legal
-                </li>
-              </Link>
-              <div className="border-r border-zinc-400 h-3.5" />
-            </ul>
-          </nav> */}
+        <div className="w-full border-t-2 border-white">
+          <p className="mt-7 tracking-tight font-LatoRegular text-white text-center text-xs md:!text-sm capitalize">All right reserved &copy; blood bridge 2024</p>
         </div>
       </div>
     </div>
