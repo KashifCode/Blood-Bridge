@@ -9,7 +9,7 @@ const HomeAbout = () => {
       <div className="w-full px-4 sm:px-10 !md:pr-0 pt-6 sm:pt-8 pb-10 bg-neutral-100 flex gap-x-6 flex-col md:!flex-row">
         <div className="w-full md:!w-3/5">
           <h1 className="text-red-700 italic text-3xl md:!text-4xl font-PlayfairDisplayBold pb-3 md:!pb-6">
-            About BLood Bridge
+            About Blood Bridge
           </h1>
           <p className="text-neutral-500 leading-relaxed font-LatoRegular text-xs sm:!text-sm md:!text-xs lg:!text-sm xl:!text-base">
             At Blood Bridge, we are committed to saving lives by connecting
